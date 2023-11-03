@@ -4,18 +4,18 @@ import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
 public class Product {
-    private String productId;
+    private Long productId;
     private String productName;
     private String productDescription;
     private double price;
     private int availability;
-    private String category;
+    private ProductCategory category;
     private String imageUrl;
 
     public Product() {
     }
 
-    public Product(String id, String name, String description, double price, int availability, String category,
+    public Product(Long id, String name, String description, double price, int availability, ProductCategory category,
             String imageUrl) {
         this.productId = id;
         this.productName = name;
@@ -26,11 +26,11 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -66,11 +66,11 @@ public class Product {
         this.availability = availability;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 
