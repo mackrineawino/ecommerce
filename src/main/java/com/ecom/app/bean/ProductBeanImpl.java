@@ -3,7 +3,7 @@ package com.ecom.app.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ecom.app.model.Product;
+import com.ecom.app.model.entity.Product;
 
 public class ProductBeanImpl implements ProductBean {
 

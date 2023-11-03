@@ -1,4 +1,4 @@
-package com.ecom.app.model;
+package com.ecom.app.model.entity;
 
 import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
