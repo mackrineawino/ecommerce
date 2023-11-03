@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LadiesWear</title>
+        <title>CoolStuff</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap"
+            rel="stylesheet">
         <style>
        
         body {
@@ -25,8 +27,7 @@
             width: 400px;
             padding: 20px;
             border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            backdrop-filter: blur(3px);
+            background-color: white;
             text-align: center;
            margin: 0 auto;
            border-radius: 5px;
@@ -37,6 +38,8 @@
         }
 .container input{
     border-radius: 5px;
+    border-color: #9FA6AE;
+    
 
 }
 
@@ -76,14 +79,19 @@
     </head>
     <body>
         <div class="container">
-            <h2 style="color: #49A3C8;" >Welcome to CoolStuff</h2>
+            <h2 style="color: #49A3C8; font-size: 30px">Welcome to <span
+                    style="color: #E0588E;"><span
+                        style="font-size: 50px">C</span>ool</span><span
+                    style="font-size: 50px">S</span>tuff</h2>
             <h3 style="color: #9FA6AE;">Please Login</h3><br><br>
             <form action="./login" method="POST">
                 <label for="username" style="font-size: 14px">Username</label>
-                <input type="text" id="username" name="username" placeholder="kwach" required><br><br>
+                <input type="text" id="username" name="username"
+                    placeholder="kwach" required><br><br>
 
                 <label for="password" style="font-size: 14px">Password</label>
-                <input type="password" id="password" name="password" placeholder="  *****" required><br><br>
+                <input type="password" id="password" name="password"
+                    placeholder="  *****" required><br><br>
 
                 <button type="submit">Login</button><br><br><br>
             </form>
