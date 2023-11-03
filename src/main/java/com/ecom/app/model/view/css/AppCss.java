@@ -24,10 +24,10 @@ public class AppCss implements Serializable {
             "color: black;" +
             "}" +
 
-            ".topnav a.active {" +
-            "background-color: #E0588E;" +
-            "color: white;" +
-            "}" +
+            // ".topnav a.active {" +
+            // "background-color: #E0588E;" +
+            // "color: white;" +
+            // "}" +
 
             "</style>";
 
