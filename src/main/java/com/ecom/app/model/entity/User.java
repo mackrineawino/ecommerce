@@ -10,13 +10,22 @@ public class User implements Serializable {
 
     private String password;
 
+    private  UserType userType;
+
+  
+
     public User(){}
 
-    public User(Long id, String username, String password) {
+  
+
+    public User(Long id, String username, String password, UserType userType) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.userType = userType;
     }
+
+
 
     public Long getId() {
         return id;
@@ -40,5 +49,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }
