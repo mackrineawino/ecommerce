@@ -1,6 +1,7 @@
 package com.ecom.auth;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -10,24 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/login", initParams = {
-    @WebInitParam(name = "username", value = "web"),
-    @WebInitParam(name = "password", value = "123")
-})
-public class SignIn extends HttpServlet{
-    public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+@WebServlet(urlPatterns = "/login")
+public class SignIn extends HttpServlet {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.sendRedirect("./");
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext ctx = getServletContext();
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username.equals(getInitParameter("username"))
-                && password.equals(getInitParameter("password"))) {
-
-            req.setAttribute("homeInfo", "Welcome to accounting home page!!");
+        if (username.equals(ctx.getInitParameter("username"))
+        && password.equals(ctx.getInitParameter("password"))) {
+            ctx.setAttribute("username", username);
             RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
             dispatcher.forward(req, resp);
 
