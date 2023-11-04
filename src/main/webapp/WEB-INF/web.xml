@@ -5,7 +5,7 @@
 <web-app>
   <display-name>CoolStuff</display-name>
   <context-param>
-    <param-name>AppName</param-name>
+    <param-name>CoolStuff</param-name>
     <param-value>Ecommerce Software</param-value>
   </context-param>
 </web-app>

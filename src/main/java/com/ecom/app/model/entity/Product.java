@@ -85,7 +85,7 @@ public class Product {
     public String displayProducts() {
         StringBuilder trBuilder = new StringBuilder();
     
-        trBuilder.append("<div style=\" border-radius: 5px; margin-top: 20px\">");
+        trBuilder.append("<div style=\" border-radius: 5px; margin-top: 20px; text-align: center;\">");
         trBuilder.append("<img style=\"height: 250px; width: 250px;\" src=\"").append(getImageUrl()).append("\" alt=\"").append(getProductName()).append("\"/>");
         trBuilder.append("<h3>").append("Name: ").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
         trBuilder.append("<h4>").append("Ksh: ").append(new DecimalFormat("#,###.##").format(getPrice())).append("</h4>");

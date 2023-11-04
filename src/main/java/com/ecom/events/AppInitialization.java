@@ -29,10 +29,10 @@ public class AppInitialization implements ServletContextListener {
                                 "https://cdn1.ozone.ru/s3/multimedia-8/6380186684.jpg"));
                 database.getProducts().add(new Product(004L, "stileto", "pink", 2000, 25, ProductCategory.STILETTO,
                                 "https://i.pinimg.com/originals/4b/c2/ab/4bc2ab9d886a6e2895b30cd8b4b2e77c.jpg"));
-                database.getProducts().add(new Product(004L, "stileto", "pink", 2500, 25, ProductCategory.DOLL_SHOE,
+                database.getProducts().add(new Product(004L, "Doll", "pink", 2500, 25, ProductCategory.DOLL_SHOE,
                                 "https://sc02.alicdn.com/kf/HTB1wjpbKXXXXXXDXXXXq6xXFXXXh.jpg"));
 
-                database.getProducts().add(new Product(004L, "stileto", "pink", 5000, 25, ProductCategory.BOOT,
+                database.getProducts().add(new Product(004L, "Boots", "pink", 5000, 25, ProductCategory.BOOT,
                                 "https://rukminim1.flixcart.com/image/714/857/jyj0how0/shoe/x/p/x/805sa-pink-40-saheb-pink-original-imafghzfctaf4xdy.jpeg"));
 
         }
