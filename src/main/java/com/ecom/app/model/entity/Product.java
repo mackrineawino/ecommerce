@@ -85,11 +85,13 @@ public class Product {
     public String displayProducts() {
         StringBuilder trBuilder = new StringBuilder();
     
-        trBuilder.append("<div class=\\\"product-item\\\">");
-        trBuilder.append("<img src=\"").append(getImageUrl()).append("\" alt=\"").append(getProductName()).append("\"/>");
-        trBuilder.append("<h3>").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
-        trBuilder.append("<h4>").append(new DecimalFormat("#,###.##").format(getPrice())).append("</h4>");
-        trBuilder.append("<h4>").append(getAvailability()).append("</h4>");
+        trBuilder.append("<div style=\" border-radius: 5px; margin-top: 20px\">");
+        trBuilder.append("<img style=\"height: 250px; width: 250px;\" src=\"").append(getImageUrl()).append("\" alt=\"").append(getProductName()).append("\"/>");
+        trBuilder.append("<h3>").append("Name: ").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
+        trBuilder.append("<h4>").append("Ksh: ").append(new DecimalFormat("#,###.##").format(getPrice())).append("</h4>");
+        trBuilder.append("<h4>").append("Availability: ").append(getAvailability()).append(" In Stock").append("</h4>");
+        trBuilder.append("<a href=\"#\" style=\" text-decoration: none;  padding: 10px 25px; color: white; background: #49A3C8; border-radius: 3px; \">").append("BUY").append("</a>");
+
         trBuilder.append("</div>");
     
         return trBuilder.toString();

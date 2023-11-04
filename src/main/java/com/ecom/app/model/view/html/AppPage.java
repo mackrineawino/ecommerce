@@ -28,6 +28,11 @@ public class AppPage implements Serializable {
 
                                 "<head>" +
                                 new AppCss().getStyle() +
+                                "<style>" +
+                                ".navbar { display: flex; align-items: center; }" + // Align items horizontally
+                                ".navbar .logout-link { text-decoration: none; color: #49A3C8; font-size: 20px; cursor: pointer; margin-left: 20px; }"
+                                + // Style the "Logout" link
+                                "</style>" +
                                 "</head>" +
 
                                 "<body>" +
@@ -39,21 +44,19 @@ public class AppPage implements Serializable {
                                 + //
                                 "                    style=\"font-size: 50px\">S</span>tuff</span></a><h2> " +
                                 "</div>" +
-                                "<div>" +
-                                new NavBar().menu(activeMenu) +
+                                "<div class=\"navbar\">"
+                                + new NavBar().menu(activeMenu)
+                                + "<a href=\"./logout\" class=\"logout-link\">LOGOUT</a>"
+                                + "<a href=\"./cart\"><img style=\"width: 25px; cursor: pointer; margin: 40px 20px;\" src=\"https://sun1-97.userapi.com/s/v1/if1/0noPLWMBCqPv3zilDYqZ8ZuBQ4vugB8GNMnTXPAl_FV6mpzTDECSCkNLZnep-Y0dU_1KYXp-.jpg?size=201x201&quality=96&crop=25,22,201,201&ava=1\"></a>"
+                                + "</div>" +
                                 "</div>" +
-                                "<div>" +
-                                "<a href=\"./cart\"><img style=\" width: 25px; cursor: pointer;  margin: 40px 20px;\" +\" src=\"https://sun1-97.userapi.com/s/v1/if1/0noPLWMBCqPv3zilDYqZ8ZuBQ4vugB8GNMnTXPAl_FV6mpzTDECSCkNLZnep-Y0dU_1KYXp-.jpg?size=201x201&quality=96&crop=25,22,201,201&ava=1\"><a/>"
-                                +
                                 "</div>" +
-                                "</div>" +
-                                "<br/>&nbsp;<br/>" +
-                                "<h3>Welcome: " + session.getAttribute("username") + "</h3><br/>");
+                                "<h3>Welcome: " + session.getAttribute("username") + "</h3><br>");
 
                 print.write(content);
-                print.write("<a href=\"./logout\">Logout</a>" +
+                print.write(
                                 "</body>" +
-                                "</html>");
+                                                "</html>");
 
         }
 }
