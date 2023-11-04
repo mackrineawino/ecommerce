@@ -1,8 +1,7 @@
 package com.ecom.app.bean;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 import com.ecom.app.model.entity.Product;
 import com.ecom.database.Database;
 
