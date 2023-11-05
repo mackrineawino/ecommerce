@@ -24,7 +24,7 @@ public class Collection extends HttpServlet{
             
             ProductBean productBean = new ProductBeanImpl();
 
-           new AppPage().renderHtml(req, resp, 1, productBean.productList());
+           new AppPage().renderHtml(req, resp, 2, productBean.productList());
         
         }
 

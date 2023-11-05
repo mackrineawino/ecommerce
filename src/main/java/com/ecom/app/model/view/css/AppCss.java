@@ -20,13 +20,12 @@ public class AppCss implements Serializable {
             "}" +
 
             ".topnav a:hover {" +
-            "color: black;" +
+            "color: #E0588E;" +
             "}" +
 
-            // ".topnav a.active {" +
-            // "background-color: #E0588E;" +
-            // "color: white;" +
-            // "}" +
+             ".topnav a.active {" +
+             "color: #E0588E;" +
+             "}" +
 
             "</style>";
 

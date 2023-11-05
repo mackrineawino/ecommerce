@@ -22,18 +22,18 @@ public class AppInitialization implements ServletContextListener {
                 database.getUsers().add(new User(03L, "chloe@test.com", "12345", UserType.ADMIN));
 
                 database.getProducts().add(new Product(001L, "jordan", "black", 1500, 25, ProductCategory.SNEAKER,
-                                "https://www.swooshstore.com/images/Nike-Dunk-SB-Low-Heels-w.jpg"));
+                                "https://github.com/mackrineawino/images/blob/main/805sa-pink-40-saheb-pink-original-imafghzfctaf4xdy-removebg-preview.png?raw=true"));
                 database.getProducts().add(new Product(002L, "nike", "blue", 3000, 25, ProductCategory.SNEAKER,
-                                "https://sun9-70.userapi.com/impg/DQBGU5C4MQpbx1Qt9acGsw1RTi7EaNO4kHd0MA/kaLhgbyOgxU.jpg?size=510x510&quality=96&sign=d2cb33e85050c5eb5a931189cf08c798&type=album"));
+                                "https://github.com/mackrineawino/images/blob/main/kaLhgbyOgxU-removebg-preview.png?raw=true"));
                 database.getProducts().add(new Product(003L, "boots", "yellow", 1500, 25, ProductCategory.BOOT,
-                                "https://cdn1.ozone.ru/s3/multimedia-8/6380186684.jpg"));
+                                "https://github.com/mackrineawino/images/blob/main/6380186684-removebg-preview.png?raw=true"));
                 database.getProducts().add(new Product(004L, "stileto", "pink", 2000, 25, ProductCategory.STILETTO,
-                                "https://i.pinimg.com/originals/4b/c2/ab/4bc2ab9d886a6e2895b30cd8b4b2e77c.jpg"));
+                                "https://github.com/mackrineawino/images/blob/main/4bc2ab9d886a6e2895b30cd8b4b2e77c-removebg-preview.png?raw=true"));
                 database.getProducts().add(new Product(004L, "Doll", "pink", 2500, 25, ProductCategory.DOLL_SHOE,
-                                "https://sc02.alicdn.com/kf/HTB1wjpbKXXXXXXDXXXXq6xXFXXXh.jpg"));
+                                "https://github.com/mackrineawino/images/blob/main/1aa_f30b5dc1-d535-4403-bc1d-af9693c8e48d-removebg-preview.png?raw=true"));
 
                 database.getProducts().add(new Product(004L, "Boots", "pink", 5000, 25, ProductCategory.BOOT,
-                                "https://rukminim1.flixcart.com/image/714/857/jyj0how0/shoe/x/p/x/805sa-pink-40-saheb-pink-original-imafghzfctaf4xdy.jpeg"));
+                                "https://github.com/mackrineawino/images/blob/main/Nike-Dunk-SB-Low-Heels-w-removebg-preview%20(2).png?raw=true"));
 
         }
 
