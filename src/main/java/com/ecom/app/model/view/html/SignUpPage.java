@@ -81,7 +81,7 @@ public class SignUpPage {
         "    color: #CECFD4;\n" + //
         "}\n" + //
         "        button:hover {\n" + //
-        "            background-color: #9FA6AE;\n" + //
+        "            background-color: #E0588E;\n" + //
         "        }\n" + //
         "        .container h2{\n" + //
         "        \n" + //
