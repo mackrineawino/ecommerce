@@ -17,17 +17,11 @@ import com.ecom.app.model.view.html.AppPage;
 
 @WebServlet("/collection")
 public class CollectionAction extends HttpServlet{
+    ProductBean productBean = new ProductBeanImpl();
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
 
-        if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-        ProductBean productBean = new ProductBeanImpl();
+        new AppPage().renderHtml(req, resp, 0, productBean.productList());
 
-        new AppPage().renderHtml(req, resp, 2, productBean.productList());
-        }
-
-        else
-        resp.sendRedirect("./");
     }
 
 }

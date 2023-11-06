@@ -17,13 +17,8 @@ import com.ecom.database.Database;
 public class ProductAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
-
-        if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-            new AddProductPage().renderAddProducts(req, resp);
-        } else {
-            resp.sendRedirect("./");
-        }
+       
+        new AddProductPage().renderAddProducts(req, resp);
 
     }
 
