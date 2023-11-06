@@ -56,7 +56,7 @@ public class AddProductPage {
                 "</div>" +
                 "<div style=\"padding-left: 50px; width:100%; background: #EFF7FB;\">" +
                 "    <h3 style=\"text-align: center;\">ADD ITEMS</h3>\n" + //
-                "    <form action=\"./admin\" method=\"post\">\n" + //
+                "    <form action=\"./addProduct\" method=\"post\">\n" + //
                 "        <label for=\"id\">Product ID:</label>\n" + //
                 "        <input type=\"text\" id=\"id\" name=\"id\" required><br><br>\n" + //
                 "\n" + //

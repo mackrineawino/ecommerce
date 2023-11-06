@@ -42,7 +42,7 @@ public class SignIn extends HttpServlet {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("username", username);
                 if (user.getUserType().equals(UserType.ADMIN)) {
-                    resp.sendRedirect("./admin");
+                    resp.sendRedirect("./addProduct");
                 } else {
                     resp.sendRedirect("./home");
                 }

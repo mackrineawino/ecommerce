@@ -6,13 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.entity.ProductCategory;
 import com.ecom.app.model.view.html.AddProductPage;
 
-@WebServlet("/admin")
+@WebServlet("/addProduct")
 public class ProductAction extends HttpServlet {
     ProductBeanImpl productBeanImpl = new ProductBeanImpl();
 
@@ -42,7 +41,7 @@ public class ProductAction extends HttpServlet {
         }catch(Exception e){
             e.printStackTrace();
         }
-        resp.sendRedirect("./admin");
+        resp.sendRedirect("./addProduct");
     }
 
 }
