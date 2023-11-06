@@ -1,7 +1,6 @@
 package com.ecom.actions;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +14,9 @@ import com.ecom.app.bean.ProductBean;
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.view.html.AppPage;
 
-@WebServlet("/collection")
-public class Collection extends HttpServlet{
+@WebServlet("/home")
+public class HomeAction extends HttpServlet {
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
@@ -24,7 +24,7 @@ public class Collection extends HttpServlet{
             
             ProductBean productBean = new ProductBeanImpl();
 
-           new AppPage().renderHtml(req, resp, 2, productBean.productList());
+           new AppPage().renderHtml(req, resp, 0, productBean.productList());
         
         }
 
