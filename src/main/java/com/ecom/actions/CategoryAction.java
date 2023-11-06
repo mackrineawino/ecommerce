@@ -17,16 +17,13 @@ import com.ecom.app.model.view.html.AppPage;
 
 @WebServlet("/category")
 public class CategoryAction extends HttpServlet {
-    
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
         if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-            
             ProductBean productBean = new ProductBeanImpl();
 
-           new AppPage().renderHtml(req, resp, 1, productBean.productList());
-        
+        new AppPage().renderHtml(req, resp, 1, productBean.productList());
         }
     }
 }

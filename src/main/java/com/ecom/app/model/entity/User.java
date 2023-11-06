@@ -12,11 +12,9 @@ public class User implements Serializable {
 
     private  UserType userType;
 
-  
 
     public User(){}
 
-  
 
     public User(Long id, String username, String password, UserType userType) {
         this.id = id;

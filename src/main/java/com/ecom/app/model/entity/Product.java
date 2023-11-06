@@ -84,7 +84,7 @@ public class Product {
 
     public String displayProducts() {
         StringBuilder trBuilder = new StringBuilder();
-    
+
         trBuilder.append("<div class=\"display_product\" style=\"border-radius: 5px; margin-top: 20px; text-align: center; background: #C2D7EB; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); transition: all 0.3s; display: inline-block; transform-origin: center;\">");
         trBuilder.append("<img style=\"height: 250px; width: 250px;\" src=\"").append(getImageUrl()).append("\" alt=\"").append(getProductName()).append("\"/>");
         trBuilder.append("<h3>").append("Name: ").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
@@ -92,7 +92,6 @@ public class Product {
         trBuilder.append("<h4>").append("Availability: ").append(getAvailability()).append(" In Stock").append("</h4>");
         trBuilder.append("<a href=\"#\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">").append("BUY").append("</a>");
         trBuilder.append("</div>");
-        
         // Add hover effect inline styles
         trBuilder.append("<style>");
         trBuilder.append(".display_product:hover {");
@@ -100,9 +99,6 @@ public class Product {
         trBuilder.append("  transform: scale(1.1);"); // Scale up the div on hover
         trBuilder.append("}");
         trBuilder.append("</style>");
-        
-    
         return trBuilder.toString();
     }
-    
 }

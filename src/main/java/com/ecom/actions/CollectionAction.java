@@ -21,15 +21,13 @@ public class CollectionAction extends HttpServlet{
         HttpSession httpSession = req.getSession();
 
         if (StringUtils.isNotBlank((String) httpSession.getAttribute("loggedInId"))) {
-            
-            ProductBean productBean = new ProductBeanImpl();
+        ProductBean productBean = new ProductBeanImpl();
 
-           new AppPage().renderHtml(req, resp, 2, productBean.productList());
-        
+        new AppPage().renderHtml(req, resp, 2, productBean.productList());
         }
 
         else
-            resp.sendRedirect("./");
+        resp.sendRedirect("./");
     }
 
 }
