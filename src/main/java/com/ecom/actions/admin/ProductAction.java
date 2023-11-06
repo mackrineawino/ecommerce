@@ -6,15 +6,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.lang3.StringUtils;
+
+import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.entity.ProductCategory;
 import com.ecom.app.model.view.html.AddProductPage;
-import com.ecom.database.Database;
 
 @WebServlet("/admin")
 public class ProductAction extends HttpServlet {
+    ProductBeanImpl productBeanImpl = new ProductBeanImpl();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        
@@ -24,7 +24,6 @@ public class ProductAction extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Database database = Database.getDbInstance();
         String productIdString = req.getParameter("id");
         String productName = req.getParameter("name");
         String productDescription = req.getParameter("description");
@@ -38,10 +37,11 @@ public class ProductAction extends HttpServlet {
         Long productId = Long.parseLong(productIdString);
         category = ProductCategory.valueOf(categoryString);
         int availability = Integer.parseInt(availabilityString);
-
-        database.getProducts()
-                .add(new Product(productId, productName, productDescription, price, availability, category, imageUrl));
-
+        try {
+            productBeanImpl.addOrUpdateProduct(new Product(productId, productName, productDescription, price, availability, category, imageUrl));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         resp.sendRedirect("./admin");
     }
 

@@ -6,10 +6,10 @@ import com.ecom.app.model.entity.Product;
 import com.ecom.database.Database;
 
 public class ProductBeanImpl implements ProductBean {
+    List<Product> products = Database.getDbInstance().getProducts();
 
     @Override
     public String productList() {
-        List<Product> products = Database.getDbInstance().getProducts();
 
         StringBuilder trBuilder = new StringBuilder();
 
@@ -25,9 +25,9 @@ public class ProductBeanImpl implements ProductBean {
         return trBuilder.toString();
     }
 
-    public Product addOrUpdateAccount(Product product) throws Exception {
-
-        return null;
+    public Product addOrUpdateProduct(Product product) throws Exception {
+        products.add(product);
+        return product;
     }
 
     public void deleteAccount(Product product) {
