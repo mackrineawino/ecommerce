@@ -4,13 +4,14 @@ import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
 public class Product {
-    private Long productId;
+     private Long productId;
     private String productName;
-    private String productDescription;
     private double price;
     private int availability;
-    private ProductCategory category;
     private String imageUrl;
+    private String productDescription;
+    private ProductCategory category;
+   
 
     public Product() {
     }

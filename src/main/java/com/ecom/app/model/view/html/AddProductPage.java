@@ -5,12 +5,13 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ecom.app.model.entity.Product;
 
 public class AddProductPage {
     public void renderAddProducts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-                PrintWriter print = resp.getWriter();
-                print.write("<!DOCTYPE html>\n" + //
+        PrintWriter print = resp.getWriter();
+        print.write("<!DOCTYPE html>\n" + //
                 "<html>\n" + //
                 "<head>\n" + //
                 "    <title>Product Entry Form</title>\n" + //
@@ -20,14 +21,14 @@ public class AddProductPage {
                 "padding:0;\n" +
                 " }\n" +
                 "       input {\n" + //
-                "            margin-right: 50px; /* Adjust as needed for spacing */\n" + //
+                "            margin-right: 50px;\n" + //
                 "            width: 90%;\n" +
-                "            height: 30px;\n"  +
+                "            height: 30px;\n" +
                 "            border-radius: 5px;\n" +
-                "background-color: transparent;\n" +
+                "            background-color: transparent;\n" +
                 "        }\n" + //
                 "     li{\n" +
-                "         margin-top: 40px;\n" + //
+                "         margin-top: 40px;\n" +
                 "         text-align: left;\n" +
                 " }\n" +
                 "    </style>\n" + //
@@ -48,48 +49,19 @@ public class AddProductPage {
                 "        <li class=\"navitem\"><a href=\"./delete\" style=\" color: white; text-decoration: none;   padding: 14px 16px;\">DELETE ITEMS</a></li>\n"
                 + //
                 "        <li class=\"navitem\"><a href=\"#\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">UPDATE ITEMS</a></li>\n"
-                + //padding: 14px 16px;
+                + // padding: 14px 16px;
                 "        <li class=\"navitem\"><a href=\"#\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">VIEW ITEMS</a></li>\n"
                 + //
                 "    </ul>" +
-                "<a href=\"./logout\" style=\" text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;\">LOGOUT</a>" +
+                "<a href=\"./logout\" style=\" text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;\">LOGOUT</a>"
+                +
                 "</div>" +
-                "<div style=\"padding-left: 50px; width:100%; background: #EFF7FB;\">" +
-                "    <h3 style=\"text-align: center;\">ADD ITEMS</h3>\n" + //
-                "    <form action=\"./addProduct\" method=\"post\">\n" + //
-                "        <label for=\"id\">Product ID:</label>\n" + //
-                "        <input type=\"text\" id=\"id\" name=\"id\" required><br><br>\n" + //
-                "\n" + //
-                "        <label for=\"name\">Product Name:</label>\n" + //
-                "        <input type=\"text\" id=\"name\" name=\"name\" required><br><br>\n" + //
-
-                "        <label for=\"price\">Product Price:</label>\n" + //
-                "        <input type=\"text\" id=\"price\" name=\"price\" required><br><br>\n" + //
-                "\n" + //
-                "        <label for=\"availability\">Availability:</label>\n" + //
-                "        <input type=\"text\" id=\"availability\" name=\"availability\" required><br><br>\n" + //
-                 "\n" + //
-                "        <label for=\"imageUrl\">Image URL:</label>\n" + //
-                "        <input type=\"text\" id=\"imageUrl\" name=\"imageUrl\" required><br><br>\n" + //
-                "\n" + //
-                "\n" + //
-                "        <label for=\"description\">Description:</label><br>\n" + //
-                "        <textarea id=\"description\" style=\"background-color: transparent; width: 60%; height: 50px; border-radius: 5px; \" name=\"description\" required></textarea>\n" + //
-                "\n" + //
-                "\n" + //
-                "        <label for=\"category\">Product Category:</label>\n" + //
-                "        <select id=\"category\" name=\"category\" required>\n" + //
-                "            <option value=\"SNEAKER\">Sneaker</option>\n" + //
-                "            <option value=\"BOOT\">Boot</option>\n" + //
-                "            <option value=\"DOLL_SHOE\">Doll shoe</option>\n" + //
-                "             <option value=\"STILETTO\">Stiletto</option>\n" + //
-                "        </select><br><br>\n" + //
-                "        <input style=\"background: #49A3C8; height: 35px;\"type=\"submit\" value=\"Submit\">\n" + //
-                "    </form>\n" + //
-                "</div>" +
+                "<div style=\"padding-left: 50px; width:100%; background: #EFF7FB;\">");
+        print.write(HtmlForm.form(new Product()));
+        print.write("</div>" +
                 "</div>" +
                 "</body>\n" + //
                 "</html>\n" + //
                 "");
-                        }
+    }
 }
