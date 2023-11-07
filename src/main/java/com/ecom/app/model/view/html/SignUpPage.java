@@ -95,8 +95,8 @@ public class SignUpPage {
         "                    style=\"color: #E0588E;\"><span\n" + //
         "                        style=\"font-size: 50px\">C</span>ool</span><span\n" + //
         "                    style=\"font-size: 50px\">S</span>tuff</h2>\n" + //
-        "            <h3 style=\"color: #9FA6AE;\">Please Please SignUp</h3>\n" + //
-        "            <form action=\"./user\" method=\"POST\">\n" + //
+        "            <h3 style=\"color: #9FA6AE;\">Please SignUp</h3>\n" + //
+        "            <form action=\"./user\" method=\"post\">\n" + //
         "                <label for=\"username\" style=\"font-size: 14px\">Username</label>\n" + //
         "                <input type=\"text\" id=\"username\" name=\"username\"\n" + //
         "                    placeholder=\"kwach\" required>\n" + //

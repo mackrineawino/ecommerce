@@ -1,4 +1,4 @@
-package com.ecom.auth;
+package com.ecom.actions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-@WebServlet(urlPatterns = "/login")
-public class SignIn extends HttpServlet {
+@WebServlet("/login")
+public class SignInAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();

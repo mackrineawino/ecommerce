@@ -16,7 +16,7 @@ public class CategoryAction extends HttpServlet {
     ProductBean productBean = new ProductBeanImpl();
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        new AppPage().renderHtml(req, resp, 2, productBean.productList());
+        new AppPage().renderHtml(req, resp, 1, productBean.productList());
 
     }
 }

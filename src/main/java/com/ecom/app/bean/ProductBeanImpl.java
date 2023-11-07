@@ -25,7 +25,7 @@ public class ProductBeanImpl implements ProductBean {
         return trBuilder.toString();
     }
 
-    public Product addOrUpdateProduct(Product product) throws Exception {
+    public Product addOrUpdateProduct(Product product){
         products.add(product);
         return product;
     }

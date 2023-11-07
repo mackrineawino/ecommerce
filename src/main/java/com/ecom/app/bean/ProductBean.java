@@ -5,7 +5,7 @@ import com.ecom.app.model.entity.Product;
 public interface ProductBean {
     String productList();
 
-    Product addOrUpdateProduct(Product product) throws Exception;
+    Product addOrUpdateProduct(Product product);
 
     void deleteAccount(Product product);
 

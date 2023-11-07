@@ -83,7 +83,6 @@ public class AddProductPage {
                 "            <option value=\"BOOT\">Boot</option>\n" + //
                 "            <option value=\"DOLL_SHOE\">Doll shoe</option>\n" + //
                 "             <option value=\"STILETTO\">Stiletto</option>\n" + //
-                "            <!-- Add more category options as needed -->\n" + //
                 "        </select><br><br>\n" + //
                 "        <input style=\"background: #49A3C8; height: 35px;\"type=\"submit\" value=\"Submit\">\n" + //
                 "    </form>\n" + //
