@@ -5,7 +5,7 @@ import java.util.List;
 import com.ecom.app.model.entity.Product;
 import com.ecom.database.Database;
 
-public class ProductBeanImpl implements ProductBean {
+public class ProductBeanImpl implements ProductBeanI {
     List<Product> products = Database.getDbInstance().getProducts();
 
     @Override

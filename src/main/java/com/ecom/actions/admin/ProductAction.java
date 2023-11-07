@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ecom.actions.BaseAction;
-import com.ecom.app.bean.ProductBean;
+import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.view.html.AddProductPage;
@@ -14,7 +14,7 @@ import com.ecom.app.model.view.html.AddProductPage;
 @WebServlet("/addProduct")
 public class ProductAction extends BaseAction {
 
-    private ProductBean productBean = new ProductBeanImpl();
+    private ProductBeanI productBean = new ProductBeanImpl();
     private Product product=new Product();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

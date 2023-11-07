@@ -11,9 +11,21 @@ public class User implements Serializable {
     private String password;
 
     private  UserType userType;
+    
+    private String confirmPassword;
 
 
     public User(){}
+
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
 
     public User(Long id, String username, String password, UserType userType) {
