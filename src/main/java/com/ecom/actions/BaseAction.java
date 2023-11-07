@@ -1,10 +1,10 @@
 package com.ecom.actions;
 
 import org.apache.commons.beanutils.BeanUtils;
-
 import javax.servlet.http.HttpServlet;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+
 
 public class BaseAction extends HttpServlet {
 
