@@ -57,7 +57,7 @@ public class AddProductPage {
                 +
                 "</div>" +
                 "<div style=\"padding-left: 50px; width:100%; background: #EFF7FB;\">");
-        print.write(HtmlForm.form(new Product()));
+        print.write(HtmlForm.form(Product.class));
         print.write("</div>" +
                 "</div>" +
                 "</body>\n" + //

@@ -31,11 +31,9 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
     System.out.println("context URI: " + httpRequest.getRequestURI());
 
     if (httpSession.isNew()) {
-        System.out.println("1.New Session");
         httpSession.invalidate();
 
         if (servletPath.equals("/user") || servletPath.equals("/login") || servletPath.equals("/index.html")) {
-            System.out.println("2. Proceed to login...or index.html");
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/");

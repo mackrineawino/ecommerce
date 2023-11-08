@@ -3,11 +3,11 @@ package com.ecom.app.model.view.html;
 import java.lang.reflect.Field;
 
 public class HtmlForm {
-    public static String form(Object model) {
+    public static String form(Class<?> model) {
         String htmlForm = "<h3 style=\"text-align: center;\">ADD ITEMS</h3>\n" +
                 "<form action=\"./addProduct\" method=\"post\">\n";
 
-        Field[] fields = model.getClass().getDeclaredFields();
+        Field[] fields = model.getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
             if ("productDescription".equals(fieldName)) {

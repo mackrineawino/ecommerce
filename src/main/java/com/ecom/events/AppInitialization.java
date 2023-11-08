@@ -3,6 +3,8 @@ package com.ecom.events;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.ServletContextEvent;
+
+import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.entity.ProductCategory;
 import com.ecom.app.model.entity.User;
@@ -16,6 +18,10 @@ public class AppInitialization implements ServletContextListener {
         public void contextInitialized(ServletContextEvent sce) {
                 System.out.println("*************** Initializing database *************");
                 Database database = Database.getDbInstance();
+
+                database.getCartItems().add(new ItemCart( "nike", ProductCategory.BOOT, 333));
+                 database.getCartItems().add(new ItemCart( "nike", ProductCategory.BOOT, 333));
+
 
                 database.getUsers().add(new User(01L, "hillary@test.com", "1234", UserType.NORMAL_USER));
                 database.getUsers().add(new User(02L, "sedah@test.com", "123", UserType.NORMAL_USER));

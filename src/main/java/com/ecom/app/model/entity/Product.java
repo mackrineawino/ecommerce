@@ -91,8 +91,12 @@ public class Product {
         trBuilder.append("<h3>").append("Name: ").append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
         trBuilder.append("<h4>").append("Ksh: ").append(new DecimalFormat("#,###.##").format(getPrice())).append("</h4>");
         trBuilder.append("<h4>").append("Availability: ").append(getAvailability()).append(" In Stock").append("</h4>");
-        trBuilder.append("<a href=\"#\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">").append("BUY").append("</a>");
+        trBuilder.append("<div style=\"display: flex; justify-content: space-between; margin: 20px 30px;\">");
+        trBuilder.append("<a href=\"./viewMore\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">").append("VIEW MORE").append("</a>");
+        trBuilder.append("<button id=\"addToCartButton\" productName=\"" + getProductName() + "\" category=\"" + getCategory() + "\" price=\"" + getPrice() + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">").append("ADD TO CART").append("</button>");
+
         trBuilder.append("</div>");
+         trBuilder.append("</div>");
         // Add hover effect inline styles
         trBuilder.append("<style>");
         trBuilder.append(".display_product:hover {");
