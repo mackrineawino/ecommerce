@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
 public class ItemCart {
+    private Long productId;
     private String productName;
     private ProductCategory category;
     private double price;
@@ -13,7 +14,8 @@ public class ItemCart {
 
     public ItemCart() {
     }
-    public ItemCart( String name, ProductCategory category, double price) {
+    public ItemCart(Long id, String name, ProductCategory category, double price) {
+        this.productId=id;
         this.productName=name;
         this.category = category;
         this.price=price;
@@ -39,17 +41,25 @@ public class ItemCart {
     public void setPrice(double price) {
         this.price = price;
     }
+    public Long getProductId() {
+        return productId;
+    }
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
     public String tableRow(){
-        
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<tr>");
+        trBuilder.append("<td>").append(getProductId()).append("</td>");
         trBuilder.append("<td>").append(StringUtils.trimToEmpty(getProductName())).append("</td>");
         trBuilder.append("<td>").append(getCategory()).append("</td>");
         trBuilder.append("<td>").append(new DecimalFormat("#,###.##").format(getPrice())).append("</td>");
-        trBuilder.append("<td>").append("<a href=\"#\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">").append("REMOVE").append("</a>");
+        trBuilder.append("<td>").append("<button onclick=\"removeItem(event)\" productId=\"" + getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">REMOVE</button>").append("</td>");
         trBuilder.append("<tr>");
-
+    
         return trBuilder.toString();
     }
+    
+    
 
 }

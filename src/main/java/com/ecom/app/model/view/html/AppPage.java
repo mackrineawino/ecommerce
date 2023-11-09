@@ -46,13 +46,15 @@ public class AppPage implements Serializable {
                                 + "<a href=\"./logout\" class=\"logout-link\">LOGOUT</a>"
                                 + "<a href=\"./addToCart\"><img style=\"width: 50px; color: #49A3C8; cursor: pointer; margin: 40px 0px; margin-left: 20px;\" src=\"https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(3).png?raw=true\"></a>"
                                 + "</div>" +
-                                "</div>" +
-                                 "<h3 style=\" text-align: center; color: white; font-size: 30px; margin: 10px 0;\">Hello " + session.getAttribute("username") + "</h3>" +
-                                 "<h3 style=\"text-align: center; margin-top: 20px; margin-left: 20px; font-size: 25px; color: white;\">Shop Now</h3>");
+                                "</div>"
+                                //  "<h3 style=\" text-align: center; color: white; font-size: 30px; margin: 10px 0;\">Hello " + session.getAttribute("username") + "</h3>" +
+                                //  "<h3 style=\"text-align: center; margin-top: 20px; margin-left: 20px; font-size: 25px; color: white;\">Shop Now</h3>"
+                                 );
 
                 print.write(content);
                 print.write(
                         "<script src=\"js/AddToCart.js\"></script>\n" +
+                        "<script src=\"js/DeleteFromCart.js\"></script>\n" +
                                 "</body>" +
                                 "</html>");
 
