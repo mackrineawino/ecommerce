@@ -3,7 +3,6 @@ package com.ecom.app.model.view.html;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.ecom.app.model.view.css.AppCss;
 import com.ecom.app.model.view.navbar.NavBar;
 import java.io.IOException;
@@ -15,7 +14,6 @@ public class AppPage implements Serializable {
         public void renderHtml(HttpServletRequest req, HttpServletResponse resp,
                         int activeMenu, String content) throws IOException {
 
-                HttpSession session = req.getSession();
                 PrintWriter print = resp.getWriter();
 
                 print.write("<!DOCTYPE html>" +

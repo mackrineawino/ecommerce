@@ -14,7 +14,6 @@ public class NavBar implements Menu,Serializable {
     {
          links.add(new MenuLink("./home", "HOME", MenuLinkStatus.ACTIVE));
         links.add(new MenuLink("./category", "CATEGORY", MenuLinkStatus.NOT_ACTIVE));
-        links.add(new MenuLink("./collection", "COLLECTION", MenuLinkStatus.NOT_ACTIVE));
         links.add(new MenuLink("./about", "ABOUT", MenuLinkStatus.NOT_ACTIVE));
     }
 

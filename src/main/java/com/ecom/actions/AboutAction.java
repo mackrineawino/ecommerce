@@ -16,6 +16,12 @@ public class AboutAction extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        
 
-        new AppPage().renderHtml(req, resp, 3, productBean.productList());
+        new AppPage().renderHtml(req, resp, 2, aboutInfo());
+}
+private String aboutInfo(){
+    StringBuilder about=new StringBuilder();
+    about.append("<h1 style=\"color: white;\">").append("Coming soon").append("<h1>>");
+    
+    return about.toString();
 }
 }

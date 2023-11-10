@@ -95,9 +95,8 @@ public class Product {
                 .append("</h4>");
         trBuilder.append("<h4>").append("Availability: ").append(getAvailability()).append(" In Stock").append("</h4>");
         trBuilder.append("<div style=\"display: flex; justify-content: space-between; margin: 20px 30px;\">");
-        trBuilder.append(
-                "<a href=\"./viewMore\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
-                .append("VIEW MORE").append("</a>");
+        trBuilder.append("<a href=\"/ecommerce/viewMore?productId=" + getProductId()
+                + "\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">VIEW MORE</a>");
         trBuilder.append("<button id=\"addToCartButton\" productId=\"" + getProductId() + "\" productName=\""
                 + getProductName() + "\" category=\"" + getCategory() + "\" price=\"" + getPrice()
                 + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
@@ -114,4 +113,32 @@ public class Product {
         trBuilder.append("</style>");
         return trBuilder.toString();
     }
+
+    public String displayProductDescription() {
+        StringBuilder divStringBuilder = new StringBuilder();
+        divStringBuilder.append("<div style=\"color: white; display: flex; margin-top: 50px; background: #292929;\">");
+        divStringBuilder.append(
+                "<div style=\" height: 450px;margin-left: 50px; background: #0A0C09; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); \">");
+        divStringBuilder.append("<img style=\"height: 400px; width: 400px;\" src=\"").append(getImageUrl())
+                .append("\" alt=\"").append(getProductName()).append("\" />"); // Add double quotes and close the img
+                                                                               // tag
+        divStringBuilder.append("</div>");
+        divStringBuilder.append("<div style=\"margin-left: 70px;\">");
+        divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Name: ")
+                .append(StringUtils.trimToEmpty(getProductName())).append("</h3>");
+        divStringBuilder.append("<h4 style=\" font-size: 30px;\">").append("Ksh: ").append(new DecimalFormat("#,###.##").format(getPrice()))
+                .append("</h4>");
+        divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Category: ").append(getCategory()).append("</ style=\" font-size: 30px;\">");
+        divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Description: ").append(StringUtils.trimToEmpty(getProductDescription()))
+                .append("</h3>");
+        divStringBuilder.append("<button id=\"addToCartButton\" productId=\"" + getProductId() + "\" productName=\""
+                + getProductName() + "\" category=\"" + getCategory() + "\" price=\"" + getPrice()
+                + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
+                .append("ADD TO CART").append("</button>");
+        divStringBuilder.append("</div>");
+        divStringBuilder.append("</div>");
+
+        return divStringBuilder.toString();
+    }
+
 }
