@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ecom.app.model.entity.Product;
 
 public class AddProductPage {
-    public void renderAddProducts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void renderAddProducts(HttpServletRequest req, HttpServletResponse resp, String content) throws IOException {
 
         PrintWriter print = resp.getWriter();
         print.write("<!DOCTYPE html>\n" + //
@@ -44,22 +44,24 @@ public class AddProductPage {
                 "                    style=\"font-size: 50px\">S</span>tuff</span><h2> " +
                 "<h2 style=\"color: white;\">ADMIN DASHBOARD</h2>" +
                 "<ul style=\" display: block; list-style-type: none;  \" class=\"navbar\">\n" + //
-                "        <li class=\"navitem\"><a href=\"./admin\" style=\"color: white; text-decoration: none; padding: 14px 16px;\">ADD ITEMS</a></li>\n"
+                "        <li class=\"navitem\"><a href=\"./addProduct\" style=\"color: white; text-decoration: none; padding: 14px 16px;\">ADD ITEMS</a></li>\n"
                 + //
-                "        <li class=\"navitem\"><a href=\"./delete\" style=\" color: white; text-decoration: none;   padding: 14px 16px;\">DELETE ITEMS</a></li>\n"
+                "        <li class=\"navitem\"><a href=\"./viewAll\" style=\" color: white; text-decoration: none;   padding: 14px 16px;\">DELETE ITEMS</a></li>\n"
                 + //
-                "        <li class=\"navitem\"><a href=\"#\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">UPDATE ITEMS</a></li>\n"
-                + // padding: 14px 16px;
-                "        <li class=\"navitem\"><a href=\"#\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">VIEW ITEMS</a></li>\n"
+
+                "        <li class=\"navitem\"><a href=\"./viewAll\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">VIEW ITEMS</a></li>\n"
                 + //
+                "        <li class=\"navitem\"><a href=\"./viewAll\" style=\" color: white; text-decoration: none; padding: 14px 16px;\">UPDATE ITEMS</a></li>\n"
+                +
                 "    </ul>" +
                 "<a href=\"./logout\" style=\" text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;\">LOGOUT</a>"
                 +
                 "</div>" +
-                "<div style=\"padding-left: 50px; width:100%; background: #EFF7FB;\">");
-        print.write(HtmlForm.form(Product.class));
+                "<div style=\"padding-left: 50px; width:100%; height: auto; background: #EFF7FB;\">");
+        print.write(content);
         print.write("</div>" +
                 "</div>" +
+                "<script src=\"js/deleteFromDb.js\"></script>\n" +
                 "</body>\n" + //
                 "</html>\n" + //
                 "");

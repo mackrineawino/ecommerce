@@ -1,6 +1,7 @@
 package com.ecom.app.bean;
 
 
+import java.util.Iterator;
 import java.util.List;
 import com.ecom.app.model.entity.Product;
 import com.ecom.database.Database;
@@ -30,8 +31,15 @@ public class ProductBeanImpl implements ProductBeanI {
         return product;
     }
 
-    public void deleteAccount(Product product) {
-
+    public void deleteProduct(Long productId) {
+Iterator<Product> iterator = products.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getProductId().equals(productId)) {
+                iterator.remove();
+                return;
+            }
+        }
     }
 
 }

@@ -7,6 +7,6 @@ public interface ProductBeanI {
 
     Product addOrUpdateProduct(Product product);
 
-    void deleteAccount(Product product);
+    void deleteProduct(Long productId);
 
 }
