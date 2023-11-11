@@ -47,18 +47,18 @@ public class ItemCart {
     public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public String tableRow(){
-        StringBuilder trBuilder = new StringBuilder();
-        trBuilder.append("<tr>");
-        trBuilder.append("<td>").append(getProductId()).append("</td>");
-        trBuilder.append("<td>").append(StringUtils.trimToEmpty(getProductName())).append("</td>");
-        trBuilder.append("<td>").append(getCategory()).append("</td>");
-        trBuilder.append("<td>").append(new DecimalFormat("#,###.##").format(getPrice())).append("</td>");
-        trBuilder.append("<td>").append("<button onclick=\"removeItem(event)\" productId=\"" + getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">REMOVE</button>").append("</td>");
-        trBuilder.append("<tr>");
+    // public String tableRow(){
+    //     StringBuilder trBuilder = new StringBuilder();
+    //     trBuilder.append("<tr>");
+    //     trBuilder.append("<td>").append(getProductId()).append("</td>");
+    //     trBuilder.append("<td>").append(StringUtils.trimToEmpty(getProductName())).append("</td>");
+    //     trBuilder.append("<td>").append(getCategory()).append("</td>");
+    //     trBuilder.append("<td>").append(new DecimalFormat("#,###.##").format(getPrice())).append("</td>");
+    //     trBuilder.append("<td>").append("<button onclick=\"removeItem(event)\" productId=\"" + getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">REMOVE</button>").append("</td>");
+    //     trBuilder.append("<tr>");
     
-        return trBuilder.toString();
-    }
+    //     return trBuilder.toString();
+    // }
     
     
 
