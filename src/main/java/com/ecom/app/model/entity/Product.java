@@ -3,13 +3,23 @@ package com.ecom.app.model.entity;
 import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
+import com.ecom.app.model.view.html.HtmlFormAnnotations;
+import com.ecom.app.model.view.html.HtmlFormFieldAnnotation;
+@HtmlFormAnnotations(label="Add Items", url="./addProduct")
 public class Product {
+    @HtmlFormFieldAnnotation(label="Product ID")
     private Long productId;
+    @HtmlFormFieldAnnotation(label="Product Name")
     private String productName;
+    @HtmlFormFieldAnnotation(label="Price")
     private double price;
+    @HtmlFormFieldAnnotation(label="Product Availability")
     private int availability;
+    @HtmlFormFieldAnnotation(label="Image URL")
     private String imageUrl;
+    @HtmlFormFieldAnnotation(label="Product Description")
     private String productDescription;
+    @HtmlFormFieldAnnotation(label="Product Category")
     private ProductCategory category;
 
     public Product() {
