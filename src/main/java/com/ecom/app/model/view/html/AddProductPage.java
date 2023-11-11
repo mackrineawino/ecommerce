@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ecom.app.model.entity.Product;
-
 public class AddProductPage {
     public void renderAddProducts(HttpServletRequest req, HttpServletResponse resp, String content) throws IOException {
 

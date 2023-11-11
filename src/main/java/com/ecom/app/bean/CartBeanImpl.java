@@ -1,9 +1,6 @@
 package com.ecom.app.bean;
-
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.view.html.HtmlTable;
@@ -15,17 +12,11 @@ public class CartBeanImpl implements CartBeanI {
 
     @Override
     public String CartProducts() {
-        Map<String, String> fieldToHeaderMapping = new HashMap<>();
-        fieldToHeaderMapping.put("productId", "Product ID");
-        fieldToHeaderMapping.put("productName", "Product Name");
-        fieldToHeaderMapping.put("category", "Category");
-        fieldToHeaderMapping.put("price", "Price");
-
         totalPrice = 0.0;
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append(
                 "<div style=\"margin-top: 50px; text-align: center; color: white; background: #292929; height: auto;\">");
-        trBuilder.append(HtmlTable.generateTable(cartItems, fieldToHeaderMapping));
+        trBuilder.append(HtmlTable.generateTable(cartItems));
 
         trBuilder.append("<div style=\"margin-bottom: 30px;\">");
         for (ItemCart cartItem : cartItems) {
