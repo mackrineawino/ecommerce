@@ -3,15 +3,12 @@ package com.ecom.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.entity.ProductCategory;
-import com.ecom.app.model.view.html.AppPage;
 import com.ecom.database.Database;
 
 @WebServlet("/category")
@@ -19,8 +16,7 @@ public class CategoryAction extends BaseAction {
     List<Product> products = Database.getDbInstance().getProducts();
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        new AppPage().renderHtml(req, resp, 1, displayCategory());
+        renderPage(req, resp, 1, displayCategory());
 
     }
 

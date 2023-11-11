@@ -1,6 +1,8 @@
 package com.ecom.actions.admin;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,6 @@ import com.ecom.actions.BaseAction;
 import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
-import com.ecom.app.model.view.html.AddProductPage;
 import com.ecom.app.model.view.html.HtmlForm;
 
 @WebServlet("/addProduct")
@@ -19,8 +20,9 @@ public class ProductAction extends BaseAction {
     private Product product=new Product();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       
-        new AddProductPage().renderAddProducts(req, resp, HtmlForm.form(Product.class));
+        req.setAttribute("content", HtmlForm.form(Product.class));
+        RequestDispatcher dispatcher=req.getRequestDispatcher("./app/adminPage.jsp");
+        dispatcher.forward(req, resp);
 
     }
 

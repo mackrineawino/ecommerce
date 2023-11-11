@@ -6,26 +6,23 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServlet;
 import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
-import com.ecom.app.model.view.html.AppPage;
 import com.ecom.database.Database;
 
 @WebServlet(urlPatterns = { "/viewMore/*" })
-public class ProductDescriptionAction extends HttpServlet {
+public class ProductDescriptionAction extends BaseAction {
     ProductBeanI productBean = new ProductBeanImpl();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        System.out.println("Servlet Path: " + request.getServletPath());
-        System.out.println("Request URI: " + request.getRequestURI());
-        System.out.println(request.getParameter("productId"));
-        Long productId = Long.parseLong(request.getParameter("productId"));
+        Long productId = Long.parseLong(req.getParameter("productId"));
 
         Product product = getProductById(productId);
-        new AppPage().renderHtml(request, response, 0, product.displayProductDescription());
+        renderPage(req, resp, 4, product.displayProductDescription());
+
+
 
     }
 

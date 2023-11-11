@@ -30,10 +30,10 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
     System.out.println("context path: " + httpRequest.getContextPath());
     System.out.println("context URI: " + httpRequest.getRequestURI());
 
-    if (httpSession.isNew()) {
+    if (httpSession.isNew() || StringUtils.isBlank((String) httpSession.getAttribute("loggedInId"))) {
         httpSession.invalidate();
 
-        if (servletPath.equals("/user") || servletPath.equals("/login") || servletPath.equals("/index.html")) {
+        if (servletPath.equals("/user") || servletPath.equals("/login") || servletPath.contains(".jsp")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
