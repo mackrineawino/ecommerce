@@ -22,6 +22,7 @@ public class CartBeanImpl implements CartBeanI {
         for (ItemCart cartItem : cartItems) {
             totalPrice += cartItem.getPrice();
         }
+        trBuilder.append("<hr>");
         trBuilder.append("<h3>Total: " + totalPrice + "<h3>");
         trBuilder.append(
                 "<button onclick=\"\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; margin-bottom: 30px; border-radius: 3px;\">BUY NOW</button>")
