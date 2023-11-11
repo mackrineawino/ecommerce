@@ -62,6 +62,7 @@ public class AddProductPage {
         print.write("</div>" +
                 "</div>" +
                 "<script src=\"js/deleteFromDb.js\"></script>\n" +
+                "<script src=\"js/updateItem.js\"></script>\n" +
                 "</body>\n" + //
                 "</html>\n" + //
                 "");

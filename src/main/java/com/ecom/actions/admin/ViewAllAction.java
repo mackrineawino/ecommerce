@@ -31,6 +31,7 @@ public class ViewAllAction extends HttpServlet {
         tableHtml.append("<th>Category</th>");
         tableHtml.append("<th>Price</th>");
         tableHtml.append("<th>Action</th>");
+        tableHtml.append("<th>Action</th>");
         tableHtml.append("</tr>");
 
         for (Product product : products) {
@@ -55,7 +56,7 @@ public class ViewAllAction extends HttpServlet {
         trBuilder.append("<td>").append(StringUtils.trimToEmpty(product.getProductName())).append("</td>");
         trBuilder.append("<td>").append(product.getCategory()).append("</td>");
         trBuilder.append("<td>").append(new DecimalFormat("#,###.##").format(product.getPrice())).append("</td>");
-         trBuilder.append("<td>").append("<button onclick=\"updateItem(event)\" productId=\"" + product.getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #49A3C8; border-radius: 3px;\">UPDATE</button>").append("</td>");
+         trBuilder.append("<td>").append("<button onclick=\"updateItem(event)\" productId=\"" + product.getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #49A3C8; border-radius: 3px;\">EDIT</button>").append("</td>");
         trBuilder.append("<td>").append("<button onclick=\"deleteFromDb(event)\" productId=\"" + product.getProductId() + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">DELETE</button>").append("</td>");
         trBuilder.append("</tr>");
 
