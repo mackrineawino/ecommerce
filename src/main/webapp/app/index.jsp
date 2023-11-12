@@ -59,12 +59,16 @@
             </a></h2>
         </div>
         <div class="navbar">
-           <%= new NavBar().menu((int)request.getAttribute("activeMenu"))%>
+        <jsp:useBean id="menuToolbar" class="com.ecom.app.useBean.NavBarBean" scope="request"/>
+        <jsp:setProperty name="menuToolbar" property="activeMenu"  value="<%= request.getAttribute(\"activeMenu\")%>"/>
+            <%= new NavBar().menu(menuToolbar.getActiveMenu())%>
             <a href="./logout" class="logout-link">LOGOUT</a>
             <a href="./addToCart"><img style="width: 50px; color: #49A3C8; cursor: pointer; margin: 40px 0px; margin-left: 20px;" src="https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(3).png?raw=true"></a>
         </div>
     </div>
-     <%= request.getAttribute("content")%>
+     <jsp:useBean id="content" class="com.ecom.app.useBean.Content" scope="request"/>
+      <jsp:setProperty name="content" property="content"  value="<%= request.getAttribute(\"content\") %>"/>
+    <%= content.getContent()%>
     <script src="js/AddToCart.js"></script>
     <script src="js/DeleteFromCart.js"></script>
 </body>
