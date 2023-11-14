@@ -86,7 +86,6 @@
             <h3 style="color: #9FA6AE;">Please Login</h3><br>
          <c:if test="${not empty loginError}">
             <h3 style="color: red">${loginError}</h3>
-             <% session.removeAttribute("loginError"); %>
         </c:if>
 
             <form action="./login" method="post">
