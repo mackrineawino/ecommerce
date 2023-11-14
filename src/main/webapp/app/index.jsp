@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <%@ page import="com.ecom.app.model.view.navbar.NavBar"%>
 <!DOCTYPE html>
 <html>
@@ -59,16 +60,16 @@
             </a></h2>
         </div>
         <div class="navbar">
-        <jsp:useBean id="menuToolbar" class="com.ecom.app.useBean.NavBarBean" scope="request"/>
-        <jsp:setProperty name="menuToolbar" property="activeMenu"  value="<%= request.getAttribute(\"activeMenu\")%>"/>
-            <%= new NavBar().menu(menuToolbar.getActiveMenu())%>
+         <jsp:useBean id="navBarMenu" class="com.ecom.app.model.view.navbar.NavBar" />
+        <jsp:setProperty name="navBarMenu" property="activeLink" value='${requestScope.activeMenu}' />
+        ${navBarMenu.menu}
             <a href="./logout" class="logout-link">LOGOUT</a>
             <a href="./addToCart"><img style="width: 50px; color: #49A3C8; cursor: pointer; margin: 40px 0px; margin-left: 20px;" src="https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(3).png?raw=true"></a>
+            <a href="./user"><img style="width: 50px; cursor: pointer; margin: 40px 0px; margin-left: 0px;" src="https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(4).png?raw=true"></a>
         </div>
     </div>
-     <jsp:useBean id="content" class="com.ecom.app.useBean.Content" scope="request"/>
-      <jsp:setProperty name="content" property="content"  value="<%= request.getAttribute(\"content\") %>"/>
-    <%= content.getContent()%>
+        ${requestScope.content}
+
     <script src="js/AddToCart.js"></script>
     <script src="js/DeleteFromCart.js"></script>
 </body>

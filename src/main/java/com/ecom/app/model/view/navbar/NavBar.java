@@ -7,7 +7,11 @@ import java.util.List;
 import com.ecom.app.model.view.MenuLink;
 import com.ecom.app.model.view.MenuLinkStatus;
 
-public class NavBar implements Menu,Serializable {
+public class NavBar implements Menu, Serializable {
+
+    private String menu;
+
+    private int activeLink;
 
     private final List<MenuLink> links = new ArrayList<>();
 
@@ -17,21 +21,31 @@ public class NavBar implements Menu,Serializable {
         links.add(new MenuLink("./about", "ABOUT", MenuLinkStatus.NOT_ACTIVE));
     }
 
-    @Override
-    public String menu(int activeLinkIndex) {
+    public String getMenu() {
 
-        this.activateLink(activeLinkIndex);
+        this.activateLink(getActiveLink());
 
         String menuBar = "<div class=\"topnav\">";
 
 
         for (MenuLink link : links)
             menuBar += "<a " + (link.getStatus() == MenuLinkStatus.ACTIVE? "class=\"active\"" : "")
-                + " href=\"" + link.getUrl() + "\">" + link.getLabel() + "</a>";
+            + " href=\"" + link.getUrl() + "\">" + link.getLabel() + "</a>";
 
         menuBar += "</div>";
 
         return menuBar;
+    }
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
+    public int getActiveLink() {
+        return activeLink;
+    }
+
+    public void setActiveLink(int activeLink) {
+        this.activeLink = activeLink;
     }
 
     private void activateLink(int linkIndex){
@@ -42,5 +56,9 @@ public class NavBar implements Menu,Serializable {
                 links.get(index).setStatus(MenuLinkStatus.NOT_ACTIVE);
         }
 
+    }
+    @Override
+    public String menu(int activeLinkIndex) {
+        return null;
     }
 }

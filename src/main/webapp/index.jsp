@@ -90,9 +90,7 @@
                 <label for="password" style="font-size: 14px">Password</label>
                 <input type="password" id="password" name="password"
                     placeholder="  *****" required>
-               
                     <h5 style="text-align: right;"><span class="psw">Forgot <a href="#">password?</a></span></h5>
-               
 
                 <button type="submit">Login</button>
                 <h5>Don't have an account? <a href="./user"> Signup</a></h5>
