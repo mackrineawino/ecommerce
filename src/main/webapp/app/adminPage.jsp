@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,14 +35,18 @@
         <h2 style="color: white;">ADMIN DASHBOARD</h2>
         <ul style="display: block; list-style-type: none;" class="navbar">
             <li class="navitem"><a href="./addProduct" style="color: white; text-decoration: none; padding: 14px 16px;">ADD ITEMS</a></li>
-            <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">DELETE ITEMS</a></li>
             <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">VIEW ITEMS</a></li>
-            <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">UPDATE ITEMS</a></li>
         </ul>
         <a href="./logout" style="text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;">LOGOUT</a>
     </div>
-    <div style="padding-left: 50px; width: 100%; height: auto; background: #EFF7FB;">
+    <div style="padding-left: 140px; width: 100%; height: auto; background: #EFF7FB;">
+    <h3 style="text-align: center;">ADD ITEMS</h3>
+     
        <%= request.getAttribute("content")%>
+              <c:if test="${not empty productAddSuccess}">
+            <h3 style="color: green">${productAddSuccess}</h3>
+        </c:if>
+
     </div>
 </div>
 <script src="js/deleteFromDb.js"></script>

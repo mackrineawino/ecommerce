@@ -29,9 +29,16 @@ public class ProductAction extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         serializeForm(product, req.getParameterMap());
         productBean.addOrUpdateProduct(product);
-
+    
+        boolean isProductAddedSuccessfully = true;
+    
+        if (isProductAddedSuccessfully) {
+            req.setAttribute("productAddSuccess", "Product added successfully!");
+        }
+    
         resp.sendRedirect("./addProduct");
     }
+    
     @Override
 protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String productIdString = req.getParameter("productId");

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public class HtmlForm {
     public static String form(Class<?> model) {
 
-        String htmlForm = "<h3 style=\"text-align: center;\">ADD ITEMS</h3>\n" +
+        String htmlForm = "\n" +
                 "<form action=\"./addProduct\" method=\"post\">\n";
 
         Field[] fields = model.getDeclaredFields();
@@ -23,7 +23,7 @@ public class HtmlForm {
             htmlForm += "<label for=\"" + inputId + "\">" + (StringUtils.isBlank(formFieldAnnotate.label()) ? fieldName : formFieldAnnotate.label()) + ":</label><br>\n";
         
             if ("productDescription".equals(fieldName)) {
-                htmlForm += "<textarea style=\"background-color: transparent; outline: black; width: 90%; height: 50px; border-radius: 5px;\" id=\"" + inputId + "\" name=\"" + fieldName + "\" required></textarea><br><br>\n";
+                htmlForm += "<textarea style=\"background-color: transparent; outline: black; width: 80%; height: 50px; border-radius: 5px;\" id=\"" + inputId + "\" name=\"" + fieldName + "\" required></textarea><br><br>\n";
             } else if ("category".equals(fieldName)) {
                 htmlForm += "<select id=\"" + inputId + "\" name=\"" + fieldName + "\" required>\n" +
                     "<option value=\"SNEAKER\">Sneaker</option>\n" +
@@ -32,11 +32,11 @@ public class HtmlForm {
                     "<option value=\"STILETTO\">Stiletto</option>\n" +
                     "</select></br></br>";
             } else {
-                htmlForm += "<input type=\"text\" id=\"" + inputId + "\" name=\"" + (StringUtils.isBlank(formFieldAnnotate.name()) ? fieldName : formFieldAnnotate.name()) + "\" required><br><br>\n";
+                htmlForm += "<input type=\"text\" id=\"" + inputId + "\" name=\"" + (StringUtils.isBlank(formFieldAnnotate.name()) ? fieldName : formFieldAnnotate.name()) + "\" style=\" width: 80%;\" required><br><br>\n";
             }
         }
         
-        htmlForm += "<input style=\"background: #49A3C8; height: 35px; width: 90%;\" type=\"submit\" value=\"Submit\">\n";
+        htmlForm += "<input style=\"background: #49A3C8; display: flex; height: 35px; width: 80%;\" type=\"submit\" value=\"Submit\">\n";
         htmlForm += "</form>\n";
 
         return htmlForm;

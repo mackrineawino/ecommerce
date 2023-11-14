@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +79,9 @@
     <div class="container">
         <h2 style="color: #49A3C8; font-size: 30px">Welcome to <span style="color: #E0588E;"><span style="font-size: 50px">C</span>ool</span><span style="font-size: 50px">S</span>tuff</h2>
         <h3 style="color: #9FA6AE;">Please SignUp</h3>
+        <c:if test="${not empty registrationSuccess}">
+            <h3 style="color: green">${registrationSuccess}</h3>
+        </c:if>
         <form action="./user" method="post">
             <label for="username" style="font-size: 14px">Username</label>
             <input type="text" id="username" name="username" placeholder="kwach" required>

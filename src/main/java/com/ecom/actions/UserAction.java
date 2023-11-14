@@ -21,12 +21,15 @@ public class UserAction extends BaseAction {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         User registerUser = new User();
         serializeForm(registerUser, req.getParameterMap());
-        userBean.register(registerUser);
-
-        resp.sendRedirect("./");
-
+    
+        if (userBean.register(registerUser)) {
+            req.setAttribute("registrationSuccess", "Registration successful! Proceed to login.");
+        }
+    
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./register.jsp");
+        dispatcher.forward(req, resp);
     }
+    
 }

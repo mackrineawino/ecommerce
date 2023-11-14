@@ -1,3 +1,5 @@
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -82,6 +84,11 @@
                         style="font-size: 50px">C</span>ool</span><span
                     style="font-size: 50px">S</span>tuff</h2>
             <h3 style="color: #9FA6AE;">Please Login</h3><br>
+         <c:if test="${not empty loginError}">
+            <h3 style="color: red">${loginError}</h3>
+             <% session.removeAttribute("loginError"); %>
+        </c:if>
+
             <form action="./login" method="post">
                 <label for="username" style="font-size: 14px">Username</label>
                 <input type="text" id="username" name="username"
