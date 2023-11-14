@@ -78,30 +78,29 @@
 </head>
 <body>
     <div style=" display: flex; justify-content: space-between; background-color: #f1f1f1; border-radius: 5px; z-index: 100; position: sticky; top: 0;">
-        <div style="margin-top: 12px; margin-left: 20px;">
+        <div style="margin-top: 11px; margin-left: 20px;">
             <h2><a href="./home" style="text-decoration: none; font-size: 30px; cursor: pointer;"><span style="color: #E0588E;"><span style="font-size: 50px">C</span>ool</span><span style="color: #49A3C8;"><span style="font-size: 50px">S</span>tuff</span></a></h2>
         </div>
-        <div class="navbar">
+        <div class="navbar" style="margin-top: 12px;">
          <jsp:useBean id="navBarMenu" class="com.ecom.app.model.view.navbar.NavBar" />
         <jsp:setProperty name="navBarMenu" property="activeLink" value='${requestScope.activeMenu}' />
         ${navBarMenu.menu}
         </div>
         <div style="display: flex;">
-<a href="./addToCart" style="margin: 40px 0px; margin-left: 70px;">
-    <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 30px; color: #49A3C8; cursor: pointer; margin-right: 30px;"></i>
-</a>
+    <a href="./addToCart" style="margin: 40px 0px; margin-left: 70px;">
+        <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 30px; color: #49A3C8; cursor: pointer; margin-right: 30px;"></i>
+    </a>
 
-            <div class="user-container">
-
-    <i class="fas fa-user user-icon" onclick="toggleUserMenu()" style="margin: 40px 0px; margin-right: 20px;"></i>
-
-    <div class="user-menu" style="display: none;">
-        <a href="./login" style="text-decoration: none; font: 20px; color: #49A3C8;">Login</a>
-        <a href="./user" style="text-decoration: none; font: 20px; color: #49A3C8;">Signup</a>
-        <a href="./logout" style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
+    <div class="user-container">
+        <i class="fas fa-user user-icon" onclick="toggleUserMenu()" style="margin: 40px 0px; margin-right: 20px;"></i>
+        <div class="user-menu" style="display: none;">
+            <a href="./login" style="text-decoration: none; font: 20px; color: #49A3C8;">LOGIN</a>
+            <a href="./user" style="text-decoration: none; font: 20px; color: #49A3C8;">SIGNUP</a>
+            <a href="./logout" style="text-decoration: none; font: 20px; color: #49A3C8;">LOGOUT</a>
+        </div>
     </div>
 </div>
-</div>
+
     </div>
         ${requestScope.content}
 <script>
