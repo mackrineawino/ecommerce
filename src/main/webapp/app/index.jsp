@@ -87,15 +87,18 @@
         ${navBarMenu.menu}
         </div>
         <div style="display: flex;">
-    <a href="./addToCart" style="margin: 40px 0px; margin-left: 70px;">
-        <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 30px; color: #49A3C8; cursor: pointer; margin-right: 30px;"></i>
-    </a>
+    <a href="./addToCart" style="margin: 40px 0px; margin-left: 70px; position: relative;">
+    <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 30px; color: #49A3C8; cursor: pointer; margin-right: 30px;">
+        <span id="cart-counter" style="position: absolute; top: -5px; right: 15px; background-color: #E0588E; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; display: none;"></span>
+    </i>
+</a>
+
 
     <div class="user-container">
         <i class="fas fa-user user-icon" onclick="toggleUserMenu()" style="margin: 40px 0px; margin-right: 20px;"></i>
         <div class="user-menu" style="display: none;">
-            <a href="./profile" style="text-decoration: none; font: 20px; color: #49A3C8;">View Profile</a>
-            <a href="./logout" style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
+            <a href="./profile" style="text-decoration: none; font: 20px; color: #49A3C8;">Profile</a>
+            <a href="./logout" onclick="logout()"style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
         </div>
     </div>
 </div>

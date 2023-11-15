@@ -26,21 +26,22 @@ public class CartAction extends BaseAction {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         BufferedReader reader = req.getReader();
         StringBuilder json = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             json.append(line);
         }
-
+    
         ObjectMapper objectMapper = new ObjectMapper();
         cart = objectMapper.readValue(json.toString(), ItemCart.class);
-
+    
         cartBean.addItemToCart(cart);
-
-        resp.sendRedirect("./home");
+    
+        resp.setContentType("application/json");
+        resp.getWriter().write("{\"success\": true}");
     }
+    
 
 
     @Override
