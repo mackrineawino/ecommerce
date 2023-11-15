@@ -40,10 +40,9 @@
         <a href="./logout" style="text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;">LOGOUT</a>
     </div>
     <div style="padding-left: 140px; width: 100%; height: auto; background: #EFF7FB;">
-    <h3 style="text-align: center;">ADD ITEMS</h3>
-     
-       <%= request.getAttribute("content")%>
-              <c:if test="${not empty productAddSuccess}">
+    
+    ${requestScope.content}
+            <c:if test="${not empty productAddSuccess}">
             <h3 style="color: green">${productAddSuccess}</h3>
         </c:if>
 

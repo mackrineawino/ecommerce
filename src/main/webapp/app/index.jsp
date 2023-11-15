@@ -94,22 +94,16 @@
     <div class="user-container">
         <i class="fas fa-user user-icon" onclick="toggleUserMenu()" style="margin: 40px 0px; margin-right: 20px;"></i>
         <div class="user-menu" style="display: none;">
-            <a href="./login" style="text-decoration: none; font: 20px; color: #49A3C8;">LOGIN</a>
-            <a href="./user" style="text-decoration: none; font: 20px; color: #49A3C8;">SIGNUP</a>
-            <a href="./logout" style="text-decoration: none; font: 20px; color: #49A3C8;">LOGOUT</a>
+            <a href="./profile" style="text-decoration: none; font: 20px; color: #49A3C8;">View Profile</a>
+            <a href="./logout" style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
         </div>
     </div>
 </div>
 
     </div>
         ${requestScope.content}
-<script>
-    function toggleUserMenu() {
-        const userMenu = document.querySelector('.user-menu');
-        userMenu.style.display = userMenu.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
 
+    <script src="js/toggleUserMenu.js"></script>
     <script src="js/AddToCart.js"></script>
     <script src="js/DeleteFromCart.js"></script>
 </body>
