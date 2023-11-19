@@ -3,36 +3,45 @@ package com.ecom.app.model.entity;
 import java.text.DecimalFormat;
 import org.apache.commons.lang3.StringUtils;
 
+import com.ecom.app.model.view.html.DbTableAnnotation;
+import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlCardAnnotations;
 import com.ecom.app.model.view.html.HtmlFormAnnotations;
 import com.ecom.app.model.view.html.HtmlFormFieldAnnotation;
+
+@DbTableAnnotation(name="products")
 @HtmlFormAnnotations(label="Add Items", url="./addProduct")
 public class Product {
-
+    @DbTableColAnnotation(name="productId", definition = "int")
     @HtmlFormFieldAnnotation(label="Product ID")
     private Long productId;
 
+    @DbTableColAnnotation(name="imageURL")
      @HtmlCardAnnotations(label="Image URL: ")
     @HtmlFormFieldAnnotation(label="Image URL")
     private String imageUrl;
 
+    @DbTableColAnnotation(name="productName")
     @HtmlCardAnnotations(label="Product Name: ")
     @HtmlFormFieldAnnotation(label="Product Name")
     private String productName;
 
+    @DbTableColAnnotation(name="productPrice")
      @HtmlCardAnnotations(label="Product Price: ")
     @HtmlFormFieldAnnotation(label="Price")
     private double price;
 
+    @DbTableColAnnotation(name="productAvailability")
      @HtmlCardAnnotations(label="Product Availability: ")
     @HtmlFormFieldAnnotation(label="Product Availability")
     private int availability;
 
    
-
+    @DbTableColAnnotation(name="productDescription")
     @HtmlFormFieldAnnotation(label="Product Description")
     private String productDescription;
     
+    @DbTableColAnnotation(name="productCategory")
     @HtmlFormFieldAnnotation(label="Product Category")
     private ProductCategory category;
 

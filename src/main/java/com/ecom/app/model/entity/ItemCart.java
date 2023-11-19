@@ -1,17 +1,24 @@
 package com.ecom.app.model.entity;
 
+import com.ecom.app.model.view.html.DbTableAnnotation;
+import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
+@DbTableAnnotation(name="itemCart")
 public class ItemCart {
-    @HtmlTableColHeader(headerLabel = "Product ID")
+    @DbTableColAnnotation(name="productId", definition = "int")
+    @HtmlTableColHeader(headerLabel = "Product_ID")
     private Long productId;
 
+    @DbTableColAnnotation(name="productName")
     @HtmlTableColHeader(headerLabel = "Product Name")
     private String productName;
 
+    @DbTableColAnnotation(name="productCategory")
     @HtmlTableColHeader(headerLabel = "Product Category")
     private ProductCategory category;
 
+    @DbTableColAnnotation(name="productPrice")
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 

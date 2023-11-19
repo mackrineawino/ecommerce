@@ -1,6 +1,7 @@
 package com.ecom.actions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +25,12 @@ public class UserAction extends BaseAction {
         User registerUser = new User();
         serializeForm(registerUser, req.getParameterMap());
     
-        if (userBean.register(registerUser)) {
-            req.setAttribute("registrationSuccess", "Registration successful! Proceed to login.");
+        try {
+            if (userBean.register(registerUser)) {
+                req.setAttribute("registrationSuccess", "Registration successful! Proceed to login.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     
         RequestDispatcher dispatcher = req.getRequestDispatcher("./register.jsp");

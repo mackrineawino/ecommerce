@@ -1,8 +1,6 @@
 package com.ecom.app.bean;
 
 import java.util.List;
-
-import com.ecom.app.model.entity.Product;
 import com.ecom.database.Database;
 
 public class GenericBeanImpl<T> implements GenericBeanI<T>{
