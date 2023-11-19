@@ -45,6 +45,7 @@ protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws
 
     try {
         Long productId = Long.parseLong(productIdString);
+        
 
         productBean.deleteProduct(productId);
 

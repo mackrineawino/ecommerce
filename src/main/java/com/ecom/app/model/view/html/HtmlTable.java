@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.ecom.app.model.entity.ItemCart;
+
 public class HtmlTable {
 
     public static String generateTable(List<? extends Object> models) {
@@ -49,6 +51,29 @@ public class HtmlTable {
     
         tableBuilder.append("</table>");
         return tableBuilder.toString();
+    }
+
+      public static String generateSummary(List<ItemCart> cartItems) {
+        double totalPrice = 0.0;
+
+        StringBuilder summaryBuilder = new StringBuilder();
+        summaryBuilder.append(
+                "<div style=\"margin-top: 50px; text-align: center; color: white; background: #292929; height: auto;\">");
+        summaryBuilder.append(generateTable(cartItems));
+
+        summaryBuilder.append("<div style=\"margin-bottom: 30px;\">");
+        for (ItemCart cartItem : cartItems) {
+            totalPrice += cartItem.getPrice();
+        }
+        summaryBuilder.append("<hr>");
+        summaryBuilder.append("<h3>Total: " + totalPrice + "<h3>");
+        summaryBuilder.append(
+                "<button onclick=\"\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; margin-bottom: 30px; border-radius: 3px;\">BUY NOW</button>")
+                .append("</td>");
+        summaryBuilder.append("</div>");
+        summaryBuilder.append("</div>");
+
+        return summaryBuilder.toString();
     }
     
 

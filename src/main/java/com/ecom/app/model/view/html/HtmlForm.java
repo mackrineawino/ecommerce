@@ -16,11 +16,10 @@ public class HtmlForm {
                 continue;
             }
             HtmlFormFieldAnnotation formFieldAnnotate = field.getAnnotation(HtmlFormFieldAnnotation.class);
-        
             String fieldName = field.getName();
             String inputId = (StringUtils.isBlank(formFieldAnnotate.id()) ? fieldName : formFieldAnnotate.id());
             boolean isEnum = field.getType().isEnum();
-        
+    
             htmlForm += "<label for=\"" + inputId + "\">" + (StringUtils.isBlank(formFieldAnnotate.label()) ? fieldName : formFieldAnnotate.label()) + ":</label><br>\n";
         
             if (isEnum) {

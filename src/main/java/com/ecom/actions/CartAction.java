@@ -2,6 +2,8 @@ package com.ecom.actions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,17 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.ecom.app.bean.CartBeanI;
 import com.ecom.app.bean.CartBeanImpl;
 import com.ecom.app.model.entity.ItemCart;
+import com.ecom.app.model.view.html.HtmlTable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet("/addToCart")
 public class CartAction extends BaseAction {
     private CartBeanI cartBean = new CartBeanImpl();
     private ItemCart cart;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       
-        renderPage(req, resp, 3, cartBean.CartProducts());
+        List<ItemCart> cartItems = cartBean.list(ItemCart.class);
+        System.out.println("Generated HTML: " + HtmlTable.generateSummary(cartItems));
+
+    String cartHtml = HtmlTable.generateSummary(cartItems);
+
+    renderPage(req, resp, 3, cartHtml);
 
 
     }
@@ -36,7 +42,7 @@ public class CartAction extends BaseAction {
         ObjectMapper objectMapper = new ObjectMapper();
         cart = objectMapper.readValue(json.toString(), ItemCart.class);
     
-        cartBean.addItemToCart(cart);
+        cartBean.addOrUpdateProduct(cart);
     
         resp.setContentType("application/json");
         resp.getWriter().write("{\"success\": true}");
@@ -50,8 +56,7 @@ public class CartAction extends BaseAction {
 
         try {
             Long productId = Long.parseLong(productIdString);
-
-            cartBean.deleteFromCart(productId);
+            cartBean.deleteProduct(productId);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");

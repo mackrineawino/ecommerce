@@ -1,12 +1,9 @@
 package com.ecom.app.bean;
 
+
 import com.ecom.app.model.entity.Product;
 
-public interface ProductBeanI {
-    String productList();
+public interface ProductBeanI extends GenericBeanI<Product> {
 
-    Product addOrUpdateProduct(Product product);
-
-    void deleteProduct(Long productId);
 
 }

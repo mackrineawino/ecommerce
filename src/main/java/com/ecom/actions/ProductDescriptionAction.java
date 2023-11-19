@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
-import com.ecom.database.Database;
 
 @WebServlet(urlPatterns = { "/viewMore/*" })
 public class ProductDescriptionAction extends BaseAction {
@@ -27,7 +26,8 @@ public class ProductDescriptionAction extends BaseAction {
     }
 
     private Product getProductById(Long productId) {
-        List<Product> products = Database.getDbInstance().getProducts();
+        ProductBeanI productBean = new ProductBeanImpl();
+        List<Product> products = productBean.list(Product.class);
 
     for (Product product : products) {
         if (product.getProductId().equals(productId)) {
@@ -35,8 +35,6 @@ public class ProductDescriptionAction extends BaseAction {
         }
     }
 
-    // If the product is not found, you can return null or throw an exception.
-    // For simplicity, we'll return null here.
     return null;
     }
 

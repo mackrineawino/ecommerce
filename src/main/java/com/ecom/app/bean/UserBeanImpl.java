@@ -12,7 +12,7 @@ public class UserBeanImpl implements UserBeanI, Serializable {
     @Override
     public boolean register(User user) {
         if (user.getPassword().equals(user.getConfirmPassword())) {
-            database.getUsers()
+            database.getData()
                     .add(new User(random.nextLong(), user.getUsername(), user.getPassword(), user.getUserType()));
 
             return true;

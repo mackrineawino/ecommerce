@@ -11,14 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+
+import com.ecom.app.bean.ProductBeanI;
+import com.ecom.app.bean.ProductBeanImpl;
 import com.ecom.app.model.entity.Product;
-import com.ecom.database.Database;
 
 @WebServlet("/viewAll")
 public class ViewAllAction extends HttpServlet {
-
+ProductBeanI productBean = new ProductBeanImpl();
+List<Product> products = productBean.list(Product.class);
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Product> products = Database.getDbInstance().getProducts();
+        
 
         StringBuilder tableHtml = new StringBuilder();
         tableHtml.append("<table cellspacing='20' cellpadding='10'>");

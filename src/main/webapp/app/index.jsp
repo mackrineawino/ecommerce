@@ -74,6 +74,18 @@
         .user-container:hover .user-menu {
             display: block;
         }
+        .user-initials {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #49A3C8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
     </style>
 </head>
 <body>
@@ -95,16 +107,35 @@
 
 
     <div class="user-container">
-        <i class="fas fa-user user-icon" onclick="toggleUserMenu()" style="margin: 40px 0px; margin-right: 20px;"></i>
-        <div class="user-menu" style="display: none;">
-            <a href="./profile" style="text-decoration: none; font: 20px; color: #49A3C8;">Profile</a>
-            <a href="./logout" onclick="logout()"style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
-        </div>
+    <div class="user-initials" onclick="toggleUserMenu()" style="margin-top: 36px; margin-right: 20px; ">
     </div>
+    <div class="user-menu" style="display: none;">
+        <a href="./profile" style="text-decoration: none; font: 20px; color: #49A3C8;">Profile</a>
+        <a href="./logout" onclick="logout()" style="text-decoration: none; font: 20px; color: #49A3C8;">Logout</a>
+    </div>
+</div>
 </div>
 
     </div>
         ${requestScope.content}
+<script>
+
+    const username = "${sessionScope.username}";
+
+    function getInitials(name) {
+        const names = name.split(' ');
+        return names.map(name => name.charAt(0).toUpperCase()).join('');
+    }
+
+    function setInitials() {
+        const userInitials = document.querySelector('.user-initials');
+        if (userInitials) {
+            userInitials.textContent = getInitials(username);
+        }
+    }
+
+    window.addEventListener('load', setInitials);
+</script>
 
     <script src="js/toggleUserMenu.js"></script>
     <script src="js/AddToCart.js"></script>
