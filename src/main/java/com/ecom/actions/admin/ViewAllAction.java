@@ -55,14 +55,14 @@ List<Product> products = productBean.list(Product.class);
     private String tableRow(Product product) {
         StringBuilder trBuilder = new StringBuilder();
         trBuilder.append("<tr>");
-        trBuilder.append("<td>").append(product.getProductId()).append("</td>");
+        trBuilder.append("<td>").append(product.getId()).append("</td>");
         trBuilder.append("<td>").append(StringUtils.trimToEmpty(product.getProductName())).append("</td>");
         trBuilder.append("<td>").append(product.getCategory()).append("</td>");
         trBuilder.append("<td>").append(new DecimalFormat("#,###.##").format(product.getPrice())).append("</td>");
-        trBuilder.append("<td>").append("<button onclick=\"updateItem(event)\" productId=\"" + product.getProductId()
+        trBuilder.append("<td>").append("<button onclick=\"updateItem(event)\" productId=\"" + product.getId()
                 + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #49A3C8; border-radius: 3px;\">EDIT</button>")
                 .append("</td>");
-        trBuilder.append("<td>").append("<button onclick=\"deleteFromDb(event)\" productId=\"" + product.getProductId()
+        trBuilder.append("<td>").append("<button onclick=\"deleteFromDb(event)\" productId=\"" + product.getId()
                 + "\"  style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">DELETE</button>")
                 .append("</td>");
         trBuilder.append("</tr>");

@@ -1,15 +1,11 @@
 package com.ecom.app.model.entity;
 
-import java.io.Serializable;
 
 import com.ecom.app.model.view.html.DbTableAnnotation;
 import com.ecom.app.model.view.html.DbTableColAnnotation;
 
 @DbTableAnnotation(name="users")
-public class User implements Serializable {
-
-     @DbTableColAnnotation(name="id",  definition = "int")
-    private Long id;
+public class User extends BaseEntity{
 
     @DbTableColAnnotation(name="username")
     private String username;
@@ -37,21 +33,12 @@ public class User implements Serializable {
 
 
     public User(Long id, String username, String password, UserType userType) {
-        this.id = id;
+        setId(id);
         this.username = username;
         this.password = password;
         this.userType = userType;
     }
 
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

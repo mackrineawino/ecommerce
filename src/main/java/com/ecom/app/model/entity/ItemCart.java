@@ -5,10 +5,10 @@ import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
 @DbTableAnnotation(name="itemCart")
-public class ItemCart {
-    @DbTableColAnnotation(name="productId", definition = "int")
-    @HtmlTableColHeader(headerLabel = "Product_ID")
-    private Long productId;
+public class ItemCart extends BaseEntity{
+    // @DbTableColAnnotation(name="productId", definition = "int")
+    // @HtmlTableColHeader(headerLabel = "Product_ID")
+    // private Long productId;
 
     @DbTableColAnnotation(name="productName")
     @HtmlTableColHeader(headerLabel = "Product Name")
@@ -26,7 +26,7 @@ public class ItemCart {
     }
 
     public ItemCart(Long id, String name, ProductCategory category, double price) {
-        this.productId = id;
+        setId(id);
         this.productName = name;
         this.category = category;
         this.price = price;
@@ -57,13 +57,13 @@ public class ItemCart {
         this.price = price;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
+    // public Long getProductId() {
+    //     return productId;
+    // }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+    // public void setProductId(Long productId) {
+    //     this.productId = productId;
+    // }
     // public String tableRow(){
     // StringBuilder trBuilder = new StringBuilder();
     // trBuilder.append("<tr>");

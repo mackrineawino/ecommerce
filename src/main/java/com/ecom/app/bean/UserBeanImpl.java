@@ -12,15 +12,7 @@ public class UserBeanImpl implements UserBeanI, Serializable {
     @Override
     public boolean register(User user) throws SQLException {
         if (user.getPassword().equals(user.getConfirmPassword())) {
-        PreparedStatement sqlStmt = PostGresDatabase.getInstance().getConnection()
-                .prepareStatement("insert into users(id, username, userType, password) values(?,?,?,?)");
-
-            sqlStmt.setInt(1, ThreadLocalRandom.current().nextInt(1, 1000));
-            sqlStmt.setString(2, user.getUsername());
-            sqlStmt.setObject(3, user.getUserType(), java.sql.Types.OTHER);
-            sqlStmt.setString(4, user.getPassword());
-
-            sqlStmt.executeUpdate();
+            PostGresDatabase.insert(user);
 
             return true;
         }

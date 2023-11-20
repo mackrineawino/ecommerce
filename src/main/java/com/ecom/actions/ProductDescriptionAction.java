@@ -30,7 +30,7 @@ public class ProductDescriptionAction extends BaseAction {
         List<Product> products = productBean.list(Product.class);
 
     for (Product product : products) {
-        if (product.getProductId().equals(productId)) {
+        if (product.getId().equals(productId)) {
             return product;
         }
     }

@@ -13,9 +13,13 @@ import com.ecom.app.model.entity.UserType;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet("/login")
 public class SignInAction extends BaseAction {
+    private static final Logger LOGGER = Logger.getLogger(SignInAction.class.getName());
+
     AuthBeanI authBean = new AuthBeanImpl();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,28 +35,28 @@ public class SignInAction extends BaseAction {
         User loginUser = new User();
         serializeForm(loginUser, req.getParameterMap());
 
-        User userDetails;
         try {
-            userDetails = authBean.authenticate(loginUser);
+            User userDetails = authBean.authenticate(loginUser);
+
             if (userDetails != null) {
                 HttpSession httpSession = req.getSession(true);
-                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-                httpSession.setAttribute("username", loginUser.getUsername());
+                httpSession.setAttribute("loggedInId", String.valueOf(new Date().getTime()));
+                httpSession.setAttribute("username", userDetails.getUsername());
                 httpSession.setAttribute("userType", userDetails.getUserType().toString());
+
                 if (userDetails.getUserType().equals(UserType.ADMIN)) {
                     resp.sendRedirect("./addProduct");
                 } else {
                     resp.sendRedirect("./home");
                 }
             } else {
-
                 req.setAttribute("loginError", "Incorrect Username or Password");
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
             }
-
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
         } catch (SQLException e) {
-
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during login authentication", e);
+            req.setAttribute("loginError", "An unexpected error occurred. Please try again.");
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
 }

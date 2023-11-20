@@ -2,20 +2,8 @@ package com.ecom.events;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletContextEvent;
-
-import com.ecom.app.model.entity.ItemCart;
-import com.ecom.app.model.entity.Product;
-import com.ecom.app.model.entity.User;
-import com.ecom.app.model.view.html.DbTableAnnotation;
-import com.ecom.app.model.view.html.DbTableColAnnotation;
-import java.lang.reflect.Field;
 import com.ecom.database.PostGresDatabase;
 
 @WebListener
@@ -56,43 +44,43 @@ public class AppInitialization implements ServletContextListener {
         // database.getData().add(new Product(004L, "Boots", "pink", 5000, 25,
         // ProductCategory.BOOT,
         // "https://github.com/mackrineawino/images/blob/main/Nike-Dunk-SB-Low-Heels-w-removebg-preview%20(2).png?raw=true"));
-        try {
-            Connection connection = PostGresDatabase.getInstance().getConnection();
+        // try {
+        //     Connection connection = PostGresDatabase.getInstance().getConnection();
 
-            System.out.println("Database connection established successfully.");
-            List<Class<?>> entities = new ArrayList<>();
-            entities.add(User.class);
-            entities.add(Product.class);
-            entities.add(ItemCart.class);
+        //     System.out.println("Database connection established successfully.");
+        //     List<Class<?>> entities = new ArrayList<>();
+        //     entities.add(User.class);
+        //     entities.add(Product.class);
+        //     entities.add(ItemCart.class);
 
-            for (Class<?> clazz : entities) {
-                if (!clazz.isAnnotationPresent(DbTableAnnotation.class))
-                    continue;
+        //     for (Class<?> clazz : entities) {
+        //         if (!clazz.isAnnotationPresent(DbTableAnnotation.class))
+        //             continue;
 
-          DbTableAnnotation dbTable = clazz.getAnnotation(DbTableAnnotation.class);
+        //   DbTableAnnotation dbTable = clazz.getAnnotation(DbTableAnnotation.class);
 
-                StringBuilder sqlBuilder = new StringBuilder();
+        //         StringBuilder sqlBuilder = new StringBuilder();
 
-                sqlBuilder.append("create table if not exists ").append(dbTable.name()).append("(");
-                for (Field field : clazz.getDeclaredFields()) {
-                    if (!field.isAnnotationPresent(DbTableColAnnotation.class))
-                        continue;
+        //         sqlBuilder.append("create table if not exists ").append(dbTable.name()).append("(");
+        //         for (Field field : clazz.getDeclaredFields()) {
+        //             if (!field.isAnnotationPresent(DbTableColAnnotation.class))
+        //                 continue;
 
-                    DbTableColAnnotation dbTableColumn = field.getAnnotation(DbTableColAnnotation.class);
+        //             DbTableColAnnotation dbTableColumn = field.getAnnotation(DbTableColAnnotation.class);
 
-                    sqlBuilder.append(dbTableColumn.name()).append(" ").append(dbTableColumn.definition()).append(",");
-                }
+        //             sqlBuilder.append(dbTableColumn.name()).append(" ").append(dbTableColumn.definition()).append(",");
+        //         }
 
-                sqlBuilder.append(")");
+        //         sqlBuilder.append(")");
 
-                connection.prepareStatement(sqlBuilder.toString().replace(",)", ")")).executeUpdate();
+        //         connection.prepareStatement(sqlBuilder.toString().replace(",)", ")")).executeUpdate();
 
-            }
+        //     }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-
+        // } catch (SQLException ex) {
+        //     System.out.println(ex);
+        // }
+        PostGresDatabase.updateSchema();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.ecom.app.bean;
 
 import java.util.List;
 import com.ecom.database.Database;
+import com.ecom.database.PostGresDatabase;
 
 public class GenericBeanImpl<T> implements GenericBeanI<T>{
 
@@ -15,9 +16,7 @@ public class GenericBeanImpl<T> implements GenericBeanI<T>{
     @Override
     public void addOrUpdateProduct(T entity) {
 
-        Database database = Database.getDbInstance();
-
-        database.getData().add(entity);
+        PostGresDatabase.insert(entity);
 
     }
 

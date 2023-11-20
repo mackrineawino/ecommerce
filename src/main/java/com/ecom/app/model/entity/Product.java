@@ -11,10 +11,10 @@ import com.ecom.app.model.view.html.HtmlFormFieldAnnotation;
 
 @DbTableAnnotation(name="products")
 @HtmlFormAnnotations(label="Add Items", url="./addProduct")
-public class Product {
-    @DbTableColAnnotation(name="productId", definition = "int")
-    @HtmlFormFieldAnnotation(label="Product ID")
-    private Long productId;
+public class Product extends BaseEntity{
+    // @DbTableColAnnotation(name="productId", definition = "int")
+    // @HtmlFormFieldAnnotation(label="Product ID")
+    // private Long productId;
 
     @DbTableColAnnotation(name="imageURL")
      @HtmlCardAnnotations(label="Image URL: ")
@@ -50,7 +50,7 @@ public class Product {
 
     public Product(Long id, String name, String description, double price, int availability, ProductCategory category,
             String imageUrl) {
-        this.productId = id;
+                setId(id);
         this.productName = name;
         this.productDescription = description;
         this.price = price;
@@ -58,15 +58,6 @@ public class Product {
         this.category = category;
         this.imageUrl = imageUrl;
     }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -132,7 +123,7 @@ public class Product {
         divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Category: ").append(getCategory()).append("</ style=\" font-size: 30px;\">");
         divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Description: ").append(StringUtils.trimToEmpty(getProductDescription()))
                 .append("</h3>");
-        divStringBuilder.append("<button id=\"addToCartButton\" productId=\"" + getProductId() + "\" productName=\""
+        divStringBuilder.append("<button id=\"addToCartButton\" productId=\"" + getId() + "\" productName=\""
                 + getProductName() + "\" category=\"" + getCategory() + "\" price=\"" + getPrice()
                 + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
                 .append("ADD TO CART").append("</button>");

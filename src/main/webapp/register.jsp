@@ -95,11 +95,11 @@
             <div style="text-align: left; display: flex; justify-content: space-between;">
                 <div style="display: flex;">
                     <label for="adminRadio">ADMIN</label>
-                    <input type="radio" id="adminRadio" name="userType" value="ADMIN">
+                    <input type="radio" id="adminRadio" name="userType" value="ADMIN" required>
                 </div>
                 <div style="display: flex">
                     <label for="normalUserRadio">NORMAL USER</label>
-                    <input type="radio" id="normalUserRadio" name="userType" value="NORMAL_USER">
+                    <input type="radio" id="normalUserRadio" name="userType" value="NORMAL_USER" required>
                 </div>
             </div><br>
 

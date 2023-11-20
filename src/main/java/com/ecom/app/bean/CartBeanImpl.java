@@ -16,7 +16,7 @@ public class CartBeanImpl extends GenericBeanImpl<ItemCart> implements CartBeanI
         Iterator<ItemCart> iterator = cartItems.iterator();
         while (iterator.hasNext()) {
             ItemCart cartItem = iterator.next();
-            if (cartItem.getProductId().equals(productId)) {
+            if (cartItem.getId().equals(productId)) {
                 System.out.println("Item found. Removing from the cart.");
                 totalPrice -= cartItem.getPrice();
                 iterator.remove();
