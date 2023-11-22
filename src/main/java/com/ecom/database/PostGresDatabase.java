@@ -3,6 +3,7 @@ package com.ecom.database;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,6 +23,7 @@ import com.ecom.app.model.view.html.DbTableId;
 import java.math.BigDecimal;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class PostGresDatabase implements Serializable {
 
@@ -44,14 +46,15 @@ public class PostGresDatabase implements Serializable {
         }
         return database;
     }
-        public static void updateSchema(){
+
+    public static void updateSchema() {
         System.out.println("*************** updating schema database *************");
 
         try {
             Connection connection = PostGresDatabase.getInstance().getConnection();
 
             List<Class<?>> entities = new ArrayList<>();
-          entities.add(User.class);
+            entities.add(User.class);
             entities.add(Product.class);
             entities.add(ItemCart.class);
 
@@ -74,10 +77,12 @@ public class PostGresDatabase implements Serializable {
 
                     DbTableColAnnotation dbTableColumn = field.getAnnotation(DbTableColAnnotation.class);
 
-                    sqlBuilder.append(dbTableColumn.name()).append(" ")
-                        .append(dbTableColumn.definition())
-                        .append(field.isAnnotationPresent(DbTableId.class)?" NOT NULL AUTO_INCREMENT PRIMARY KEY" : "")
-                        .append(",");
+                    if (field.isAnnotationPresent(DbTableId.class)) {
+                        sqlBuilder.append(dbTableColumn.name()).append(" SERIAL PRIMARY KEY,");
+                    } else {
+                        sqlBuilder.append(dbTableColumn.name()).append(" ")
+                                .append(dbTableColumn.definition()).append(",");
+                    }
                 }
 
                 sqlBuilder.append(")");
@@ -91,7 +96,6 @@ public class PostGresDatabase implements Serializable {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-
 
     }
 
@@ -113,7 +117,8 @@ public class PostGresDatabase implements Serializable {
             List<Object> parameters = new ArrayList<>();
 
             for (Field field : fields) {
-                if (!field.isAnnotationPresent(DbTableColAnnotation.class) || field.isAnnotationPresent(DbTableId.class))
+                if (!field.isAnnotationPresent(DbTableColAnnotation.class)
+                        || field.isAnnotationPresent(DbTableId.class))
                     continue;
 
                 field.setAccessible(true);
@@ -129,19 +134,19 @@ public class PostGresDatabase implements Serializable {
             }
 
             String queryBuilder = "insert into " +
-                dbTable.name() +
-                "(" +
-                columnBuilder +
-                ")" +
-                " values(" +
-                paramPlaceHolderBuilder +
-                ")";
+                    dbTable.name() +
+                    "(" +
+                    columnBuilder +
+                    ")" +
+                    " values(" +
+                    paramPlaceHolderBuilder +
+                    ")";
 
             String query = queryBuilder.replace(",)", ")");
             System.out.println("Query: " + query);
 
             PreparedStatement sqlStmt = PostGresDatabase.getInstance().getConnection()
-                .prepareStatement(query);
+                    .prepareStatement(query);
 
             int paramIdx = 1;
             for (Object param : parameters) {
@@ -151,25 +156,86 @@ public class PostGresDatabase implements Serializable {
                     sqlStmt.setLong(paramIdx++, (long) param);
                 else if (param instanceof UserType) {
                     sqlStmt.setString(paramIdx++, ((UserType) param).name());
-                } else
+                } else if (param instanceof Double) {
+                    sqlStmt.setDouble(paramIdx++, (double) param);
+                }
+
+                else
                     sqlStmt.setString(paramIdx++, param.toString());
             }
-            
 
             sqlStmt.executeUpdate();
+            
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public static <T> List<T> select(Class<T> filter) {
+        try {
+            Class<?> clazz = filter;
+            System.out.println();
+            System.out.println("Clazz>>>>>>>>>>" + clazz.getName());
 
+            if (!clazz.isAnnotationPresent(DbTableAnnotation.class))
+                return new ArrayList<>();
+
+            DbTableAnnotation dbTable = clazz.getAnnotation(DbTableAnnotation.class);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("SELECT * FROM ")
+                    .append(dbTable.name()).append(";");
+            Connection conn = PostGresDatabase.getInstance().getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(stringBuilder.toString());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<T> result = new ArrayList<>();
+
+            while (resultSet.next()) {
+                T object = (T) clazz.getDeclaredConstructor().newInstance();
+                // Inside the loop where you set field values
+                for (Field field : clazz.getDeclaredFields()) {
+                    field.setAccessible(true);
+                    DbTableColAnnotation dbColumn = field.getAnnotation(DbTableColAnnotation.class);
+                    if (dbColumn != null) {
+                        String columnName = dbColumn.name();
+
+                        if (field.getType().isEnum()) {
+                            String enumValue = resultSet.getString(columnName);
+                            if (enumValue != null) {
+                                Object enumConstant = Enum.valueOf((Class<Enum>) field.getType(), enumValue);
+                                field.set(object, enumConstant);
+                            }
+                        } else if (field.getType() == double.class) {
+                            double value = resultSet.getDouble(columnName);
+                            field.set(object, value);
+                        } else if (field.getType() == int.class) {
+                            int value = resultSet.getInt(columnName);
+                            field.set(object, value);
+                        } else {
+                            Object value = resultSet.getObject(columnName);
+                            field.set(object, value);
+                        }
+                    }
+                }
+
+                result.add(object);
+                
+            }
+
+            return result;
+
+        } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException
+                | NoSuchMethodException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     public Connection getConnection() throws SQLException {
         if (dataSource == null) {
             throw new IllegalStateException("DataSource is null. Initialization error.");
         }
-        
+
         return dataSource.getConnection();
     }
 

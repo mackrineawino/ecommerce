@@ -1,22 +1,26 @@
 package com.ecom.app.bean;
-
-import java.io.Serializable;
 import com.ecom.app.model.entity.User;
-import com.ecom.database.PostGresDatabase;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class UserBeanImpl implements UserBeanI, Serializable {
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+@Stateless
+@Remote
+public class UserBeanImpl extends GenericBeanImpl<User> implements UserBeanI {
 
     @Override
     public boolean register(User user) throws SQLException {
-        if (user.getPassword().equals(user.getConfirmPassword())) {
-            PostGresDatabase.insert(user);
+        if (!user.getPassword().equals(user.getConfirmPassword()))
+        throw new RuntimeException("Password & confirm password do not match");
 
-            return true;
-        }
-        return false;
+    //1. check if username already exist
+    //2. hash password
+    //3. initiate event to send email ...Observer design pattern
+
+    getDao().addOrUpdate(user);
+
+    return false;
     }
 
 
@@ -27,4 +31,5 @@ public class UserBeanImpl implements UserBeanI, Serializable {
 
         throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
     }
+    
 }

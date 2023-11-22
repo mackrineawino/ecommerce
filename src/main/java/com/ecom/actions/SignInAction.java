@@ -1,5 +1,6 @@
 package com.ecom.actions;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import com.ecom.app.bean.AuthBeanI;
-import com.ecom.app.bean.AuthBeanImpl;
 import com.ecom.app.model.entity.User;
 import com.ecom.app.model.entity.UserType;
 import java.io.IOException;
@@ -19,9 +19,8 @@ import java.util.logging.Logger;
 @WebServlet("/login")
 public class SignInAction extends BaseAction {
     private static final Logger LOGGER = Logger.getLogger(SignInAction.class.getName());
-
-    AuthBeanI authBean = new AuthBeanImpl();
-
+   @EJB
+    AuthBeanI authBean;
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 

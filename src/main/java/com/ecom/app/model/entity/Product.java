@@ -8,6 +8,7 @@ import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlCardAnnotations;
 import com.ecom.app.model.view.html.HtmlFormAnnotations;
 import com.ecom.app.model.view.html.HtmlFormFieldAnnotation;
+import com.ecom.app.model.view.html.HtmlTableColHeader;
 
 @DbTableAnnotation(name="products")
 @HtmlFormAnnotations(label="Add Items", url="./addProduct")
@@ -17,23 +18,26 @@ public class Product extends BaseEntity{
     // private Long productId;
 
     @DbTableColAnnotation(name="imageURL")
-     @HtmlCardAnnotations(label="Image URL: ")
+    @HtmlCardAnnotations(label="Image URL: ")
     @HtmlFormFieldAnnotation(label="Image URL")
     private String imageUrl;
 
     @DbTableColAnnotation(name="productName")
     @HtmlCardAnnotations(label="Product Name: ")
     @HtmlFormFieldAnnotation(label="Product Name")
+     @HtmlTableColHeader(headerLabel = "Product Name")
     private String productName;
 
     @DbTableColAnnotation(name="productPrice")
      @HtmlCardAnnotations(label="Product Price: ")
     @HtmlFormFieldAnnotation(label="Price")
+    @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 
     @DbTableColAnnotation(name="productAvailability")
      @HtmlCardAnnotations(label="Product Availability: ")
     @HtmlFormFieldAnnotation(label="Product Availability")
+    @HtmlTableColHeader(headerLabel = "Product Availability")
     private int availability;
 
    
@@ -43,6 +47,7 @@ public class Product extends BaseEntity{
     
     @DbTableColAnnotation(name="productCategory")
     @HtmlFormFieldAnnotation(label="Product Category")
+    @HtmlTableColHeader(headerLabel = "Product Category")
     private ProductCategory category;
 
     public Product() {
@@ -112,8 +117,7 @@ public class Product extends BaseEntity{
         divStringBuilder.append(
                 "<div style=\" height: 450px;margin-left: 50px; background: #0A0C09; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); \">");
         divStringBuilder.append("<img style=\"height: 400px; width: 400px;\" src=\"").append(getImageUrl())
-                .append("\" alt=\"").append(getProductName()).append("\" />"); // Add double quotes and close the img
-                                                                               // tag
+                .append("\" alt=\"").append(getProductName()).append("\" />");
         divStringBuilder.append("</div>");
         divStringBuilder.append("<div style=\"margin-left: 70px;\">");
         divStringBuilder.append("<h3 style=\" font-size: 30px;\">").append("Name: ")

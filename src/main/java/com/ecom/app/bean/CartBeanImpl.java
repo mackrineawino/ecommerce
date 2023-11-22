@@ -5,11 +5,17 @@ import java.util.List;
 
 import com.ecom.app.model.entity.ItemCart;
 
+
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+@Stateless
+@Remote
 public class CartBeanImpl extends GenericBeanImpl<ItemCart> implements CartBeanI {
 
     double totalPrice = 0.0;
 
-    public void deleteProduct(Long productId) {
+    public void delete(Long productId) {
         System.out.println("Trying to delete product with ID: " + productId);
         List<ItemCart> cartItems = list(ItemCart.class);
     

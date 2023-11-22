@@ -1,14 +1,14 @@
-package com.ecom.app.bean;
+package com.ecom.app.dao;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericBeanI<T> extends Serializable {
+public interface GenericDaoI <T> extends Serializable {
 
     List<T> list(Class<?> entity);
 
     void addOrUpdate(T entity);
 
-    void delete(Long productId);
+    void delete(T entity);
 
 }

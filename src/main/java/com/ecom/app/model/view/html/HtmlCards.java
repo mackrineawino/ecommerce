@@ -1,6 +1,8 @@
 package com.ecom.app.model.view.html;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,9 +47,10 @@ public class HtmlCards {
             }
 
             cardBuilder.append("<div style=\"display: flex; justify-content: space-between; margin: 20px 30px;\">");
-            cardBuilder.append("<a href=\"/ecommerce/viewMore?productId=" + getFieldValue("productId", model)
+
+            cardBuilder.append("<a href=\"/ecommerce/viewMore?id=" + getFieldValue("id", model)
                     + "\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">VIEW MORE</a>");
-            cardBuilder.append("<button id=\"addToCartButton\" productId=\"" + getFieldValue("productId", model)
+            cardBuilder.append("<button id=\"addToCartButton\" productId=\"" + getFieldValue("id", model)
                     + "\" productName=\"" + getFieldValue("productName", model) + "\" category=\""
                     + getFieldValue("category", model) + "\" price=\"" + getFieldValue("price", model)
                     + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
@@ -68,15 +71,21 @@ public class HtmlCards {
     }
 
     private static String getFieldValue(String fieldName, Object model) {
+    Class<?> currentClass = model.getClass();
+
+    while (currentClass != null) {
         try {
-            Field field = model.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            Object value = field.get(model);
+            Method method = currentClass.getDeclaredMethod("get" + StringUtils.capitalize(fieldName));
+            Object value = method.invoke(model);
             return value != null ? value.toString() : "";
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-            return "";
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            // Method not found in the current class, try the superclass
+            currentClass = currentClass.getSuperclass();
         }
     }
+
+    // Method not found in the entire class hierarchy
+    return "";
+}
 
 }

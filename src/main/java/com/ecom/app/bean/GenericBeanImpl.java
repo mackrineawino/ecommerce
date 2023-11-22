@@ -1,32 +1,34 @@
 package com.ecom.app.bean;
 
 import java.util.List;
-import com.ecom.database.Database;
-import com.ecom.database.PostGresDatabase;
 
-public class GenericBeanImpl<T> implements GenericBeanI<T>{
+import com.ecom.app.dao.GenericDaoI;
+import com.ecom.app.dao.GenericDaoImpl;
+
+public  abstract class GenericBeanImpl<T> implements GenericBeanI<T>{
+
+    private final GenericDaoI<T> genericDao = new GenericDaoImpl<>();
 
     @SuppressWarnings({"unchecked","rawtypes"})
     @Override
     public List<T> list(Class<?> entity) {
-        return (List<T>) Database.getDbInstance().getData(entity);
+        return genericDao.list(entity);
 
     }
 
     @Override
-    public void addOrUpdateProduct(T entity) {
+    public void addOrUpdate(T entity) {
 
-        PostGresDatabase.insert(entity);
+        genericDao.addOrUpdate(entity);
 
     }
 
     @Override
-    public void deleteProduct(Long productId) {
-        // Database database = Database.getDbInstance();
-        // List<T> dataList = database.getData();
-
+    public void delete(Long productId) {
     
-        // dataList.removeIf(product -> ((Product) product).getId().equals(productId));
+    }
+    public GenericDaoImpl<T> getDao(){
+        return (GenericDaoImpl<T>) genericDao;
     }
 
 }
