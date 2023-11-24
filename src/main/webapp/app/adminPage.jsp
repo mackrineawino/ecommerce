@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -67,10 +66,9 @@
     </div>
     <div style="padding-left: 140px; width: 100%; height: auto; background: #EFF7FB;">
 
-        ${requestScope.content}
-        <c:if test="${not empty productAddSuccess}">
-            <h3 style="color: green">${productAddSuccess}</h3>
-        </c:if>
+       
+
+${requestScope.content}
 
     </div>
     <div id="confirmationModal" class="modal">

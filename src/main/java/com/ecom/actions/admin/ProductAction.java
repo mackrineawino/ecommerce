@@ -32,7 +32,7 @@ public class ProductAction extends BaseAction {
         boolean isProductAddedSuccessfully = true;
 
         if (isProductAddedSuccessfully) {
-            req.setAttribute("productAddSuccess", "Product added successfully!");
+            req.getSession().setAttribute("productAddSuccess", "Product added successfully!");
         }
 
         resp.sendRedirect("./addProduct");

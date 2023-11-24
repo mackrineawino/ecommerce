@@ -69,7 +69,7 @@ public class HtmlTable {
         summaryBuilder.append("<hr>");
         summaryBuilder.append("<h3>Total: " + totalPrice + "<h3>");
         summaryBuilder.append(
-                "<button onclick=\"\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; margin-bottom: 30px; border-radius: 3px;\">BUY NOW</button>")
+                "<button onclick=\"./checkout\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; margin-bottom: 30px; border-radius: 3px;\">CHECKOUT</button>")
                 .append("</td>");
         summaryBuilder.append("</div>");
         summaryBuilder.append("</div>");
