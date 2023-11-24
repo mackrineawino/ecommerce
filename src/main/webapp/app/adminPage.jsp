@@ -23,6 +23,32 @@
             margin-top: 40px;
             text-align: left;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #C2D7EB;
+            padding: 20px;
+            width: 450px;
+            height: 100px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #confirmationModal button {
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -40,14 +66,24 @@
         <a href="./logout" style="text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;">LOGOUT</a>
     </div>
     <div style="padding-left: 140px; width: 100%; height: auto; background: #EFF7FB;">
-    
-    ${requestScope.content}
-            <c:if test="${not empty productAddSuccess}">
+
+        ${requestScope.content}
+        <c:if test="${not empty productAddSuccess}">
             <h3 style="color: green">${productAddSuccess}</h3>
         </c:if>
 
     </div>
+    <div id="confirmationModal" class="modal">
+    <div class="modal-content" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9); padding: 20px; border-radius: 8px;">
+        <p>Continue to delete this item? This is Irreversible..</p>
+        <button id="confirmDelete" style="background: #E0588E;">Yes</button>
+        <button id="cancelDelete" style="background: #49A3C8;">Cancel</button>
+    </div>
 </div>
+
+
+</div>
+
 <script src="js/deleteFromDb.js"></script>
 <script src="js/updateItem.js"></script>
 </body>

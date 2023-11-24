@@ -1,7 +1,6 @@
 package com.ecom.actions.admin;
 
 import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ecom.actions.BaseAction;
 import com.ecom.app.bean.ProductBeanI;
-import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.view.html.HtmlForm;
 
