@@ -21,7 +21,7 @@ public class GenericDaoImpl<T> implements GenericDaoI<T> {
     }
 
     @Override
-    public void delete(T entity) {
-
+    public void delete(Class<?> entityClass, Long id) {
+        PostGresDatabase.deleteProduct(entityClass, id);
     }
 }

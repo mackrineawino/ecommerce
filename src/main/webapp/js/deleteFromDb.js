@@ -1,8 +1,8 @@
 function deleteFromDb(event) {
-    const productId = event.target.getAttribute("productId");
-    console.log("Deleting product with ID:", productId);
+    const id = event.target.getAttribute("id");
+    console.log("Deleting product with ID:", id);
 
-    fetch(`/ecommerce/addProduct?productId=${productId}`, {
+    fetch(`/ecommerce/addProduct?id=${id}`, {
         method: 'DELETE',
     })
     

@@ -2,18 +2,18 @@ function addToCartClick(event) {
     event.preventDefault();
 
     const addToCartButton = event.currentTarget;
-    const productId = event.target.getAttribute("productId");
+    const id = event.target.getAttribute("id");
     const productName = event.target.getAttribute("productName");
     const category = event.target.getAttribute("category");
     const price = event.target.getAttribute("price");
     
-    const data = {
-        productId,
-        productName,
-        category,
-        price,
+        const data = {
+            id,
+            productName: productName,
+            category: category,
+            price: price,
     };
-    
+console.log(data);
     fetch('/ecommerce/addToCart', {
         headers: {
             'Content-Type': 'application/json'

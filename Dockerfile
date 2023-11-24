@@ -12,23 +12,22 @@ COPY . .
 RUN mvn clean compile package
 
 # Stage 2: Deploy the application to WildFly
-FROM jboss/wildfly:latest AS deploy
+FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk17 AS deploy
 
 # Remove the default standalone.xml file from WildFly
 RUN rm /opt/jboss/wildfly/standalone/configuration/standalone.xml
 
 COPY --from=build /app/target/ecommerce.war /opt/jboss/wildfly/standalone/deployments/
 
-COPY --from=build /app/standalone.xml /opt/jboss/wildfly/standalone/configuration/
+# Create module directory for PostgreSQL JDBC driver
+RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 
-COPY --from=build /app/postgresql /opt/jboss/wildfly/modules/system/layers/base/com/
+# Copy PostgreSQL JDBC driver JAR and module.xml
+COPY --from=build /app/postgresql-42.6.0.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
+COPY --from=build /app/module.xml /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 
-RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/com/postgresql/main/ \
-    && curl -o /opt/jboss/wildfly/modules/system/layers/base/com/postgresql/main/connector-java-42.2.5.jar \
-    https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar
-
-
-
+# Expose port 8080
 EXPOSE 8080
 
+# Start WildFly
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]

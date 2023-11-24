@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.model.entity.Product;
+import com.ecom.app.model.view.html.HtmlProductDesc;
 
 @WebServlet(urlPatterns = { "/viewMore/*" })
 public class ProductDescriptionAction extends BaseAction {
@@ -19,10 +20,13 @@ public class ProductDescriptionAction extends BaseAction {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         System.out.println(req.getParameter("id"));
-        Long productId = Long.parseLong(req.getParameter("id"));
+        Long id = Long.parseLong(req.getParameter("id"));
 
-        Product product = getProductById(productId);
-        renderPage(req, resp, 4, product.displayProductDescription());
+        Product product = getProductById(id);
+
+        String productDescriptionHtml = HtmlProductDesc.displayProductDescription(product);
+
+        renderPage(req, resp, 4, productDescriptionHtml);
 
     }
 

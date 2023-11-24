@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CartAction extends BaseAction {
     @EJB
     private CartBeanI cartBean;
-    private ItemCart cart;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,29 +31,39 @@ public class CartAction extends BaseAction {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader reader = req.getReader();
-        StringBuilder json = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            json.append(line);
+        try {
+            BufferedReader reader = req.getReader();
+            StringBuilder json = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                json.append(line);
+            }
+    
+            ObjectMapper objectMapper = new ObjectMapper();
+            ItemCart cart = objectMapper.readValue(json.toString(), ItemCart.class);
+    
+            cartBean.addOrUpdate(cart);
+    
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"success\": true}");
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
+    
+            // Send an error response in JSON format
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"success\": false, \"error\": \"Internal server error\"}");
         }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        cart = objectMapper.readValue(json.toString(), ItemCart.class);
-
-        cartBean.addOrUpdate(cart);
-
-        resp.setContentType("application/json");
-        resp.getWriter().write("{\"success\": true}");
     }
-
+    
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String productIdString = req.getParameter("productId");
+        String productIdString = req.getParameter("id");
 
         try {
-            Long productId = Long.parseLong(productIdString);
-            cartBean.delete(productId);
+            Long id = Long.parseLong(productIdString);
+            cartBean.delete(ItemCart.class, id);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");

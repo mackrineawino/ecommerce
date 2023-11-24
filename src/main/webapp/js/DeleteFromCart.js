@@ -1,8 +1,8 @@
 function removeItem(event) {
-    const productId = event.target.getAttribute("productId");
-    console.log("Deleting product with ID:", productId);
+    const id = event.target.getAttribute("id");
+    console.log("Deleting product with ID:", id);
 
-    fetch(`/ecommerce/addToCart?productId=${productId}`, {
+    fetch(`/ecommerce/addToCart?id=${id}`, {
         method: 'DELETE',
     })
     .then(response => {

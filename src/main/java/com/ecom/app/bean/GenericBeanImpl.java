@@ -24,8 +24,8 @@ public  abstract class GenericBeanImpl<T> implements GenericBeanI<T>{
     }
 
     @Override
-    public void delete(Long productId) {
-    
+    public void delete(Class<?> entityClass, Long id) {
+        genericDao.delete(entityClass, id);
     }
     public GenericDaoImpl<T> getDao(){
         return (GenericDaoImpl<T>) genericDao;

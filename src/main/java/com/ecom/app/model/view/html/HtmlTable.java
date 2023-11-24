@@ -1,6 +1,8 @@
 package com.ecom.app.model.view.html;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,8 +44,7 @@ public class HtmlTable {
                 }
             }
             tableBuilder.append("<td>");
-            tableBuilder.append("<button onclick=\"removeItem(event)\" productId=\""
-                + getFieldValue(model, "productId")
+            tableBuilder.append("<button onclick=\"removeItem(event)\" id=\"" + getFieldValue("id", model)
                 + "\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">REMOVE</button>");
             tableBuilder.append("</td>");
             tableBuilder.append("</tr>");
@@ -77,14 +78,22 @@ public class HtmlTable {
     }
     
 
-    private static Object getFieldValue(Object obj, String fieldName) {
+    private static String getFieldValue(String fieldName, Object model) {
+    Class<?> currentClass = model.getClass();
+
+    while (currentClass != null) {
         try {
-            Field field = obj.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return field.get(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            Method method = currentClass.getDeclaredMethod("get" + StringUtils.capitalize(fieldName));
+            Object value = method.invoke(model);
+            return value != null ? value.toString() : "";
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            // Method not found in the current class, try the superclass
+            currentClass = currentClass.getSuperclass();
         }
     }
+
+    // Method not found in the entire class hierarchy
+    return "";
+}
+
 }

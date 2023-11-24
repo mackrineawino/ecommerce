@@ -9,6 +9,6 @@ public interface GenericDaoI <T> extends Serializable {
 
     void addOrUpdate(T entity);
 
-    void delete(T entity);
+    void delete(Class<?> entityClass, Long id);
 
 }

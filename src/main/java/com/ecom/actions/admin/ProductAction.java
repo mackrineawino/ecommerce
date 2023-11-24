@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ecom.actions.BaseAction;
 import com.ecom.app.bean.ProductBeanI;
+import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.view.html.HtmlForm;
 
@@ -41,12 +42,12 @@ public class ProductAction extends BaseAction {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String productIdString = req.getParameter("productId");
+        String productIdString = req.getParameter("id");
 
         try {
-            Long productId = Long.parseLong(productIdString);
+            Long id = Long.parseLong(productIdString);
 
-            productBean.delete(productId);
+            productBean.delete(Product.class, id);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");

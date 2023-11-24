@@ -6,9 +6,6 @@ import com.ecom.app.model.view.html.HtmlTableColHeader;
 
 @DbTableAnnotation(name="itemCart")
 public class ItemCart extends BaseEntity{
-    // @DbTableColAnnotation(name="productId", definition = "int")
-    // @HtmlTableColHeader(headerLabel = "Product_ID")
-    // private Long productId;
 
     @DbTableColAnnotation(name="productName")
     @HtmlTableColHeader(headerLabel = "Product Name")

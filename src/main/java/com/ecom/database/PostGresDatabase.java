@@ -193,8 +193,10 @@ public class PostGresDatabase implements Serializable {
 
             while (resultSet.next()) {
                 T object = (T) clazz.getDeclaredConstructor().newInstance();
-                // Inside the loop where you set field values
-                for (Field field : clazz.getDeclaredFields()) {
+                 List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+                for (Field field : fields) {
                     field.setAccessible(true);
                     DbTableColAnnotation dbColumn = field.getAnnotation(DbTableColAnnotation.class);
                     if (dbColumn != null) {
@@ -211,6 +213,13 @@ public class PostGresDatabase implements Serializable {
                             field.set(object, value);
                         } else if (field.getType() == int.class) {
                             int value = resultSet.getInt(columnName);
+                            if (field.getType() == Long.class) {
+                                field.set(object, (long) value);
+                            } else {
+                                field.set(object, value);
+                            }
+                        } else if (field.getType() == Long.class) {
+                            long value = resultSet.getLong(columnName);
                             field.set(object, value);
                         } else {
                             Object value = resultSet.getObject(columnName);
@@ -238,6 +247,30 @@ public class PostGresDatabase implements Serializable {
 
         return dataSource.getConnection();
     }
+    public static void deleteProduct(Class<?> clazz, Long id) {
+        try {
+            if (!clazz.isAnnotationPresent(DbTableAnnotation.class))
+                return;
+    
+            DbTableAnnotation dbTable = clazz.getAnnotation(DbTableAnnotation.class);
+    
+            StringBuilder queryBuilder = new StringBuilder();
+            queryBuilder.append("DELETE FROM ").append(dbTable.name()).append(" WHERE id = ?");
+    
+            String query = queryBuilder.toString();
+            System.out.println("Delete Query: " + query);
+    
+            Connection connection = PostGresDatabase.getInstance().getConnection();
+            PreparedStatement sqlStmt = connection.prepareStatement(query);
+            sqlStmt.setLong(1, id);
+    
+            sqlStmt.executeUpdate();
+    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 
     public void closeConnection(Connection connection) {
         if (connection != null) {
