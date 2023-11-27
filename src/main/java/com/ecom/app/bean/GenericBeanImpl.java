@@ -2,12 +2,15 @@ package com.ecom.app.bean;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.ecom.app.dao.GenericDaoI;
 import com.ecom.app.dao.GenericDaoImpl;
 
 public  abstract class GenericBeanImpl<T> implements GenericBeanI<T>{
 
-    private final GenericDaoI<T> genericDao = new GenericDaoImpl<>();
+    @Inject
+    private GenericDaoI<T> genericDao;
 
     @SuppressWarnings({"unchecked","rawtypes"})
     @Override

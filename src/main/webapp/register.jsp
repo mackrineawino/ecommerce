@@ -86,6 +86,9 @@
             <label for="username" style="font-size: 14px">Username</label>
             <input type="text" id="username" name="username" placeholder="kwach" required>
 
+              <label for="email" style="font-size: 14px">Email</label>
+            <input type="text" id="email" name="email" placeholder="kwach@test.com" required>
+
             <label for="password" style="font-size: 14px">Password</label>
             <input type="password" id="password" name="password" placeholder="  *****" required>
 
@@ -101,7 +104,7 @@
                     <label for="normalUserRadio">NORMAL USER</label>
                     <input type="radio" id="normalUserRadio" name="userType" value="NORMAL_USER" required>
                 </div>
-            </div><br>
+            </div>
 
             <button type="submit">Signup</button>
             <h5>Already have an account? <a href="./login">Login</a></h5>

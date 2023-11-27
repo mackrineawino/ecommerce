@@ -5,26 +5,34 @@ import java.util.List;
 
 import com.ecom.app.model.entity.User;
 import com.ecom.database.PostGresDatabase;
-
+import com.ecom.utils.TextHash;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 @Remote
 public class AuthBeanImpl implements AuthBeanI, Serializable {
 
-    public User authenticate(User loginUser) {
-        try {
-            List<User> users = PostGresDatabase.select(User.class);
+    @Inject
+    private TextHash hashText;
 
-            for (User user : users) {
-                if (user.getUsername().equals(loginUser.getUsername()) && user.getPassword().equals(loginUser.getPassword())) {
-                    return user;
-                }
+    public User authenticate(User loginUser) {
+
+        try {
+            loginUser.setPassword(hashText.hash(loginUser.getPassword()));
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+
+        List<User> users = PostGresDatabase.select(User.class);
+
+        for (User user : users) {
+            if (user.getUsername().equals(loginUser.getUsername())
+                    && user.getPassword().equals(loginUser.getPassword())) {
+                return user;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return null;
