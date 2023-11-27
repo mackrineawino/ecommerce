@@ -136,9 +136,10 @@
 
     window.addEventListener('load', setInitials);
 </script>
-
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="js/toggleUserMenu.js"></script>
     <script src="js/AddToCart.js"></script>
+    <script src="js/MakePayment.js" defer></script>
     <script src="js/DeleteFromCart.js"></script>
 </body>
 </html>
