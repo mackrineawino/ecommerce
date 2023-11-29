@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import com.ecom.app.model.entity.ItemCart;
+import com.ecom.app.model.entity.Order;
 import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.entity.User;
 import com.ecom.app.model.entity.UserType;
@@ -57,6 +58,7 @@ public class PostGresDatabase implements Serializable {
             entities.add(User.class);
             entities.add(Product.class);
             entities.add(ItemCart.class);
+             entities.add(Order.class);
 
             for (Class<?> clazz : entities) {
                 if (!clazz.isAnnotationPresent(DbTableAnnotation.class))

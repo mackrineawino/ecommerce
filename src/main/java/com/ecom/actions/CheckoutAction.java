@@ -1,17 +1,28 @@
 package com.ecom.actions;
 
+import com.ecom.app.bean.CartBeanI;
+import com.ecom.app.bean.OrderBeanI;
+import com.ecom.app.model.entity.ItemCart;
+import com.ecom.app.model.entity.Order;
+import com.ecom.app.model.entity.OrderStatus;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-
+import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/checkout")
 public class CheckoutAction extends BaseAction {
+        @EJB
+        private CartBeanI cartBean;
+
+        @EJB
+        private OrderBeanI orderBean;
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -33,7 +44,7 @@ public class CheckoutAction extends BaseAction {
                                                                                         .builder()
                                                                                         .setName("CoolStuff")
                                                                                         .build())
-                                                                                        .setUnitAmount((long) (totalPrice * 100))
+                                                                        .setUnitAmount((long) (totalPrice * 100))
                                                                         .build())
                                                         .setQuantity(1L)
                                                         .build())
@@ -43,6 +54,13 @@ public class CheckoutAction extends BaseAction {
                                         .build();
 
                         Session session = Session.create(createParams);
+
+                        List<ItemCart> orderItems = cartBean.list(ItemCart.class);
+
+                        String userEmail = (String) request.getSession().getAttribute("email");
+                        Order order = new Order(null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
+
+                        orderBean.addOrUpdate(order);
 
                         response.getWriter().print("{\"sessionId\": \"" + session.getId() + "\"}");
 

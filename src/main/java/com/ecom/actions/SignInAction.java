@@ -42,6 +42,7 @@ public class SignInAction extends BaseAction {
                 httpSession.setAttribute("loggedInId", String.valueOf(new Date().getTime()));
                 httpSession.setAttribute("username", userDetails.getUsername());
                 httpSession.setAttribute("userType", userDetails.getUserType().toString());
+                httpSession.setAttribute("email", userDetails.getEmail());
 
                 if (userDetails.getUserType().equals(UserType.ADMIN)) {
                     resp.sendRedirect("./addProduct");

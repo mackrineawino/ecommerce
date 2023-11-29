@@ -60,6 +60,7 @@
         <h2 style="color: white;">ADMIN DASHBOARD</h2>
         <ul style="display: block; list-style-type: none;" class="navbar">
             <li class="navitem"><a href="./addProduct" style="color: white; text-decoration: none; padding: 14px 16px;">ADD ITEMS</a></li>
+             <li class="navitem"><a href="./orders" style="color: white; text-decoration: none; padding: 14px 16px;">ORDERS</a></li>
             <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">VIEW ITEMS</a></li>
         </ul>
         <a href="./logout" style="text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;">LOGOUT</a>
