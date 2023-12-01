@@ -79,7 +79,6 @@
   <artifactId>stripe-java</artifactId>
   <version>24.6.0-beta.1</version>
 </dependency>
-
   </dependencies>
   <build>
     <finalName>ecommerce</finalName>

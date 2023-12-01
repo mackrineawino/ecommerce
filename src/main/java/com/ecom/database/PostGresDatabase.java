@@ -177,33 +177,40 @@ public class PostGresDatabase implements Serializable {
     public static <T> List<T> select(Class<T> filter) {
         try {
             Class<?> clazz = filter;
-            System.out.println();
-            System.out.println("Clazz>>>>>>>>>>" + clazz.getName());
-
+    
             if (!clazz.isAnnotationPresent(DbTableAnnotation.class))
                 return new ArrayList<>();
-
+    
             DbTableAnnotation dbTable = clazz.getAnnotation(DbTableAnnotation.class);
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("SELECT * FROM ")
-                    .append(dbTable.name()).append(";");
+    
+            // Custom handling for Order entity to fetch associated items
+            if (clazz == Order.class) {
+                stringBuilder.append("SELECT o.*, i.* FROM ")
+                        .append(dbTable.name()).append(" o ")
+                        .append("LEFT JOIN itemcart i ON o.id = i.id;");
+            } else {
+                stringBuilder.append("SELECT * FROM ")
+                        .append(dbTable.name()).append(";");
+            }
+    
             Connection conn = PostGresDatabase.getInstance().getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(stringBuilder.toString());
-
+    
             ResultSet resultSet = preparedStatement.executeQuery();
             List<T> result = new ArrayList<>();
-
+    
             while (resultSet.next()) {
                 T object = (T) clazz.getDeclaredConstructor().newInstance();
-                 List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
-            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-
+                List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+                fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+    
                 for (Field field : fields) {
                     field.setAccessible(true);
                     DbTableColAnnotation dbColumn = field.getAnnotation(DbTableColAnnotation.class);
                     if (dbColumn != null) {
                         String columnName = dbColumn.name();
-
+    
                         if (field.getType().isEnum()) {
                             String enumValue = resultSet.getString(columnName);
                             if (enumValue != null) {
@@ -223,25 +230,56 @@ public class PostGresDatabase implements Serializable {
                         } else if (field.getType() == Long.class) {
                             long value = resultSet.getLong(columnName);
                             field.set(object, value);
+                        } else if (field.getName().equals("orderItems")) {
+                            // Handle the retrieval of items from the ResultSet and add them to the 'items'
+                            long id = resultSet.getLong("id"); // Adjust column name as per your database schema
+                            List<ItemCart> items = getItemsForOrder(id);
+                            field.set(object, items);
                         } else {
                             Object value = resultSet.getObject(columnName);
                             field.set(object, value);
                         }
                     }
                 }
-
+    
                 result.add(object);
-                
             }
-
+    
             return result;
-
+    
         } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException
                 | NoSuchMethodException ex) {
             throw new RuntimeException(ex);
         }
     }
-
+    private static List<ItemCart> getItemsForOrder(long id) {
+        List<ItemCart> items = new ArrayList<>();
+    
+        try {
+            Connection conn = PostGresDatabase.getInstance().getConnection();
+            String query = "SELECT * FROM itemcart WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setLong(1, id);
+    
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            while (resultSet.next()) {
+                ItemCart item = new ItemCart();
+                item.setId(resultSet.getLong("id"));
+                item.setProductName(resultSet.getString("productName"));
+                item.setPrice(resultSet.getDouble("productPrice"));
+                
+    
+                items.add(item);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return items;
+    }
+    
     public Connection getConnection() throws SQLException {
         if (dataSource == null) {
             throw new IllegalStateException("DataSource is null. Initialization error.");

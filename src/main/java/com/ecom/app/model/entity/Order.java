@@ -32,8 +32,9 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    public Order(Long id, String email, double totalAmount, OrderStatus status, List<ItemCart> orderItems) {
+    public Order(Long id, String orderNumber, String email, double totalAmount, OrderStatus status, List<ItemCart> orderItems) {
         setId(id);
+        this.orderNumber=orderNumber;
         this.email = email;
         this.totalAmount = totalAmount;
         this.status = status;

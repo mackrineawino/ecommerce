@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
     /* styles.css */
 
@@ -140,6 +141,7 @@
     <script src="js/toggleUserMenu.js"></script>
     <script src="js/AddToCart.js"></script>
     <script src="js/MakePayment.js" defer></script>
+    
     <script src="js/DeleteFromCart.js"></script>
 </body>
 </html>

@@ -58,7 +58,7 @@ public class CheckoutAction extends BaseAction {
                         List<ItemCart> orderItems = cartBean.list(ItemCart.class);
 
                         String userEmail = (String) request.getSession().getAttribute("email");
-                        Order order = new Order(null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
+                        Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
 
                         orderBean.addOrUpdate(order);
 
