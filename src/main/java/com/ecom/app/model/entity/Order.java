@@ -2,6 +2,10 @@ package com.ecom.app.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
 import com.ecom.app.model.view.html.DbTableAnnotation;
 import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
@@ -27,6 +31,7 @@ public class Order extends BaseEntity {
 
     @HtmlTableColHeader(headerLabel = "Items")
     @DbTableColAnnotation(name = "orderItems")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
     private List<ItemCart> orderItems;
 
     public Order() {

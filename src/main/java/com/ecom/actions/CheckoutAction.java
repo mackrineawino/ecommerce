@@ -5,11 +5,13 @@ import com.ecom.app.bean.OrderBeanI;
 import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.entity.Order;
 import com.ecom.app.model.entity.OrderStatus;
+import com.ecom.utils.OrderCreationEvent;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import javax.ejb.EJB;
+import javax.enterprise.inject.spi.CDI;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @WebServlet("/checkout")
 public class CheckoutAction extends BaseAction {
+
         @EJB
         private CartBeanI cartBean;
 
@@ -60,7 +63,12 @@ public class CheckoutAction extends BaseAction {
                         String userEmail = (String) request.getSession().getAttribute("email");
                         Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
 
+                        // Add the order to the database
                         orderBean.addOrUpdate(order);
+
+                        // Fire the OrderCreationEvent
+
+                        CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order));
 
                         response.getWriter().print("{\"sessionId\": \"" + session.getId() + "\"}");
 

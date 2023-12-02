@@ -23,10 +23,9 @@ public class ViewOrdersAction extends BaseAction {
         List<Order> orders = orderBean.list(Order.class);
 
         String userEmail = (String) req.getSession().getAttribute("email");
-
         List<Order> userOrders = orders.stream()
-        .filter(order -> userEmail.equals(order.getEmail()))
-        .collect(Collectors.toList());
+                .filter(order -> userEmail.equals(order.getEmail()))
+                .collect(Collectors.toList());
 
         String orderList = HtmlOrderTable.generateAdminTable(userOrders);
         renderPage(req, resp, 1, orderList);
