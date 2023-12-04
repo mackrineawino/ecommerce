@@ -1,42 +1,35 @@
-document.addEventListener('DOMContentLoaded', function () {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slider-row');
-    const totalSlides = slides.length;
-
-    const nextButton = document.getElementById('nextButton');
+document.addEventListener("DOMContentLoaded", function () {
+    // Variables
+    const slider = document.querySelector('.slider');
     const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let count = 0;
+    const cardsPerSlide = 4;
 
-    // Add event listeners for manual navigation
-    nextButton.addEventListener('click', function () {
-        showSlide(currentSlide + 1);
-    });
+    // Event listeners
+    if (slider && prevButton && nextButton) {
+        prevButton.addEventListener('click', function () {
+            count -= cardsPerSlide;
+            if (count < 0) {
+                count = 0;
+            }
+            updateSlider();
+        });
 
-    prevButton.addEventListener('click', function () {
-        showSlide(currentSlide - 1);
-    });
-
-    // Function to show a specific slide
-    function showSlide(index) {
-        slides[currentSlide].style.display = 'none';
-        currentSlide = (index + totalSlides) % totalSlides;
-        slides[currentSlide].style.display = 'block';
+        nextButton.addEventListener('click', function () {
+            count += cardsPerSlide;
+            if (count >= imageUrls.length) {
+                count = imageUrls.length - cardsPerSlide;
+            }
+            updateSlider();
+        });
     }
 
-    // Function to automatically advance to the next slide
-    function autoAdvance() {
-        showSlide(currentSlide + 1);
+    // Update slider position
+    function updateSlider() {
+        if (slider) {
+            const translateValue = -count * 25 + '%'; // Adjust as per your slide width
+            slider.style.transform = 'translateX(' + translateValue + ')';
+        }
     }
-
-    // Set up automatic slideshow with a 5-second interval (adjust as needed)
-    const intervalId = setInterval(autoAdvance, 5000);
-
-    // Pause automatic slideshow when mouse hovers over the slider
-    document.querySelector('.slider-container').addEventListener('mouseenter', function () {
-        clearInterval(intervalId);
-    });
-
-    // Resume automatic slideshow when mouse leaves the slider
-    document.querySelector('.slider-container').addEventListener('mouseleave', function () {
-        intervalId = setInterval(autoAdvance, 5000);
-    });
 });

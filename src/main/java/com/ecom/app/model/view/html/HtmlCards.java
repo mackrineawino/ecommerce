@@ -14,7 +14,6 @@ public class HtmlCards {
         }
 
         StringBuilder cardBuilder = new StringBuilder();
-cardBuilder.append("<h1 style=\"color: white;\">SHOP NOW</h1>");
         cardBuilder.append(
                 "<div style=\" display: grid; grid-template-columns: repeat(3, 1fr); /* Create 3 columns with equal width */\n"
                         + //
@@ -88,64 +87,55 @@ cardBuilder.append("<h1 style=\"color: white;\">SHOP NOW</h1>");
     // Method not found in the entire class hierarchy
     return "";
 }
-public static String slider(List<? extends Object> models) {
-    StringBuilder sliderHtml = new StringBuilder();
+// public static String slider() {
+//     List<String> imageUrls = Arrays.asList(
+//         "https://github.com/mackrineawino/images/blob/main/shoe4.JPG?raw=true", 
+//         "https://github.com/mackrineawino/images/blob/main/kaLhgbyOgxU-removebg-preview.png?raw=true", 
+//         "https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(5).png?raw=true", 
+//         "https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(4).png?raw=true",
+//         "https://github.com/mackrineawino/images/blob/main/image-removebg-preview%20(3).png?raw=true", 
+//         "https://github.com/mackrineawino/images/blob/main/air-jordan-1-retro-high-og-unc-555088-134-pair.jpg?raw=true", 
+//         "https://raw.githubusercontent.com/mackrineawino/images/main/air-jordan-1-dark-mocha-release-date-555088-105-pair.jpeg.webp", 
+//         "https://github.com/mackrineawino/images/blob/main/Nike-Dunk-SB-Low-Heels-w-removebg-preview%20(2).png?raw=true"
+//     );
 
-    sliderHtml.append("<div class=\"slider-container\" style=\"background: white; margin-top: 10px; margin-bottom: 50px;\">")
-            .append("<div class=\"slider\">");
+//     StringBuilder sliderHtml = new StringBuilder();
 
-    int cardsPerSlide = 4;
+//     sliderHtml.append("<div class=\"slider-container\" style=\"background: white; margin-top: 10px; margin-bottom: 50px;\">")
+//             .append("<div class=\"slider\">");
 
-    for (int i = 0; i < models.size(); i += cardsPerSlide) {
-        sliderHtml.append("<div class=\"slider-row\" style=\"white-space: nowrap; overflow-x: auto; margin: 80px; padding: 20px;\">");
+//     int cardsPerSlide = 4;
 
-        for (int j = i; j < i + cardsPerSlide && j < models.size(); j++) {
-            Object model = models.get(j);
+//     for (int i = 0; i < imageUrls.size(); i += cardsPerSlide) {
+//         sliderHtml.append("<div class=\"slide\">"); // Each slide div
 
-            sliderHtml.append("<div class=\"display_product\" style=\"margin-right: 10px; border-radius: 5px; text-align: center; background: #C2D7EB; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); transition: transform 0.3s; display: inline-block; transform-origin: center;\">");
+//         for (int j = i; j < i + cardsPerSlide && j < imageUrls.size(); j++) {
+//             String imageUrl = imageUrls.get(j);
 
-            Field[] fields = model.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (!field.isAnnotationPresent(HtmlCardAnnotations.class)) {
-                    continue;
-                }
+//             sliderHtml.append("<div class=\"display_product\" style=\"margin-right: 10px; border-radius: 5px; text-align: center; background: #C2D7EB; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); transition: transform 0.3s; display: inline-block; transform-origin: center;\">");
 
-                HtmlCardAnnotations annotation = field.getAnnotation(HtmlCardAnnotations.class);
-                try {
-                    field.setAccessible(true);
-                    if (annotation.label().equals("Image URL: ")) {
-                        // Display image
-                        sliderHtml.append("<div class=\"image-container\">")
-                                .append("<img src='" + field.get(model)
-                                        + "' alt='card image' style=\"height: 250px; width: 250px;\" >")
-                                .append("</div>");
-                    } else {
-                        // Display other fields
-                        sliderHtml.append("<h3>").append(annotation.label()).append(field.get(model)).append("</h3>");
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+//             // Display image
+//             sliderHtml.append("<div class=\"image-container\">")
+//                     .append("<img src='" + imageUrl + "' alt='card image' style=\"height: 250px; width: 250px;\" >")
+//                     .append("</div>");
 
-            sliderHtml.append("</div>");
-        }
+//             sliderHtml.append("</div>");
+//         }
 
-        sliderHtml.append("</div>");
-    }
+//         sliderHtml.append("</div>");
+//     }
 
-    sliderHtml.append("</div>")
-    .append("<div id=\"prevButton\" class=\"slider-button\" style=\"color: #E0588E; background: #1A1D16; border-radius: 50%; margin-left: 53px; position: absolute; top: 50%; left: 0; transform: translateY(-50%);\"><span style=\" font-size: 50px;  font-weight: bold;\" class=\"material-symbols-outlined\">\n" + //
-            "arrow_back_ios\n" + //
-            "</span></div>")
-    .append("<div id=\"nextButton\" class=\"slider-button\" style=\"color: #E0588E; background: #1A1D16; border-radius: 50%;  margin-right: 50px; position: absolute; top: 50%; right: 0; transform: translateY(-50%);\"><span style=\" font-size: 50px;  font-weight: bold;\" class=\"material-symbols-outlined\">arrow_forward_ios</span></div>")
-    .append("</div>")
-    .append("<script src=\"js/Slider.js\"></script>");
+//     sliderHtml.append("</div>")
+//             .append("<div id=\"prevButton\" class=\"slider-button\" style=\"color: #E0588E; background: #1A1D16; border-radius: 50%; margin-left: 53px; position: absolute; top: 50%; left: 0; transform: translateY(-50%);\"><span style=\" font-size: 50px;  font-weight: bold;\" class=\"material-symbols-outlined\">\n" + //
+//                     "arrow_back_ios\n" + //
+//                     "</span></div>")
+//             .append("<div id=\"nextButton\" class=\"slider-button\" style=\"color: #E0588E; background: #1A1D16; border-radius: 50%;  margin-right: 50px; position: absolute; top: 50%; right: 0; transform: translateY(-50%);\"><span style=\" font-size: 50px;  font-weight: bold;\" class=\"material-symbols-outlined\">arrow_forward_ios</span></div>")
+//             .append("</div>")
+//             .append("<script src=\"js/Slider.js\"></script>");
 
+//     return sliderHtml.toString();
+// }
 
-
-    return sliderHtml.toString();
-}
 
 
 }

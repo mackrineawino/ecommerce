@@ -20,11 +20,9 @@ public class HomeAction extends BaseAction {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productBean.list(Product.class);
         String productItems = HtmlCards.generateCards(products);
-        String slider = HtmlCards.slider(products);
 
-        String homeItems= slider+productItems;
 
-        renderPage(req, resp, 0, homeItems);
+        renderPage(req, resp, 0, productItems);
 
     }
 

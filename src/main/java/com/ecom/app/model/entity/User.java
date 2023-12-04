@@ -3,13 +3,16 @@ package com.ecom.app.model.entity;
 
 import com.ecom.app.model.view.html.DbTableAnnotation;
 import com.ecom.app.model.view.html.DbTableColAnnotation;
+import com.ecom.app.model.view.html.HtmlTableColHeader;
 
 @DbTableAnnotation(name="users")
 public class User extends BaseEntity{
 
+     @HtmlTableColHeader(headerLabel = "Username")
     @DbTableColAnnotation(name="username")
     private String username;
 
+     @HtmlTableColHeader(headerLabel = "Email")
     @DbTableColAnnotation(name="email")
     private String email;
 

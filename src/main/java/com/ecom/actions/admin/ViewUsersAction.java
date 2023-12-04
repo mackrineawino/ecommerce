@@ -1,50 +1,36 @@
 package com.ecom.actions.admin;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.ecom.actions.BaseAction;
-import com.ecom.app.bean.ProductBeanI;
+import com.ecom.app.bean.UserBeanI;
 import com.ecom.app.model.entity.Product;
-import com.ecom.app.model.view.html.HtmlForm;
+import com.ecom.app.model.entity.User;
+import com.ecom.app.model.entity.UserType;
+import com.ecom.app.model.view.html.HtmlView;
 
-@WebServlet("/addProduct")
-public class ProductAction extends BaseAction {
+@WebServlet("/viewUsers")
+public class ViewUsersAction extends HttpServlet{
     @EJB
-    private ProductBeanI productBean;
-    private Product product = new Product();
+    UserBeanI userBean;
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("content", HtmlForm.form(Product.class, null));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<User> users = userBean.list(User.class);
+        List<User> normalUsers = users.stream()
+                .filter(user -> user.getUserType() == UserType.NORMAL_USER)
+                .collect(Collectors.toList());
+        String tableContent = HtmlView.generateAdminTable(normalUsers);
+        req.setAttribute("content", tableContent);
         RequestDispatcher dispatcher = req.getRequestDispatcher("./app/adminPage.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        serializeForm(product, req.getParameterMap());
-
-        // Validate form values
-        if (product.getPrice() <= 0 || product.getAvailability() <= 0) {
-            String errorMessage = "Price and Availability Must Be greater than 0.";
-            req.setAttribute("content", HtmlForm.form(Product.class, errorMessage));
-            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/adminPage.jsp");
-            dispatcher.forward(req, resp);
-            return;
-        }
-
-        productBean.addOrUpdate(product);
-
-        boolean isProductAddedSuccessfully = true;
-
-        if (isProductAddedSuccessfully) {
-            req.getSession().setAttribute("productAddSuccess", "Product added successfully!");
-        }
-
-        resp.sendRedirect("./viewAll");
     }
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +39,7 @@ public class ProductAction extends BaseAction {
         try {
             Long id = Long.parseLong(productIdString);
 
-            productBean.delete(Product.class, id);
+            userBean.delete(Product.class, id);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");
@@ -74,5 +60,4 @@ public class ProductAction extends BaseAction {
             System.out.println("Internal server error: " + e.getMessage());
         }
     }
-
 }

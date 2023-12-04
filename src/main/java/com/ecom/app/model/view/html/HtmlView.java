@@ -9,9 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 public class HtmlView {
     public static String generateAdminTable(List<? extends Object> models) {
         StringBuilder tableHtml = new StringBuilder();
-
+        String modelName = models.get(0).getClass().getSimpleName();
+        tableHtml.append("<div style=\"text-align: center; margin-top: 20px;\">")
+        .append("<h1>").append(modelName).append(" List </h1>")
+        .append("</div>");
         Field[] fields = models.get(0).getClass().getDeclaredFields();
-        tableHtml.append("<div style=\"display: flex; justify-content: center; align-items: center; height: 100vh;\">");
+        tableHtml.append("<div style=\"display: flex; justify-content: center; align-items: center; height: 100vh; margin-top: 20px;\">");
         tableHtml.append("<table style=\"border-collapse: collapse; width: 80%; border: 1px solid #ddd; margin: 20px;\">");
         tableHtml.append("<tr style=\"background-color: #f2f2f2;\">");
 
@@ -77,5 +80,11 @@ public class HtmlView {
 
         // Method not found in the entire class hierarchy
         return "";
+    }
+
+    public static String addButton() {
+        StringBuilder button=new StringBuilder();
+         button.append("<div style=\" margin-top: 100px; margin-left: 100px; margin-bottom: -130px;\"><a href=\"addProduct\" style=\" text-decoration: none; padding: 10px 25px; color: white; background: #49A3C8; border-radius: 3px; \">ADD ITEM</a></div>");
+        return button.toString();
     }
 }

@@ -4,7 +4,12 @@
 <html>
 <head>
     <title>Product Entry Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+    
         body {
             margin: 0;
             padding: 0;
@@ -59,9 +64,11 @@
         </h2>
         <h2 style="color: white;">ADMIN DASHBOARD</h2>
         <ul style="display: block; list-style-type: none;" class="navbar">
-            <li class="navitem"><a href="./addProduct" style="color: white; text-decoration: none; padding: 14px 16px;">ADD ITEMS</a></li>
+       
+        <li class="navitem"><a href="./adminhome" style="color: white; text-decoration: none; padding: 14px 16px;">HOME</a></li>
+         <li class="navitem"><a href="./viewUsers" style="color: white; text-decoration: none; padding: 14px 16px;">USERS</a></li>
              <li class="navitem"><a href="./orders" style="color: white; text-decoration: none; padding: 14px 16px;">ORDERS</a></li>
-            <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">VIEW ITEMS</a></li>
+            <li class="navitem"><a href="./viewAll" style="color: white; text-decoration: none; padding: 14px 16px;">PRODUCTS</a></li>
         </ul>
         <a href="./logout" style="text-align: left; margin-left: 40px; text-decoration: none; color: white; padding: 14px 16px;">LOGOUT</a>
     </div>

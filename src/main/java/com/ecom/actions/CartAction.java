@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ecom.app.bean.CartBeanI;
 import com.ecom.app.model.entity.ItemCart;
+import com.ecom.app.model.view.html.HtmlErrorResponces;
 import com.ecom.app.model.view.html.HtmlTable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,10 +23,13 @@ public class CartAction extends BaseAction {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ItemCart> cartItems = cartBean.list(ItemCart.class);
-
-        String cartHtml = HtmlTable.generateSummary(cartItems);
-
-        renderPage(req, resp, 3, cartHtml);
+        if (cartItems.isEmpty()) {
+            String emptyCart = HtmlErrorResponces.emptyCartPage();
+            renderPage(req, resp, 3, emptyCart);
+        } else {
+            String cartHtml = HtmlTable.generateSummary(cartItems);
+            renderPage(req, resp, 3, cartHtml);
+        }
 
     }
 
@@ -38,25 +42,25 @@ public class CartAction extends BaseAction {
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }
-    
+
             ObjectMapper objectMapper = new ObjectMapper();
             ItemCart cart = objectMapper.readValue(json.toString(), ItemCart.class);
-    
+
             cartBean.addOrUpdate(cart);
-    
+
             resp.setContentType("application/json");
             resp.getWriter().write("{\"success\": true}");
         } catch (Exception e) {
             // Log the exception for debugging purposes
             e.printStackTrace();
-    
+
             // Send an error response in JSON format
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.setContentType("application/json");
             resp.getWriter().write("{\"success\": false, \"error\": \"Internal server error\"}");
         }
     }
-    
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String productIdString = req.getParameter("id");

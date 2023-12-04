@@ -45,7 +45,7 @@ public class SignInAction extends BaseAction {
                 httpSession.setAttribute("email", userDetails.getEmail());
 
                 if (userDetails.getUserType().equals(UserType.ADMIN)) {
-                    resp.sendRedirect("./addProduct");
+                    resp.sendRedirect("./adminhome");
                 } else {
                     resp.sendRedirect("./home");
                 }

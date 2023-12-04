@@ -16,13 +16,15 @@ import com.ecom.app.model.entity.Product;
 import com.ecom.app.model.view.html.HtmlView;
 
 @WebServlet("/viewAll")
-public class ViewAllAction extends HttpServlet {
+public class ViewAllItemsAction extends HttpServlet {
     @EJB
     ProductBeanI productBean;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> products = productBean.list(Product.class);
-        String tableContent = HtmlView.generateAdminTable(products);
+        String productList = HtmlView.generateAdminTable(products);
+        String addButton = HtmlView.addButton();
+        String tableContent = addButton + productList;
         req.setAttribute("content", tableContent);
         RequestDispatcher dispatcher = req.getRequestDispatcher("./app/adminPage.jsp");
         dispatcher.forward(req, resp);

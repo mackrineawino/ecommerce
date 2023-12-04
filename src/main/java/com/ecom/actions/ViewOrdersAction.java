@@ -3,15 +3,14 @@ package com.ecom.actions;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.ecom.app.bean.OrderBeanI;
 import com.ecom.app.model.entity.Order;
+import com.ecom.app.model.view.html.HtmlErrorResponces;
 import com.ecom.app.model.view.html.HtmlOrderTable;
 
 @WebServlet("/myOrders")
@@ -27,9 +26,13 @@ public class ViewOrdersAction extends BaseAction {
                 .filter(order -> userEmail.equals(order.getEmail()))
                 .collect(Collectors.toList());
 
-        String orderList = HtmlOrderTable.generateAdminTable(userOrders);
-        renderPage(req, resp, 1, orderList);
-
+        if (userOrders.isEmpty()) {
+            String emptyPage = HtmlErrorResponces.emptyOrderPage();
+            renderPage(req, resp, 1, emptyPage);
+        } else {
+            String orderList = HtmlOrderTable.generateAdminTable(userOrders);
+            renderPage(req, resp, 1, orderList);
+        }
     }
 
 }
