@@ -1,50 +1,53 @@
 package com.ecom.app.model.entity;
 
-
-import com.ecom.app.model.view.html.DbTableAnnotation;
-import com.ecom.app.model.view.html.DbTableColAnnotation;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import com.ecom.app.model.view.html.HtmlCardAnnotations;
 import com.ecom.app.model.view.html.HtmlFormAnnotations;
 import com.ecom.app.model.view.html.HtmlFormFieldAnnotation;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
-@DbTableAnnotation(name="products")
-@HtmlFormAnnotations(label="Add Items", url="./addProduct")
-public class Product extends BaseEntity{
+@Entity
+@Table(name = "products")
+@HtmlFormAnnotations(label = "Add Items", url = "./addProduct")
+public class Product extends BaseEntity {
     // @DbTableColAnnotation(name="productId", definition = "int")
     // @HtmlFormFieldAnnotation(label="Product ID")
     // private Long productId;
 
-    @DbTableColAnnotation(name="imageURL")
-    @HtmlCardAnnotations(label="Image URL: ")
-    @HtmlFormFieldAnnotation(label="Image URL")
+    @Column(name = "imageURL")
+    @HtmlCardAnnotations(label = "Image URL: ")
+    @HtmlFormFieldAnnotation(label = "Image URL")
     private String imageUrl;
 
-    @DbTableColAnnotation(name="productName")
-    @HtmlCardAnnotations(label="Product Name: ")
-    @HtmlFormFieldAnnotation(label="Product Name")
-     @HtmlTableColHeader(headerLabel = "Product Name")
+    @Column(name = "productName")
+    @HtmlCardAnnotations(label = "Product Name: ")
+    @HtmlFormFieldAnnotation(label = "Product Name")
+    @HtmlTableColHeader(headerLabel = "Product Name")
     private String productName;
 
-    @DbTableColAnnotation(name="productPrice")
-     @HtmlCardAnnotations(label="Product Price: ")
-    @HtmlFormFieldAnnotation(label="Price")
+    @Column(name = "productPrice")
+    @HtmlCardAnnotations(label = "Product Price: ")
+    @HtmlFormFieldAnnotation(label = "Price")
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 
-    @DbTableColAnnotation(name="productAvailability")
-     @HtmlCardAnnotations(label="Product Availability: ")
-    @HtmlFormFieldAnnotation(label="Product Availability")
+    @Column(name = "productAvailability")
+    @HtmlCardAnnotations(label = "Product Availability: ")
+    @HtmlFormFieldAnnotation(label = "Product Availability")
     @HtmlTableColHeader(headerLabel = "Product Availability")
     private int availability;
 
-   
-    @DbTableColAnnotation(name="productDescription")
-    @HtmlFormFieldAnnotation(label="Product Description")
+    @Column(name = "productDescription", columnDefinition = "longtext")
+    @HtmlFormFieldAnnotation(label = "Product Description")
     private String productDescription;
-    
-    @DbTableColAnnotation(name="productCategory")
-    @HtmlFormFieldAnnotation(label="Product Category")
+
+    @Column(name = "productCategory")
+     @Enumerated(EnumType.STRING)
+    @HtmlFormFieldAnnotation(label = "Product Category")
     @HtmlTableColHeader(headerLabel = "Product Category")
     private ProductCategory category;
 
@@ -53,7 +56,7 @@ public class Product extends BaseEntity{
 
     public Product(Long id, String name, String description, double price, int availability, ProductCategory category,
             String imageUrl) {
-                setId(id);
+        setId(id);
         this.productName = name;
         this.productDescription = description;
         this.price = price;
@@ -61,6 +64,7 @@ public class Product extends BaseEntity{
         this.category = category;
         this.imageUrl = imageUrl;
     }
+
     public String getProductName() {
         return productName;
     }
@@ -108,6 +112,5 @@ public class Product extends BaseEntity{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
 }

@@ -53,18 +53,18 @@ public class HtmlOrderTable {
 
                 try {
                     field.setAccessible(true);
-                    if (field.getType().isAssignableFrom(List.class)
-                            && field.getAnnotation(HtmlTableColHeader.class).headerLabel().equals("Items")) {
-                        List<ItemCart> orderItems = (List<ItemCart>) field.get(model);
-                        tableHtml.append("<td style=\"border: 1px solid #ddd; color: white; padding: 10px;\">");
-                        for (ItemCart item : orderItems) {
-                            tableHtml.append(item.getProductName()).append(": ").append(item.getPrice());
-                        }
-                        tableHtml.append("</td>");
-                    } else {
+                    // if (field.getType().isAssignableFrom(List.class)
+                    //         && field.getAnnotation(HtmlTableColHeader.class).headerLabel().equals("Items")) {
+                    //     List<ItemCart> orderItems = (List<ItemCart>) field.get(model);
+                    //     tableHtml.append("<td style=\"border: 1px solid #ddd; color: white; padding: 10px;\">");
+                    //     for (ItemCart item : orderItems) {
+                    //         tableHtml.append(item.getProductName()).append(": ").append(item.getPrice());
+                    //     }
+                    //     tableHtml.append("</td>");
+                    // } else {
                         tableHtml.append("<td style=\"border: 1px solid #ddd; color: white; padding: 10px;\">" +
                                 field.get(model) + "</td>");
-                    }
+                    
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }

@@ -1,16 +1,17 @@
 package com.ecom.actions;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import com.ecom.app.bean.ProductBeanI;
-import com.ecom.app.bean.ProductBeanImpl;
 
 @WebServlet("/about")
 public class AboutAction extends BaseAction {
-    ProductBeanI productBean = new ProductBeanImpl();
+   @EJB
+    ProductBeanI productBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         renderPage(req, resp, 2, aboutInfo());

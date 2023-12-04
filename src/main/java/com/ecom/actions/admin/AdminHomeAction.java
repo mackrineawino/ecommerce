@@ -24,16 +24,16 @@ import com.ecom.app.model.view.html.HtmlStats;
 @WebServlet("/adminhome")
 public class AdminHomeAction extends HttpServlet {
   @EJB
-  OrderBeanI orderBeanI;
+  OrderBeanI orderBean;
   @EJB
-  ProductBeanI productBeanI;
+  ProductBeanI productBean;
   @EJB
-  UserBeanI userBeanI;
+  UserBeanI userBean;
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    List<Order> orders = orderBeanI.list(Order.class);
-    List<Product> products = productBeanI.list(Product.class);
-    List<User> users = userBeanI.list(User.class);
+    List<Order> orders = orderBean.list(Order.class);
+    List<Product> products = productBean.list(Product.class);
+    List<User> users = userBean.list(User.class);
 
     List<User> normalUsers = users.stream()
         .filter(user -> user.getUserType() == UserType.NORMAL_USER)

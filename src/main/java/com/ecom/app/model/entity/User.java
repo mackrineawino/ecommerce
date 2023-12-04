@@ -1,51 +1,53 @@
 package com.ecom.app.model.entity;
 
-
-import com.ecom.app.model.view.html.DbTableAnnotation;
-import com.ecom.app.model.view.html.DbTableColAnnotation;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
-@DbTableAnnotation(name="users")
-public class User extends BaseEntity{
+@Entity
+@Table(name = "users")
+public class User extends BaseEntity {
 
-     @HtmlTableColHeader(headerLabel = "Username")
-    @DbTableColAnnotation(name="username")
+    @HtmlTableColHeader(headerLabel = "Username")
+    @Column(name = "username")
     private String username;
 
-     @HtmlTableColHeader(headerLabel = "Email")
-    @DbTableColAnnotation(name="email")
+    @HtmlTableColHeader(headerLabel = "Email")
+    @Column(name = "email")
     private String email;
 
-    @DbTableColAnnotation(name="password")
+    @Column(name = "password")
     private String password;
 
-    @DbTableColAnnotation(name="userType")
-    private  UserType userType;
-    
+    @Column(name = "userType")
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    @Transient
     private String confirmPassword;
 
-
-    public User(){}
-
+    public User() {
+    }
 
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 
-
     public User(Long id, String username, String email, String password, UserType userType) {
         setId(id);
         this.username = username;
-        this.email=email;
+        this.email = email;
         this.password = password;
         this.userType = userType;
     }
-
 
     public String getUsername() {
         return username;
@@ -58,7 +60,6 @@ public class User extends BaseEntity{
     public String getPassword() {
         return password;
     }
-    
 
     public void setPassword(String password) {
         this.password = password;
@@ -72,11 +73,9 @@ public class User extends BaseEntity{
         this.userType = userType;
     }
 
-
     public String getEmail() {
         return email;
     }
-
 
     public void setEmail(String email) {
         this.email = email;

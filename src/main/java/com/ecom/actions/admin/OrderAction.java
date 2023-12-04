@@ -19,10 +19,10 @@ import com.ecom.app.model.view.html.HtmlView;
 @WebServlet("/orders")
 public class OrderAction extends HttpServlet {
     @EJB
-    OrderBeanI orderBeanI;
+    OrderBeanI orderBean;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Order> orders = orderBeanI.list(Order.class);
+        List<Order> orders = orderBean.list(Order.class);
 
         if (orders.isEmpty()) {
              String emptyPage = HtmlErrorResponces.emptyOrderPage();
@@ -42,7 +42,7 @@ public class OrderAction extends HttpServlet {
         try {
             Long id = Long.parseLong(productIdString);
 
-            orderBeanI.delete(Product.class, id);
+            orderBean.delete(Product.class, id);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");

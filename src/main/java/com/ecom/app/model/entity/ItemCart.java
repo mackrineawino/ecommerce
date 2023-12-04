@@ -1,21 +1,24 @@
 package com.ecom.app.model.entity;
 
-import com.ecom.app.model.view.html.DbTableAnnotation;
-import com.ecom.app.model.view.html.DbTableColAnnotation;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
-@DbTableAnnotation(name="itemCart")
+@Entity
+@Table(name = "itemcart")
 public class ItemCart extends BaseEntity{
 
-    @DbTableColAnnotation(name="productName")
+    @Column(name="productName")
     @HtmlTableColHeader(headerLabel = "Product Name")
     private String productName;
 
-    @DbTableColAnnotation(name="productCategory")
+    @Column(name="productCategory")
     @HtmlTableColHeader(headerLabel = "Product Category")
     private ProductCategory category;
 
-    @DbTableColAnnotation(name="productPrice")
+    @Column(name="productPrice")
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 

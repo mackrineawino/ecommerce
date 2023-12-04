@@ -1,15 +1,17 @@
 package com.ecom.app.model.entity;
 
-
 import java.io.Serializable;
 
-import com.ecom.app.model.view.html.DbTableColAnnotation;
-import com.ecom.app.model.view.html.DbTableId;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-public class BaseEntity implements Serializable {
+@MappedSuperclass
+public abstract class BaseEntity implements Serializable {
 
-    @DbTableId
-    @DbTableColAnnotation(name = "id", definition = "int")
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     public Long getId() {

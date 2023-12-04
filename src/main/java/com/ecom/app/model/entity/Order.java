@@ -1,45 +1,47 @@
 package com.ecom.app.model.entity;
 
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-
-import com.ecom.app.model.view.html.DbTableAnnotation;
-import com.ecom.app.model.view.html.DbTableColAnnotation;
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 
-@DbTableAnnotation(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @HtmlTableColHeader(headerLabel = "Order Number")
-    @DbTableColAnnotation(name = "orderNumber")
+    @Column(name = "orderNumber", nullable = false, unique = true)
     private String orderNumber;
 
     @HtmlTableColHeader(headerLabel = "Customer Email")
-    @DbTableColAnnotation(name = "userEmail")
+    @Column(name = "userEmail")
     private String email;
 
     @HtmlTableColHeader(headerLabel = "Amount Payable")
-    @DbTableColAnnotation(name = "totalItemsAmount")
+    @Column(name = "totalItemsAmount")
     private double totalAmount;
 
     @HtmlTableColHeader(headerLabel = "Order Status")
-    @DbTableColAnnotation(name = "orderstatus")
+    @Column(name = "orderstatus")
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @HtmlTableColHeader(headerLabel = "Items")
-    @DbTableColAnnotation(name = "orderItems")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
+    @Transient
     private List<ItemCart> orderItems;
 
     public Order() {
     }
 
-    public Order(Long id, String orderNumber, String email, double totalAmount, OrderStatus status, List<ItemCart> orderItems) {
+    public Order(Long id, String orderNumber, String email, double totalAmount, OrderStatus status,
+            List<ItemCart> orderItems) {
         setId(id);
-        this.orderNumber=orderNumber;
+        this.orderNumber = orderNumber;
         this.email = email;
         this.totalAmount = totalAmount;
         this.status = status;

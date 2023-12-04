@@ -7,5 +7,4 @@ import javax.ejb.Stateless;
 @Remote
 public class CartBeanImpl extends GenericBeanImpl<ItemCart> implements CartBeanI {
 
-   
 }
