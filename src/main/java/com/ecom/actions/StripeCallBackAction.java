@@ -1,4 +1,4 @@
-package com.ecom.rest.api;
+package com.ecom.actions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,9 +23,8 @@ import com.ecom.utils.OrderCreationEvent;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.net.Webhook;
 
-
 @WebServlet("/stripe/callback")
-public class MpesaCallBack extends HttpServlet {
+public class StripeCallBackAction extends HttpServlet {
 
     @EJB
     OrderBeanI orderBean;
@@ -42,9 +41,9 @@ public class MpesaCallBack extends HttpServlet {
                 stringBuilder.append(charBuffer, 0, bytesRead);
             }
         }
-        
+
         String stripeCallbackPayload = stringBuilder.toString();
-        JsonReader reader= Json.createReader(new StringReader(stripeCallbackPayload));
+        JsonReader reader = Json.createReader(new StringReader(stripeCallbackPayload));
         JsonObject json = reader.readObject();
         System.out.println("Data===========>");
         System.out.println(json.getJsonObject("data"));

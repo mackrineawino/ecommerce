@@ -41,7 +41,7 @@ public class Product extends BaseEntity {
     @HtmlTableColHeader(headerLabel = "Product Availability")
     private int availability;
 
-    @Column(name = "productDescription", columnDefinition = "longtext")
+    @Column(name = "productDescription", columnDefinition = "text")
     @HtmlFormFieldAnnotation(label = "Product Description")
     private String productDescription;
 

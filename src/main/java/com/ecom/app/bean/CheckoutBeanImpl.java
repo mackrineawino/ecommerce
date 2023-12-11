@@ -1,28 +1,17 @@
 package com.ecom.app.bean;
 
-import com.ecom.app.bean.CartBeanI;
-import com.ecom.app.bean.OrderBeanI;
-import com.ecom.app.model.entity.ItemCart;
-import com.ecom.app.model.entity.Order;
-import com.ecom.app.model.entity.OrderStatus;
-import com.ecom.utils.OrderCreationEvent;
 import com.stripe.Stripe;
-import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
-import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
-import java.util.List;
+
+
 
 @Stateless
 public class CheckoutBeanImpl implements CheckoutBeanI {
