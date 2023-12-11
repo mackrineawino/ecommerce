@@ -33,7 +33,7 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
     if (httpSession.isNew() || StringUtils.isBlank((String) httpSession.getAttribute("loggedInId"))) {
         httpSession.invalidate();
 
-        if (servletPath.equals("/user") || servletPath.equals("/login") || servletPath.contains(".jsp")) {
+        if (servletPath.equals("/user") || servletPath.equals("/myOrders") || servletPath.equals("/stripe/callback") || servletPath.equals("/login") || servletPath.contains(".jsp")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/");

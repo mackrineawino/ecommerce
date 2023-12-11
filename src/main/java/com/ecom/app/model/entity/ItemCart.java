@@ -2,6 +2,7 @@ package com.ecom.app.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ecom.app.model.view.html.HtmlTableColHeader;
@@ -22,14 +23,26 @@ public class ItemCart extends BaseEntity{
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 
+    @ManyToOne
+    private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public ItemCart() {
     }
 
-    public ItemCart(Long id, String name, ProductCategory category, double price) {
+    public ItemCart(Long id, String name, ProductCategory category, double price, Order order) {
         setId(id);
         this.productName = name;
         this.category = category;
         this.price = price;
+        this.order=order;
 
     }
 

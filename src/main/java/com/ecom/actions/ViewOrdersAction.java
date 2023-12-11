@@ -21,16 +21,16 @@ public class ViewOrdersAction extends BaseAction {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Order> orders = orderBean.list(Order.class);
 
-        String userEmail = (String) req.getSession().getAttribute("email");
-        List<Order> userOrders = orders.stream()
-                .filter(order -> userEmail.equals(order.getEmail()))
-                .collect(Collectors.toList());
+        // String userEmail = req.getRemoteUser();
+        // List<Order> userOrders = orders.stream()
+        //         .filter(order -> userEmail.equals(order.getEmail()))
+        //         .collect(Collectors.toList());
 
-        if (userOrders.isEmpty()) {
+        if (orders.isEmpty()) {
             String emptyPage = HtmlErrorResponces.emptyOrderPage();
             renderPage(req, resp, 1, emptyPage);
         } else {
-            String orderList = HtmlOrderTable.generateAdminTable(userOrders);
+            String orderList = HtmlOrderTable.generateAdminTable(orders);
             renderPage(req, resp, 1, orderList);
         }
     }

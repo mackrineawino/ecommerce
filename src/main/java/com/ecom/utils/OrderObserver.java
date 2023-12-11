@@ -13,6 +13,11 @@ public class OrderObserver {
 
     public void observeOrderCreatedEvent(@Observes OrderCreationEvent event) {
         Order order = event.getNewOrder();
-        emailService.sendOrderConfirmationEmail(order.getEmail(), order.getOrderNumber());
+        try {
+            emailService.sendOrderConfirmationEmail(order.getEmail(), order.getOrderNumber());
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+        }
     }
 }

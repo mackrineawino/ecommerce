@@ -9,24 +9,24 @@ function checkout(totalPrice) {
     fetch('/ecommerce/checkout?totalPrice=' + totalPrice, {
         method: 'POST',
     })
-    .then(response => response.json())
-    .then(session => {
-        stripe.redirectToCheckout({ sessionId: session.sessionId })
-        .then(result => {
-            if (result.error) {
-                alert(result.error.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            spinner.style.display = 'none';
-            button.disabled = false;
-        });
+    .then(response => response.json())  // Assuming the response is JSON
+    .then(data => {
+        // Check if the data contains a valid sessionId
+        if (data && data.sessionId) {
+            return stripe.redirectToCheckout({ sessionId: data.sessionId });
+        } else {
+            throw new Error('Invalid session data');
+        }
+    })
+    .then(result => {
+        if (result.error) {
+            alert(result.error.message);
+        }
     })
     .catch(error => {
         console.error('Error:', error);
+    })
+    .finally(() => {
         spinner.style.display = 'none';
         button.disabled = false;
     });

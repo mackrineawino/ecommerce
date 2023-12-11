@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -32,7 +34,7 @@ public class Order extends BaseEntity {
     private OrderStatus status;
 
     @HtmlTableColHeader(headerLabel = "Items")
-    @Transient
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<ItemCart> orderItems;
 
     public Order() {

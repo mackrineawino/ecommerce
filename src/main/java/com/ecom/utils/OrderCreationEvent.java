@@ -8,8 +8,8 @@ public class OrderCreationEvent implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final Order newOrder;
-
     public OrderCreationEvent(Order newOrder) {
+
         this.newOrder = newOrder;
     }
 
