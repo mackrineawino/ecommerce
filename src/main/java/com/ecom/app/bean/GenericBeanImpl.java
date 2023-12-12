@@ -1,6 +1,7 @@
 package com.ecom.app.bean;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -24,7 +25,17 @@ public abstract class GenericBeanImpl<T> implements GenericBeanI<T> {
         return genericDao.list(entity);
 
     }
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public List<T> list(Class<?> entity, Map<String, Object> filters) {
+        genericDao.setEm(em);
 
+        if (filters != null && !filters.isEmpty()) {
+            return genericDao.listWithFilters(entity, filters);
+        } else {
+            return genericDao.list(entity);
+        }
+    }
     @Override
     public void addOrUpdate(T entity) {
         genericDao.setEm(em);

@@ -1,9 +1,17 @@
 package com.ecom.app.dao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import java.util.Map;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 
 public class GenericDaoImpl<T> implements GenericDaoI<T> {
 
@@ -19,7 +27,22 @@ public class GenericDaoImpl<T> implements GenericDaoI<T> {
         return results;
     }
     
+ @SuppressWarnings({ "unchecked" })
+    @Override
+    public List<T> listWithFilters(Class<?> entity, Map<String, Object> filters) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery((Class<T>) entity);
+        Root<T> root = criteriaQuery.from((Class<T>) entity);
 
+        List<Predicate> predicates = filters.entrySet().stream()
+                .map(entry -> criteriaBuilder.equal(root.get(entry.getKey()), entry.getValue()))
+                .collect(Collectors.toList());
+
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        TypedQuery<T> typedQuery = em.createQuery(criteriaQuery);
+        return typedQuery.getResultList();
+    }
     @Override
     public void addOrUpdate(T entity) {
         em.merge(entity);
