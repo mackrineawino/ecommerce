@@ -1,4 +1,4 @@
-package com.ecom.rest.api;
+package com.ecom.api.rest;
 import java.io.Serializable;
 
 public class RestResponceWrapper implements Serializable {
@@ -10,6 +10,14 @@ public class RestResponceWrapper implements Serializable {
     public RestResponceWrapper(){
         this.success = true;
         this.message = "OK";
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public RestResponceWrapper(String message){

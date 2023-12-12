@@ -50,10 +50,10 @@ public class HtmlCards {
             cardBuilder.append("<a href=\"/ecommerce/viewMore?id=" + getFieldValue("id", model)
                     + "\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">VIEW MORE</a>");
             cardBuilder.append("<button  id=\"" + getFieldValue("id", model)
-                    + "\" productName=\"" + getFieldValue("productName", model) + "\" category=\""
-                    + getFieldValue("category", model) + "\" price=\"" + getFieldValue("price", model)
-                    + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
-                    .append("ADD TO CART").append("</button>");
+            +  "\" imageUrl=\"" + getFieldValue("imageUrl", model) + "\" productName=\"" + getFieldValue("productName", model) + "\" category=\""
+            + getFieldValue("category", model) + "\" price=\"" + getFieldValue("price", model)
+            + "\" onclick=\"addToCartClick(event)\" style=\"text-decoration: none; padding: 10px 25px; color: white; background: #E0588E; border-radius: 3px;\">")
+            .append("ADD TO CART").append("</button>");
             cardBuilder.append("</div>");
 
             cardBuilder.append("</div>");

@@ -38,7 +38,14 @@ public class HtmlTable {
     
                 try {
                     field.setAccessible(true);
-                    tableBuilder.append("<td>").append(field.get(model)).append("</td>");
+                    Object fieldValue = field.get(model);
+                    if ("imageUrl".equals(field.getName())) {
+                        // Render image if the field is "imageUrl"
+                        tableBuilder.append("<td>").append("<img src='" + fieldValue + "' alt='image' style='height: 50px; width: 50px;'>").append("</td>");
+                    } else {
+                        // Render other fields
+                        tableBuilder.append("<td>").append(fieldValue).append("</td>");
+                    }
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }

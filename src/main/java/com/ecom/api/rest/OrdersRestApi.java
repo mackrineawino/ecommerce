@@ -1,4 +1,4 @@
-package com.ecom.rest.api;
+package com.ecom.api.rest;
 
 
 import javax.ejb.EJB;
@@ -31,4 +31,13 @@ public class OrdersRestApi  extends BaseRestApi{
     public Response list(){
         return respond(orderBean.list(Order.class));
     }
+
+    @Path("/delete/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") Long id) {
+        orderBean.delete(Order.class, id);
+        return respond();
+    }
+
 }

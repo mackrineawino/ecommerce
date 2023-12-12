@@ -1,4 +1,4 @@
-package com.ecom.rest.api;
+package com.ecom.api.rest;
 
 import com.ecom.app.bean.CheckoutBeanI;
 

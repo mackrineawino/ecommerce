@@ -1,4 +1,4 @@
-package com.ecom.rest.api;
+package com.ecom.api.rest;
 
 import javax.ws.rs.core.Response;
 

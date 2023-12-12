@@ -9,17 +9,20 @@ import com.ecom.app.model.view.html.HtmlTableColHeader;
 
 @Entity
 @Table(name = "itemcart")
-public class ItemCart extends BaseEntity{
+public class ItemCart extends BaseEntity {
+    @HtmlTableColHeader(headerLabel = "imageUrl")
+    @Column(name = "imageUrl")
+    private String imageUrl;
 
-    @Column(name="productName")
+    @Column(name = "productName")
     @HtmlTableColHeader(headerLabel = "Product Name")
     private String productName;
 
-    @Column(name="productCategory")
+    @Column(name = "productCategory")
     @HtmlTableColHeader(headerLabel = "Product Category")
     private ProductCategory category;
 
-    @Column(name="productPrice")
+    @Column(name = "productPrice")
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 
@@ -37,12 +40,13 @@ public class ItemCart extends BaseEntity{
     public ItemCart() {
     }
 
-    public ItemCart(Long id, String name, ProductCategory category, double price, Order order) {
+    public ItemCart(Long id, String imageUrl, String name, ProductCategory category, double price, Order order) {
         setId(id);
+        this.imageUrl = imageUrl;
         this.productName = name;
         this.category = category;
         this.price = price;
-        this.order=order;
+        this.order = order;
 
     }
 
@@ -70,28 +74,12 @@ public class ItemCart extends BaseEntity{
         this.price = price;
     }
 
-    // public Long getProductId() {
-    //     return productId;
-    // }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-    // public void setProductId(Long productId) {
-    //     this.productId = productId;
-    // }
-    // public String tableRow(){
-    // StringBuilder trBuilder = new StringBuilder();
-    // trBuilder.append("<tr>");
-    // trBuilder.append("<td>").append(getProductId()).append("</td>");
-    // trBuilder.append("<td>").append(StringUtils.trimToEmpty(getProductName())).append("</td>");
-    // trBuilder.append("<td>").append(getCategory()).append("</td>");
-    // trBuilder.append("<td>").append(new
-    // DecimalFormat("#,###.##").format(getPrice())).append("</td>");
-    // trBuilder.append("<td>").append("<button onclick=\"removeItem(event)\"
-    // productId=\"" + getProductId() + "\" style=\"text-decoration: none; padding:
-    // 10px 25px; color: white; background: #E0588E; border-radius:
-    // 3px;\">REMOVE</button>").append("</td>");
-    // trBuilder.append("<tr>");
-
-    // return trBuilder.toString();
-    // }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
 }

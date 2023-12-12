@@ -1,14 +1,17 @@
 function addToCartClick(event) {
     event.preventDefault();
 
-    const addToCartButton = event.currentTarget;
-    const id = event.target.getAttribute("id");
-    const productName = event.target.getAttribute("productName");
-    const category = event.target.getAttribute("category");
-    const price = event.target.getAttribute("price");
+    const addToCartButton = event.currentTarget; // Use currentTarget instead of target
+const id = addToCartButton.getAttribute("id");
+const imageUrl = addToCartButton.getAttribute("imageUrl");
+const productName = addToCartButton.getAttribute("productName");
+const category = addToCartButton.getAttribute("category");
+const price = addToCartButton.getAttribute("price");
+
     
         const data = {
             id,
+            imageUrl: imageUrl,
             productName: productName,
             category: category,
             price: price,

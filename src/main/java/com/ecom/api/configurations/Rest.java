@@ -1,4 +1,4 @@
-package com.ecom.rest.configurations;
+package com.ecom.api.configurations;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
