@@ -3,7 +3,6 @@ package com.ecom.app.bean;
 import com.ecom.app.model.entity.User;
 import com.ecom.utils.TextHash;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -22,12 +21,13 @@ public class UserBeanImpl extends GenericBeanImpl<User> implements UserBeanI {
     @Inject
     private TextHash hashText;
 
+
     @Override
-    public boolean register(User user) throws SQLException {
+    public void addOrUpdate(User user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new RuntimeException("Password & confirm password do not match");
         }
-
+    
         List<User> existingUsers = list(User.class);
         for (User existingUser : existingUsers) {
             System.out.println("Checking user: " + existingUser);
@@ -36,22 +36,17 @@ public class UserBeanImpl extends GenericBeanImpl<User> implements UserBeanI {
                 throw new RuntimeException("User with the same username or email already exists!");
             }
         }
-
+    
         try {
             user.setPassword(hashText.hash(user.getPassword()));
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
-
-        em.merge(user);
-
-        return true;
+    
+        // Call the addOrUpdate method from the superclass
+        super.addOrUpdate(user);
     }
 
-    @Override
-    public boolean deleteUser(User user) {
 
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
-    }
 
 }

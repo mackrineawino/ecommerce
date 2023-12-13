@@ -1,11 +1,25 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-  <display-name>CoolStuff</display-name>
-  <context-param>
-    <param-name>CoolStuff</param-name>
-    <param-value>Ecommerce Software</param-value>
-  </context-param>
+    <display-name>CoolStuff</display-name>
+
+    <!-- Context Parameter -->
+    <context-param>
+        <param-name>CoolStuff</param-name>
+        <param-value>Ecommerce Software</param-value>
+    </context-param>
+
+    <!-- JWT Filter -->
+    <filter>
+        <filter-name>jwtFilter</filter-name>
+        <filter-class>com.ecom.filters.JwtFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>jwtFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Add your other configurations, filters, servlets, etc., here -->
+
 </web-app>
