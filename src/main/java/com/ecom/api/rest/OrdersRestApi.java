@@ -16,16 +16,6 @@ public class OrdersRestApi extends BaseRestApi {
     private OrderBeanI orderBean;
 
     @RolesAllowed("LOGGED_IN")
-    @Path("/add")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response add(Order order) {
-        orderBean.addOrUpdate(order);
-        return respond();
-    }
-
-    @RolesAllowed("LOGGED_IN")
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

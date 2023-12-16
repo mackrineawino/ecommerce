@@ -21,8 +21,10 @@ import com.ecom.app.model.entity.Order;
 import com.ecom.app.model.entity.OrderStatus;
 import com.ecom.utils.OrderCreationEvent;
 import com.stripe.exception.SignatureVerificationException;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
-
 @WebServlet("/stripe/callback")
 public class StripeCallBackAction extends HttpServlet {
 
@@ -34,6 +36,7 @@ public class StripeCallBackAction extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
+       
         try (BufferedReader reader = request.getReader()) {
             char[] charBuffer = new char[128];
             int bytesRead;
@@ -57,20 +60,31 @@ public class StripeCallBackAction extends HttpServlet {
                     "whsec_DWlTRWFDORsYWxqZmpj3O6FnZT5zNQA9");
 
             if ("checkout.session.completed".equals(event.getType())) {
+                JsonObject sessionData = json.getJsonObject("data").getJsonObject("object");
 
-                List<ItemCart> orderItems = cartBean.list(ItemCart.class);
+                // Retrieve the session to get the payment intent ID
+                Session session;
+                PaymentIntent paymentIntent;
+               
+                try {
+                    session = Session.retrieve(sessionData.getString("id"));
+                    paymentIntent = PaymentIntent.retrieve(session.getPaymentIntent());
+                    Long totalAmount = paymentIntent.getAmount();
+                    double totalPrice = totalAmount / 100.0;
+                    String userEmail = sessionData.getJsonObject("customer_details").getString("email");
+                    List<ItemCart> orderItems = cartBean.list(ItemCart.class);
 
-                String userEmail = (String) request.getSession().getAttribute("email");
-                double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
+                    Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
+                    String generatedOrderNumber = orderBean.addOrUpdateAndGetOrderNumber(order);
 
-                Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
-                orderBean.addOrUpdate(order);
-
-                CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order));
+                    CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order,generatedOrderNumber ));
+                } catch (StripeException e) {
+                    e.printStackTrace();
+                }
             }
+
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
         }
-
     }
 }

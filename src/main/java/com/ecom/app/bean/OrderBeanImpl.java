@@ -27,6 +27,12 @@ public class OrderBeanImpl extends GenericBeanImpl<Order> implements OrderBeanI 
         getDao().addOrUpdate(order);
 
     }
+
+    public String addOrUpdateAndGetOrderNumber(Order order) {
+        order.setOrderNumber(txnNoGenerator.generate());
+        getDao().addOrUpdate(order);
+        return order.getOrderNumber();
+    }
     @Override
     public Order getBySessionId(String sessionId) {
         String queryString = "SELECT o FROM Order o WHERE o.stripeSessionId = :sessionId";

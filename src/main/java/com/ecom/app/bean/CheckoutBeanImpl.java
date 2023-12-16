@@ -45,8 +45,8 @@ public class CheckoutBeanImpl implements CheckoutBeanI {
                                                 .setQuantity(1L)
                                                 .build())
                                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                                .setSuccessUrl("http://localhost:8080/ecommerce/myOrders")
-                                .setCancelUrl("http://localhost:8080/ecommerce/addToCart")
+                                .setSuccessUrl("http://localhost:3000/orders")
+                                .setCancelUrl("http://localhost:3000/cart")
                                 .build();
 
                 Session session = Session.create(createParams);

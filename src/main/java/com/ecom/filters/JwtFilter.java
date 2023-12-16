@@ -30,15 +30,9 @@ public class JwtFilter implements Filter {
         String requestURI = httpRequest.getRequestURI();
         System.out.println("getting......" + requestURI);
 
-        // Enumeration<String> headerNames = httpRequest.getHeaderNames();
-        // while (headerNames.hasMoreElements()) {
-        //     String headerName = headerNames.nextElement();
-        //     String headerValue = httpRequest.getHeader(headerName);
-        //     System.out.println("Header: " + headerName + " = " + headerValue);
-        // }
 
         // Skip token validation for the login endpoint
-        if ("/ecommerce/rest/auth/login".equals(requestURI) || "/ecommerce/rest/auth/register".equals(requestURI)) {
+        if ("/ecommerce/rest/auth/login".equals(requestURI) || "/ecommerce/rest/auth/register".equals(requestURI) || "/ecommerce/stripe/callback".equals(requestURI) || "/ecommerce/login".equals(requestURI)) {
             chain.doFilter(request, response);
             return;
         }
