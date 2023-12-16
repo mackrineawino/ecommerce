@@ -12,13 +12,13 @@ import javax.ws.rs.core.Response;
 import com.ecom.app.bean.ProductBeanI;
 import com.ecom.app.model.entity.Product;
 
-@Path("/api/products")
+@Path("/products")
 public class ProductsRestApi extends BaseRestApi {
 
     @EJB
     private ProductBeanI productBean;
 
-
+    @RolesAllowed("LOGGED_IN")
     @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -28,7 +28,7 @@ public class ProductsRestApi extends BaseRestApi {
         return respond();
     }
 
-    
+    @RolesAllowed("LOGGED_IN")
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +36,7 @@ public class ProductsRestApi extends BaseRestApi {
         return respond(productBean.list(Product.class));
     }
 
-  
+    @RolesAllowed("LOGGED_IN")
     @Path("/list/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,7 +48,7 @@ public class ProductsRestApi extends BaseRestApi {
 
     }
 
-   
+    @RolesAllowed("LOGGED_IN")
     @Path("/delete/{id}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)

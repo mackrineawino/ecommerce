@@ -10,7 +10,7 @@
         <param-value>Ecommerce Software</param-value>
     </context-param>
 
-    <!-- JWT Filter -->
+    <!-- JWT Filter
     <filter>
         <filter-name>jwtFilter</filter-name>
         <filter-class>com.ecom.filters.JwtFilter</filter-class>
@@ -18,7 +18,7 @@
     <filter-mapping>
         <filter-name>jwtFilter</filter-name>
         <url-pattern>/api/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
 
     <!-- Add your other configurations, filters, servlets, etc., here -->
 

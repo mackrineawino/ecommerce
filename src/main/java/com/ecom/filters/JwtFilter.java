@@ -3,6 +3,7 @@ package com.ecom.filters;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 
 import javax.servlet.Filter;
@@ -11,9 +12,12 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Enumeration;
 
+@WebFilter(urlPatterns = "/*")
 public class JwtFilter implements Filter {
 
     Dotenv dotenv = Dotenv.configure().directory("/home/awino/Documents/projects/ecommerce").load();
@@ -24,38 +28,57 @@ public class JwtFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
+        System.out.println("getting......" + requestURI);
+
+        // Enumeration<String> headerNames = httpRequest.getHeaderNames();
+        // while (headerNames.hasMoreElements()) {
+        //     String headerName = headerNames.nextElement();
+        //     String headerValue = httpRequest.getHeader(headerName);
+        //     System.out.println("Header: " + headerName + " = " + headerValue);
+        // }
 
         // Skip token validation for the login endpoint
-        if ("/auth/login".equals(requestURI)) {
+        if ("/ecommerce/rest/auth/login".equals(requestURI) || "/ecommerce/rest/auth/register".equals(requestURI)) {
             chain.doFilter(request, response);
             return;
         }
 
         // Extract the token from the Authorization header
-        String token = httpRequest.getHeader("Authorization");
+        String authorizationHeader = httpRequest.getHeader("Authorization");
+        System.out.println(" Token: " + authorizationHeader);
 
-        if (token == null || !token.startsWith("Bearer ")) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             response.getWriter().write("Token missing or invalid");
- 
             return;
         }
 
-      
+        // Extract the actual token value from the "Bearer " prefix and remove spaces
+        String token = authorizationHeader.substring(7).replaceAll("\\s", "");
+
+        // Log the extracted token for debugging
+        System.out.println("Extracted Token: " + token);
 
         // Continue with token validation for other URLs
         try {
             // Validate the token
             Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-            
-            // You can perform additional validation based on the claims, such as checking roles
-            // For example: if (!claims.get("role").equals("USER")) { /* handle unauthorized access */ }
+
+            // Additional validation if needed
 
             // Continue with the request
             chain.doFilter(request, response);
+        } catch (MalformedJwtException e) {
+            // Log the exception for diagnosis
+            e.printStackTrace();
+
+            // Token is malformed
+            response.getWriter().write("Malformed token");
         } catch (SignatureException e) {
-            // Token is invalid
-            response.getWriter().write("Invalid token");
-            
+            // Log the exception for diagnosis
+            e.printStackTrace();
+
+            // Token signature is invalid
+            response.getWriter().write("Invalid token signature");
         }
     }
 
