@@ -1,7 +1,9 @@
 package com.ecom.app.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,8 +28,31 @@ public class ItemCart extends BaseEntity {
     @HtmlTableColHeader(headerLabel = "Product Price")
     private double price;
 
-    @ManyToOne
+    @Column(name = "quanity")
+    @HtmlTableColHeader(headerLabel = "quantity")
+    private Integer quantity = 1;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
     private Order order;
+
+    @Column(name = "productid")
+    private Long productid;
+
+    public ItemCart() {
+    }
+
+    public ItemCart(Long id, Long productid, String imageUrl, String name, ProductCategory category, double price,
+            Order order, Integer quanity) {
+        setId(id);
+        this.productid = productid;
+        this.imageUrl = imageUrl;
+        this.productName = name;
+        this.category = category;
+        this.price = price;
+        this.order = order;
+        this.quantity = quanity;
+    }
 
     public Order getOrder() {
         return order;
@@ -35,19 +60,6 @@ public class ItemCart extends BaseEntity {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public ItemCart() {
-    }
-
-    public ItemCart(Long id, String imageUrl, String name, ProductCategory category, double price, Order order) {
-        setId(id);
-        this.imageUrl = imageUrl;
-        this.productName = name;
-        this.category = category;
-        this.price = price;
-        this.order = order;
-
     }
 
     public String getProductName() {
@@ -60,6 +72,14 @@ public class ItemCart extends BaseEntity {
 
     public ProductCategory getCategory() {
         return category;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public void setCategory(ProductCategory category) {
@@ -80,6 +100,14 @@ public class ItemCart extends BaseEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Long getProductid() {
+        return productid;
+    }
+
+    public void setProductid(Long productid) {
+        this.productid = productid;
     }
 
 }

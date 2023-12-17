@@ -26,6 +26,24 @@ public class CartRestApi extends BaseRestApi {
     }
 
     @RolesAllowed("LOGGED_IN")
+    @Path("/addMore/{id}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addMore(@PathParam("id") Long id) {
+        cartBean.addMoreQuantity(id);
+        return respond();
+    }
+
+    @RolesAllowed("LOGGED_IN")
+    @Path("/decreaseQuantity/{id}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response reduceQuantity(@PathParam("id") Long id) {
+        cartBean.reduceQuantity(id);
+        return respond();
+    }
+
+    @RolesAllowed("LOGGED_IN")
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,5 +59,4 @@ public class CartRestApi extends BaseRestApi {
         cartBean.delete(ItemCart.class, id);
         return respond();
     }
-
 }

@@ -25,6 +25,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+
 @WebServlet("/stripe/callback")
 public class StripeCallBackAction extends HttpServlet {
 
@@ -36,7 +37,7 @@ public class StripeCallBackAction extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-       
+
         try (BufferedReader reader = request.getReader()) {
             char[] charBuffer = new char[128];
             int bytesRead;
@@ -65,19 +66,32 @@ public class StripeCallBackAction extends HttpServlet {
                 // Retrieve the session to get the payment intent ID
                 Session session;
                 PaymentIntent paymentIntent;
-               
+
                 try {
+                    
                     session = Session.retrieve(sessionData.getString("id"));
                     paymentIntent = PaymentIntent.retrieve(session.getPaymentIntent());
                     Long totalAmount = paymentIntent.getAmount();
                     double totalPrice = totalAmount / 100.0;
                     String userEmail = sessionData.getJsonObject("customer_details").getString("email");
-                    List<ItemCart> orderItems = cartBean.list(ItemCart.class);
+                    List<ItemCart> cartItems = cartBean.list(ItemCart.class);
 
-                    Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, orderItems);
+                    Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, cartItems);
                     String generatedOrderNumber = orderBean.addOrUpdateAndGetOrderNumber(order);
 
-                    CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order,generatedOrderNumber ));
+                    // Add order items to the order
+                    for (ItemCart cartItem : cartItems) {
+                        cartItem.setOrder(order);
+                        System.out.println("itemsssssssssss" + cartItem.getImageUrl());
+                        
+                    }
+                    // Save the updated cart items (with order reference)
+                    cartBean.addOrUpdateCartItems(cartItems);
+
+                    // Clear the cart
+                    cartBean.clearCart();
+
+                    CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order, generatedOrderNumber));
                 } catch (StripeException e) {
                     e.printStackTrace();
                 }

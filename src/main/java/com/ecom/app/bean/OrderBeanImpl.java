@@ -28,6 +28,21 @@ public class OrderBeanImpl extends GenericBeanImpl<Order> implements OrderBeanI 
 
     }
 
+    @Override
+public Order findOrderById(Long orderId) {
+    try {
+        return em.createQuery("SELECT o FROM Order o LEFT JOIN FETCH o.orderItems WHERE o.id = :orderId", Order.class)
+            .setParameter("orderId", orderId)
+            .getSingleResult();
+    } catch (Exception e) {
+      
+        e.printStackTrace();
+        return null;
+    }
+}
+
+    
+
     public String addOrUpdateAndGetOrderNumber(Order order) {
         order.setOrderNumber(txnNoGenerator.generate());
         getDao().addOrUpdate(order);

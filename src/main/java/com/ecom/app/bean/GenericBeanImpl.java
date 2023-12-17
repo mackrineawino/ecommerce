@@ -42,6 +42,11 @@ public abstract class GenericBeanImpl<T> implements GenericBeanI<T> {
         genericDao.addOrUpdate(entity);
 
     }
+    public T findById(Class<T> entityClass, Long id) {
+        genericDao.setEm(em);
+        return em.find(entityClass, id);
+    }
+
 
     @Override
     public void delete(Class<?> entityClass, Long id) {
