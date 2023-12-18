@@ -18,10 +18,23 @@ public class CartBeanImpl extends GenericBeanImpl<ItemCart> implements CartBeanI
     private EntityManager em;
     private List<ItemCart> cartItems = new ArrayList<>();
 
+    @Override
+public List<ItemCart> listCart(Class<ItemCart> entityClass) {
+    // Use EntityManager to retrieve managed entities
+    return em.createQuery("SELECT e FROM " + entityClass.getName() + " e", entityClass)
+        .getResultList();
+}
+
 
     @Override
     public void addOrUpdateCartItems(List<ItemCart> newCartItems) {
-        cartItems.addAll(newCartItems);
+        for (ItemCart itemCart : newCartItems) {
+            // Merge the detached entity to reattach it to the persistence context
+            ItemCart mergedItemCart = em.merge(itemCart);
+    
+            // Now persist the merged entity
+            em.persist(mergedItemCart);
+        }
     }
 
     @Override

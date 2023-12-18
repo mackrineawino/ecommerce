@@ -1,6 +1,8 @@
 package com.ecom.app.model.entity;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 import com.ecom.app.model.view.html.HtmlTableColHeader;
 

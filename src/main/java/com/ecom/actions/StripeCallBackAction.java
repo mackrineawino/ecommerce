@@ -10,22 +10,27 @@ import javax.enterprise.inject.spi.CDI;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.naming.InitialContext;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+
 import com.ecom.app.bean.CartBeanI;
 import com.ecom.app.bean.OrderBeanI;
 import com.ecom.app.model.entity.ItemCart;
 import com.ecom.app.model.entity.Order;
 import com.ecom.app.model.entity.OrderStatus;
-import com.ecom.utils.OrderCreationEvent;
+import com.ecom.utils.observers.OrderCreationEvent;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
-
 @WebServlet("/stripe/callback")
 public class StripeCallBackAction extends HttpServlet {
 
@@ -66,37 +71,42 @@ public class StripeCallBackAction extends HttpServlet {
                 // Retrieve the session to get the payment intent ID
                 Session session;
                 PaymentIntent paymentIntent;
-
                 try {
-                    
                     session = Session.retrieve(sessionData.getString("id"));
                     paymentIntent = PaymentIntent.retrieve(session.getPaymentIntent());
                     Long totalAmount = paymentIntent.getAmount();
                     double totalPrice = totalAmount / 100.0;
                     String userEmail = sessionData.getJsonObject("customer_details").getString("email");
-                    List<ItemCart> cartItems = cartBean.list(ItemCart.class);
 
-                    Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, cartItems);
-                    String generatedOrderNumber = orderBean.addOrUpdateAndGetOrderNumber(order);
+                    UserTransaction transaction = null;
 
-                    // Add order items to the order
-                    for (ItemCart cartItem : cartItems) {
-                        cartItem.setOrder(order);
-                        System.out.println("itemsssssssssss" + cartItem.getImageUrl());
-                        
+                    try {
+                        // Start the transaction
+                        transaction = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+                        transaction.begin();
+
+                        List<ItemCart> cartItems = cartBean.list(ItemCart.class);
+
+                        Order order = new Order(null, null, userEmail, totalPrice, OrderStatus.PLACED, cartItems);
+                        String generatedOrderNumber = orderBean.addOrUpdateAndGetOrderNumber(order);
+
+                        CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order, generatedOrderNumber));
+
+                        // Commit the transaction if everything is successful
+                        transaction.commit();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        // Rollback the transaction in case of an exception
+                        if (transaction != null) {
+                            transaction.rollback();
+                        }
                     }
-                    // Save the updated cart items (with order reference)
-                    cartBean.addOrUpdateCartItems(cartItems);
 
-                    // Clear the cart
-                    cartBean.clearCart();
-
-                    CDI.current().getBeanManager().fireEvent(new OrderCreationEvent(order, generatedOrderNumber));
-                } catch (StripeException e) {
+                } catch (StripeException | SystemException e) {
                     e.printStackTrace();
                 }
             }
-
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
         }

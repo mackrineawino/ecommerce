@@ -1,4 +1,4 @@
-package com.ecom.utils;
+package com.ecom.utils.observers;
 
 import com.ecom.app.model.entity.Order;
 

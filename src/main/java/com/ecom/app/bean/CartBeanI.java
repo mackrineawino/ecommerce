@@ -13,5 +13,6 @@ public interface CartBeanI extends GenericBeanI<ItemCart> {
     void clearCart();
     void addOrUpdate(ItemCart itemCart);
     void reduceQuantity(Long id) ;
+    List<ItemCart> listCart(Class<ItemCart> entityClass);
 
 }

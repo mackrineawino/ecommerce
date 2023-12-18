@@ -1,4 +1,4 @@
-package com.ecom.utils;
+package com.ecom.utils.observers;
 
 import javax.ejb.Stateless;
 import javax.mail.*;
