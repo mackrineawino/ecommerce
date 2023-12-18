@@ -8,7 +8,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ecom.app.model.view.html.HtmlTableColHeader;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "itemcart")
@@ -32,7 +34,8 @@ public class ItemCart extends BaseEntity {
     @Column(name = "quanity")
     @HtmlTableColHeader(headerLabel = "quantity")
     private Integer quantity = 1;
-    @JsonIgnore
+
+   @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
