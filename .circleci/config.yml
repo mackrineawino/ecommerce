@@ -78,13 +78,13 @@ workflows:
       - build:
           filters:
             branches:
-              only: main
+              only: master
       - publish-latest:
           requires:
             - build
           filters:
             branches:
-              only: main
+              only: master
   build-tags:
     jobs:
       - build:
