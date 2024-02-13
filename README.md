@@ -1,1 +1,1 @@
-mvn clean compile package wildfly:deploy
+mvn clean compile package wildfly:deploy.
