@@ -23,7 +23,7 @@ COPY --from=build /app/target/ecommerce.war /opt/jboss/wildfly/standalone/deploy
 RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 
 # Copy PostgreSQL JDBC driver JAR and module.xml
-COPY --from=build /app/postgresql-42.6.0.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
+COPY --from=build /app/postgresql-42.7.1.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 COPY --from=build /app/module.xml /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 
 # Expose port 8080
