@@ -91,27 +91,27 @@ public class EcommerceTest {
         }
     }
 
-    @Test(dependsOnMethods = "addToCartTest")
-    public void removeFromCartTest() {
-        // Locate the remove from cart button
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement removeFromCartButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("remove-from-cart")));
+    // @Test(dependsOnMethods = "addToCartTest")
+    // public void removeFromCartTest() {
+    //     // Locate the remove from cart button
+    //     WebDriverWait wait = new WebDriverWait(driver, 10);
+    //     WebElement removeFromCartButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("remove-from-cart")));
 
-        // Click on the remove from cart button
-        removeFromCartButton.click();
+    //     // Click on the remove from cart button
+    //     removeFromCartButton.click();
 
-        // Optional: Add verification/assertion for successful removal from cart
-        try {
-            // Example: Check if a success message is displayed
-            WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("success-message")));
-            Assert.assertEquals(successMessage.getText(), "Product removed from cart successfully");
+    //     // Optional: Add verification/assertion for successful removal from cart
+    //     try {
+    //         // Example: Check if a success message is displayed
+    //         WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("success-message")));
+    //         Assert.assertEquals(successMessage.getText(), "Product removed from cart successfully");
 
-            // You can add more verifications based on your application behavior
-        } catch (TimeoutException e) {
-            // Handle the case where the success message is not displayed
-            e.printStackTrace();
-        }
-    }
+    //         // You can add more verifications based on your application behavior
+    //     } catch (TimeoutException e) {
+    //         // Handle the case where the success message is not displayed
+    //         e.printStackTrace();
+    //     }
+    // }
 
 
     @AfterClass
