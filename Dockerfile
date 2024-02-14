@@ -18,6 +18,7 @@ FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk17 AS deploy
 RUN rm /opt/jboss/wildfly/standalone/configuration/standalone.xml
 
 COPY --from=build /app/target/ecommerce.war /opt/jboss/wildfly/standalone/deployments/
+COPY --from=build /app/standalone.xml /opt/jboss/wildfly/standalone/configuration/
 
 # Create module directory for PostgreSQL JDBC driver
 RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
