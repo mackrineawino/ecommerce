@@ -526,8 +526,8 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="ecommerce.war" runtime-name="ecommerce.war">
+        <!-- <deployment name="ecommerce.war" runtime-name="ecommerce.war">
             <content sha1="beb532928bfc23b03889dead297e40c48e92df6d"/>
-        </deployment>
+        </deployment> -->
     </deployments>
 </server>

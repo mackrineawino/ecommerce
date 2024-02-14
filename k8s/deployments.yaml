@@ -1,0 +1,123 @@
+# frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: mackie86/ecommercereact:latest
+        ports:
+        - containerPort: 3000
+---
+# backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: mackie86/ecommercereact:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://postgres:password@postgresql:5432/ecommerce"
+---
+# postgres-deployment.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+spec:
+  serviceName: "postgresql"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: ecommerce
+        - name: POSTGRES_USER
+          value: test1
+        - name: POSTGRES_PASSWORD
+          value: test1
+        volumeMounts:
+        - name: postgresql-persistent-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgresql-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+# postgres-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: postgresql
+---
+# backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: backend
+---
+# frontend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: NodePort  # Change the type to NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 31000 
+  selector:
+    app: frontend
+
