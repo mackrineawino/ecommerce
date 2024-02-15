@@ -20,7 +20,7 @@ import java.util.Enumeration;
 @WebFilter(urlPatterns = "/*")
 public class JwtFilter implements Filter {
 
-    Dotenv dotenv = Dotenv.configure().directory("/home/awino/Documents/projects/ecommerce").load();
+    Dotenv dotenv = Dotenv.configure().directory("/home/awino/Documents/devops/ecommerce").load();
     String secretKey = dotenv.get("SECRET_KEY");
 
     @Override

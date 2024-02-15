@@ -15,7 +15,7 @@ services:
     depends_on:
       - database
     environment:
-      - DATASOURCE_CONNECTION_URL=jdbc:postgresql://database:5432/ecommerce
+      - DATASOURCE_CONNECTION_URL=jdbc:postgresql://ecommerce_database_1:5432/ecommerce
       - DATASOURCE_USERNAME=test1
       - DATASOURCE_PASSWORD=test1
 
