@@ -15,13 +15,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebFilter(urlPatterns = "/*")
 public class JwtFilter implements Filter {
 
-    Dotenv dotenv = Dotenv.configure().directory("/home/awino/Documents/devops/ecommerce").load();
-    String secretKey = dotenv.get("SECRET_KEY");
+    
+    String secretKey = System.getenv("SECRET_KEY");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

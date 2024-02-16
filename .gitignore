@@ -1,6 +1,7 @@
 /target
 .settings
 .idea
+.env
 sonar-project.properties
 /bin/
 /src/main/main.iml
