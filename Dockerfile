@@ -9,6 +9,9 @@ RUN mvn install
 
 COPY . .
 
+COPY .env /app/.env
+
+
 RUN mvn clean compile package
 
 # Stage 2: Deploy the application to WildFly
