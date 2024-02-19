@@ -20,7 +20,7 @@ import java.io.IOException;
 public class JwtFilter implements Filter {
 
     
-    String secretKey = System.getenv("SECRET_KEY");
+    String secretKey = "w9M7K/D9ZqNyAnG3vlY5VmQhlmjofT2mRgWt9J+fJWg=";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
