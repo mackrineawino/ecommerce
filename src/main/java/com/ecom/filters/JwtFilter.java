@@ -19,8 +19,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class JwtFilter implements Filter {
 
-    
-    String secretKey = "w9M7K/D9ZqNyAnG3vlY5VmQhlmjofT2mRgWt9J+fJWg=";
+    String secretKey = System.getenv("SECRET_KEY");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
