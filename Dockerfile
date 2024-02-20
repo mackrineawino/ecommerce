@@ -9,7 +9,6 @@ RUN mvn install
 
 COPY . .
 
-
 RUN mvn clean compile package
 
 # Stage 2: Deploy the application to WildFly
@@ -27,6 +26,9 @@ RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 # Copy PostgreSQL JDBC driver JAR and module.xml
 COPY --from=build /app/postgresql-42.7.1.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
 COPY --from=build /app/module.xml /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/
+
+# Copy .env file
+COPY .env /app/
 
 # Expose port 8080
 EXPOSE 8080
